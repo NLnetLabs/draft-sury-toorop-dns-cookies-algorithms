@@ -42,15 +42,18 @@ organization = "NLnet Labs"
 
 .# Abstract
 
-Operational practice with DNS Cookies [@!RFC7873] has shown it to be
-problematic in Multi-vendor anycast networks.  To address, all the
-(potentially multi-vendor) DNS server software in such an environment
-needs to be aligned on how to precisely create server cookies.  This
-document provides precise directions for creating server cookies and
-also operator guidelines for DNS Cookies deployments on multi-vendor
-anycast networks.  Furthermore, [@!FNV] is obsoleted as an algorithm
-for calculating server cookies and replaced with [@!SipHash-2.4] as a
-required to implement algorithm.
+[@!RFC7873] left the construction of Server Cookies to the discretion
+of the DNS Server (implementer) which has resulted in a gallimaufry of
+different implementations.  As a result, DNS Cookies are impractical
+to deploy on multi-vendor anycast networks, because the Server Cookie
+constructed by implementation can not by validate by another.
+
+This document provides precise directions for creating Server Cookies
+to address this issue.  It also provides operator guidelines for DNS
+Cookies deployments on multi-vendor anycast networks.  Furthermore,
+[@!FNV] is obsoleted as a suitable Message Authentication Code
+function for calculating DNS Cookies. [@!SipHash-2.4] is introduced as
+a new REQUIRED MAC function for calculating DNS Cookies.
 
 This document updates [@!RFC7873]
 
