@@ -112,13 +112,89 @@ capitals, as shown here.
 
 ...
 
+# Cookie Algorithms {#cookieAlgorithms}
+
+Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
+
+   +--------+--------------------+-----------------+---------------+
+   | Number | Mnemonics          | Client Cookie   | Server Cookie |
+   +--------+--------------------+-----------------+---------------+
+   | 1      | FNV                | MUST NOT        | MUST NOT      |  
+   | 2      | HMAC-SHA-256-64    | MUST NOT        | MUST NOT      |  
+   | 3      | AES                | MAY             | MAY           |  
+   | 4      | SIPHASH24          | MUST            | MUST          |  
+   +--------+--------------------+-----------------+---------------+
+
+FNV is a Non-Cryptographic Hash Algorithm and this document obsoletes
+the usage of FNV in DNS Cookies.
+
+HMAC-SHA-256-64 is an HMAC-SHA-256 algorithm reduced to 64-bit.  This particular
+algorithm was implemented in BIND, but it was never the default algorithm and the
+computational costs makes it unsuitable to be used in DNS Cookies.  Therefore
+this document obsoleted the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
+
+The AES algorithm has been the default DNS Cookies algorithm in BIND until
+version x.y.z, and other implementations MAY implement AES algorithm as
+implemented in BIND for backwards compatibility.  However it's recommended that
+new implementations implement only a pseudorandom functions for DNS Cookies, in
+this document that would be SipHash24.
+
+[@!SipHash-2.4] is a pseudorandom function suitable as message authentication
+code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
+mandatory and default algorithm for DNS Cookies to ensure interoperability
+between the DNS Implementations.
+
 # Constructing a Client Cookie {#clientCookie}
 
-...
+The Client Cookie is a nonce and should be treated as such.  For simplicity,
+it can be calculated from Client IP Address, Server IP Address and a secret
+known only to the Client.  The Client Cookie SHOULD have at least 64-bits
+of entropy.  If a secure pseudorandom function (like SipHash24) is used there's
+no need to change Client secret periodically and change the Client secret only
+if it has been compromised.
+
+It's recommended but not required that a pseudorandom function is used to
+construct the Client Cookie:
+
+  Client-Cookie =
+    MAC_Algorithm( Client IP Address | Server IP Address,
+	               Client Secret )
+
+where "|" indicates concatenation.
 
 # Constructing a Server Cookie {#serverCookie}
 
-...
+The Server Cookie is effectively message authentication code (MAC) and should be
+treated as such.
+
+The Server Cookie is not required to be changed periodically if a secure
+pseudorandom function is used.  This 
+
+The 128-bit Server Cookie consists of:
+
+ Sub-field       Size
+-------------  --------
+ Version        8 bits
+ Cookie Algo    8 bits
+ Reserved      16 bits
+ Timestamp     32 bits
+ Hash          64 bits
+
+The Timestamp value prevents Replay Attacks and MUST be checked by the server to
+be within a defined period of time.  The DNS Server SHOULD allow Cookies within
+1 hour period in the past and 5 minutes into the future to allow operation of
+low volume clients and certain time skew between the DNS servers in the anycast.
+
+The DNS Server SHOULD generate new Server Cookie at least if the received Server
+Cookie from the Client is older than half an hour.
+
+It's important that all the DNS servers use the same algorithm for computing the
+Server Cookie.  This document defines the Version 1 of the Server Side algorithm
+to be:
+
+  Hash =
+    Cookie_Algorithm( Client Cookie | Version | Hash Algo | Reserved | TimeStamp,
+	                  Server Secret )
 
 # Message Authentication Code functions for DNS Cookies {#MACfunctions}
 
