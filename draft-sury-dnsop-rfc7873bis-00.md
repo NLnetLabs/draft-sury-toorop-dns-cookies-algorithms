@@ -11,7 +11,7 @@ date = 2018-03-01T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-toorop-dnsop-rfc7873bis-00"
+value = "draft-sury-dnsop-rfc7873bis-00"
 stream = "IETF"
 status = "standard"
 
@@ -46,7 +46,7 @@ organization = "NLnet Labs"
 of the DNS Server (implementer) which has resulted in a gallimaufry of
 different implementations.  As a result, DNS Cookies are impractical
 to deploy on multi-vendor anycast networks, because the Server Cookie
-constructed by implementation can not by validate by another.
+constructed by one implementation cannot be validated by another.
 
 This document provides precise directions for creating Server Cookies
 to address this issue.  It also provides operator guidelines for DNS
