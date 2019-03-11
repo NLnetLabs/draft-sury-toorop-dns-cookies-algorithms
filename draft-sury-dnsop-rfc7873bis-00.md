@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2018-03-01T00:00:00Z
+date = 2018-03-11T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -48,12 +48,10 @@ different implementations.  As a result, DNS Cookies are impractical
 to deploy on multi-vendor anycast networks, because the Server Cookie
 constructed by one implementation cannot be validated by another.
 
-This document provides precise directions for creating Server Cookies
-to address this issue.  It also provides operator guidelines for DNS
-Cookies deployments on multi-vendor anycast networks.  Furthermore,
-[@!FNV] is obsoleted as a suitable Message Authentication Code
-function for calculating DNS Cookies. [@!SipHash-2.4] is introduced as
-a new REQUIRED MAC function for calculating DNS Cookies.
+This document provides precise directions for creating Server Cookies to
+address this issue.  Furthermore, [@FNV] is obsoleted as a suitable Message
+Authentication Code function for calculating DNS Cookies. [@SipHash-2.4] is
+introduced as a new REQUIRED MAC function for calculating DNS Cookies.
 
 This document updates [@!RFC7873]
 
@@ -62,29 +60,24 @@ This document updates [@!RFC7873]
 
 # Introduction
 
-Section 6. [@!RFC7873] RECOMMENDs **for simplicity** that the Same
-Server Secret be used by each DNS server in a set of anycast servers.
-However, how precisely a Server Cookie is calculated from this Server
-Secret, is left to the implementation.  Two different example
-implementations are given in Appendix B.1. and Appendix B.2.  In the
-last implementation example it is suggested that the Server Cookie is
-a convenient container for various information at the discretion of
-the DNS server (implementer).
+In [@!RFC7873] in Section 6 it is RECOMMENDED **for simplicity** that
+the Same Server Secret be used by each DNS server in a set of anycast
+servers.  However, how precisely a Server Cookie is calculated from
+this Server Secret, is left to the implementation.  Two different
+example implementations are given in Appendix B.1. and Appendix B.2.
+In the last implementation example it is suggested that the Server
+Cookie is a convenient container for various information at the
+discretion of the DNS server (implementer).
 
 This guidance has resulted in different DNS Cookie implementations,
-all calculating the Server Cookie in different ways.  That in turn has
-caused problems with anycast deployments with DNS Software from
+all calculating the Server Cookie in different ways.  That in turn
+has caused problems with anycast deployments with DNS Software from
 multiple different vendors, because even when all DNS Software would
 share the same secret, as RECOMMENDED in Section 6. of [@!RFC7873],
-they all produce different Server Cookies based on that secret
-and (at least) the Client Cookie and Client IP Address.
+they all produce different Server Cookies based on that secret and
+(at least) the Client Cookie and Client IP Address.
 
 ## Contents of this document
-
-In Section (#recommendation), we expand the recommendation in Section
-6. of [@!RFC7873], that in a set of anycast servers on only the same
-Server Secret should be shared, but also the same method to calculate
-the Server Cookie from the Server Secret.
 
 In Section (#clientCookie) instructions for constructing a Client
 Cookie are given
@@ -92,9 +85,10 @@ Cookie are given
 In Section (#serverCookie) instructions for constructing a Server 
 Cookie are given
 
-In Section (#MACfunctions) the different MAC functions to be used for
-constructing the Server Cookie are given.  [@!FNV] is obsoleted and
-[@!SipHash-2.4] is introduced as a REQUIRED MAC function for DNS Cookie
+In Section (#cookieAlgorithms) the different hash functions usable
+for DNS Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64
+[@!RFC6234] are obsoleted and AES [@!RFC5649] and [@SipHash-2.4] are
+introduced as a REQUIRED hash function for DNS Cookie
 implementations.
 
 ## Definitions
@@ -106,43 +100,6 @@ The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all
 capitals, as shown here.
 
-
-# Recommendation for DNS Cookie use with multi-vendor anycast
-# deployments {#recommendation}
-
-...
-
-# Cookie Algorithms {#cookieAlgorithms}
-
-Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
-
-   +--------+--------------------+-----------------+---------------+
-   | Number | Mnemonics          | Client Cookie   | Server Cookie |
-   +--------+--------------------+-----------------+---------------+
-   | 1      | FNV                | MUST NOT        | MUST NOT      |  
-   | 2      | HMAC-SHA-256-64    | MUST NOT        | MUST NOT      |  
-   | 3      | AES                | MAY             | MAY           |  
-   | 4      | SIPHASH24          | MUST            | MUST          |  
-   +--------+--------------------+-----------------+---------------+
-
-FNV is a Non-Cryptographic Hash Algorithm and this document obsoletes
-the usage of FNV in DNS Cookies.
-
-HMAC-SHA-256-64 is an HMAC-SHA-256 algorithm reduced to 64-bit.  This particular
-algorithm was implemented in BIND, but it was never the default algorithm and the
-computational costs makes it unsuitable to be used in DNS Cookies.  Therefore
-this document obsoleted the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
-
-The AES algorithm has been the default DNS Cookies algorithm in BIND until
-version x.y.z, and other implementations MAY implement AES algorithm as
-implemented in BIND for backwards compatibility.  However it's recommended that
-new implementations implement only a pseudorandom functions for DNS Cookies, in
-this document that would be SipHash24.
-
-[@!SipHash-2.4] is a pseudorandom function suitable as message authentication
-code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
-mandatory and default algorithm for DNS Cookies to ensure interoperability
-between the DNS Implementations.
 
 # Constructing a Client Cookie {#clientCookie}
 
@@ -156,9 +113,10 @@ if it has been compromised.
 It's recommended but not required that a pseudorandom function is used to
 construct the Client Cookie:
 
-  Client-Cookie =
-    MAC_Algorithm( Client IP Address | Server IP Address,
-	               Client Secret )
+~~~ ascii-art
+Client-Cookie = MAC_Algorithm(
+    Client IP Address | Server IP Address, Client Secret )
+~~~
 
 where "|" indicates concatenation.
 
@@ -168,17 +126,45 @@ The Server Cookie is effectively message authentication code (MAC) and should be
 treated as such.
 
 The Server Cookie is not required to be changed periodically if a secure
-pseudorandom function is used.  This 
+pseudorandom function is used.
 
-The 128-bit Server Cookie consists of:
+The 128-bit Server Cookie consists of Sub-Fields: a 1 octet Version
+Sub-Field, a 1 octet Cookie Algorithm Sub-Field, a 2 octet Reserved
+Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
 
- Sub-field       Size
--------------  --------
- Version        8 bits
- Cookie Algo    8 bits
- Reserved      16 bits
- Timestamp     32 bits
- Hash          64 bits
+~~~ ascii-art
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    Version    |  Cookie Algo  |           Reserved            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           Timestamp                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Hash                              |
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~
+
+## The Version Sub-Field
+
+The Version Sub-Field prescribes the structure and Hash calculation
+formula.  This document defines Version 1 to be the structure and way to
+calculate the Hash Sub-Field as defined in this Section.
+
+## The Cookie algo Sub-Field
+
+The Cookie Algo value defines what algorithm function to use for 
+calculating the Hash Sub-Field as described in (#hashField).  The values
+are described in (#cookieAlgorithms).
+
+## The Reserved Sub-Field
+
+The value of the Reserved Sub-Field is reserved for future versions of Server
+Side Cookie construction.  Even though the value has no specific meaning
+in this Version, not that it **is** used in determining the Hash value
+as described in (#hashField).
+
+## The Timestamp Sub-Field
 
 The Timestamp value prevents Replay Attacks and MUST be checked by the server to
 be within a defined period of time.  The DNS Server SHOULD allow Cookies within
@@ -188,16 +174,54 @@ low volume clients and certain time skew between the DNS servers in the anycast.
 The DNS Server SHOULD generate new Server Cookie at least if the received Server
 Cookie from the Client is older than half an hour.
 
+## The Hash Sub-Field {#hashField}
+
 It's important that all the DNS servers use the same algorithm for computing the
 Server Cookie.  This document defines the Version 1 of the Server Side algorithm
 to be:
 
-  Hash =
-    Cookie_Algorithm( Client Cookie | Version | Hash Algo | Reserved | TimeStamp,
-	                  Server Secret )
+~~~ ascii-art
+Hash = Cookie_Algorithm(
+    Client Cookie | Version | Hash Algo | Reserved | TimeStamp,
+    Server Secret )
+~~~
 
-# Message Authentication Code functions for DNS Cookies {#MACfunctions}
+# Cookie Algorithms {#cookieAlgorithms}
 
+Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
+
+Number | Mnemonics          | Client Cookie   | Server Cookie
+:------|:-------------------|:----------------|:-------------
+1      | FNV                | MUST NOT        | MUST NOT
+2      | HMAC-SHA-256-64    | MUST NOT        | MUST NOT
+3      | AES                | MAY             | MAY
+4      | SIPHASH24          | MUST            | MUST
+
+
+[@FNV] is a Non-Cryptographic Hash Algorithm and this document obsoletes
+the usage of FNV in DNS Cookies.
+
+HMAC-SHA-256-64 is an HMAC-SHA-256 [@!RFC6234] algorithm reduced to 64-bit.  This particular
+algorithm was implemented in BIND, but it was never the default algorithm and the
+computational costs makes it unsuitable to be used in DNS Cookies.  Therefore
+this document obsoleted the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
+
+The AES algorithm [@!RFC5649] has been the default DNS Cookies algorithm in BIND until
+version x.y.z, and other implementations MAY implement AES algorithm as
+implemented in BIND for backwards compatibility.  However it's recommended that
+new implementations implement only a pseudorandom functions for DNS Cookies, in
+this document that would be SipHash24.
+
+[@SipHash-2.4] is a pseudorandom function suitable as message authentication
+code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
+mandatory and default algorithm for DNS Cookies to ensure interoperability
+between the DNS Implementations.
+
+# IANA Considerations
+
+IANA is requested to create and maintain a sub-registry (the "DNS Cookie
+Algorithm" registry) of the "Domain Name System (DNS) Parameters"
+registry.  The initial values for this registry are below.
 
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
