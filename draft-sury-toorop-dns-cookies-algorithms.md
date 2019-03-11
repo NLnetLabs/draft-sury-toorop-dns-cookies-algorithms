@@ -156,7 +156,7 @@ are described in (#cookieAlgorithms).
 
 The value of the Reserved Sub-Field is reserved for future versions of Server
 Side Cookie construction.  Even though the value has no specific meaning
-in this Version, not that it **is** used in determining the Hash value
+in this Version, note that it **is** used in determining the Hash value
 as described in (#hashField).
 
 ## The Timestamp Sub-Field
@@ -177,7 +177,7 @@ to be:
 
 ~~~ ascii-art
 Hash = Cookie_Algorithm(
-    Client Cookie | Version | Hash Algo | Reserved | TimeStamp,
+    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp,
     Server Secret )
 ~~~
 
@@ -199,7 +199,7 @@ the usage of FNV in DNS Cookies.
 HMAC-SHA-256-64 is an HMAC-SHA-256 [@!RFC6234] algorithm reduced to 64-bit.  This particular
 algorithm was implemented in BIND, but it was never the default algorithm and the
 computational costs makes it unsuitable to be used in DNS Cookies.  Therefore
-this document obsoleted the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
+this document obsoletes the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
 
 The AES algorithm [@!RFC5649] has been the default DNS Cookies algorithm in BIND until
 version x.y.z, and other implementations MAY implement AES algorithm as
@@ -216,7 +216,7 @@ between the DNS Implementations.
 
 IANA is requested to create and maintain a sub-registry (the "DNS Cookie
 Algorithm" registry) of the "Domain Name System (DNS) Parameters"
-registry.  The initial values for this registry are below.
+registry.  The initial values for this registry are described in (#cookieAlgorithms).
 
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
@@ -240,5 +240,4 @@ registry.  The initial values for this registry are below.
 </reference>
 
 {backmatter}
-
 

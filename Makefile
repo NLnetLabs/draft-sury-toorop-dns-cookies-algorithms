@@ -1,10 +1,16 @@
-DOCNAME = draft-sury-toorop-dns-cookies-algorithms-00
+VERSION = 00
+DOCNAME = draft-sury-toorop-dns-cookies-algorithms
 
-$(DOCNAME).txt: $(DOCNAME).xml
-	xml2rfc --text $<
+all: $(DOCNAME)-$(VERSION).txt $(DOCNAME)-$(VERSION).html
+
+$(DOCNAME)-$(VERSION).txt: $(DOCNAME).xml
+	xml2rfc --text -o $@ $<
+
+$(DOCNAME)-$(VERSION).html: $(DOCNAME).xml
+	xml2rfc --html -o $@ $<
 
 $(DOCNAME).xml: $(DOCNAME).md
-	sed 's/@DOCNAME@/$(DOCNAME)/g' $< | mmark --xml2 --page > $@
+	sed 's/@DOCNAME@/$(DOCNAME)-$(VERSION)/g' $< | mmark --xml2 --page > $@
 
 clean:
-	rm -f $(DOCNAME).txt $(DOCNAME).xml
+	rm -f $(DOCNAME)-$(VERSION).txt $(DOCNAME).xml
