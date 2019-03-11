@@ -1,4 +1,4 @@
-DOCNAME = draft-sury-dnsop-rfc7873bis-00
+DOCNAME = draft-sury-toorop-dns-cookies-algorithms-00
 
 $(DOCNAME).txt: $(DOCNAME).xml
 	xml2rfc --text $<

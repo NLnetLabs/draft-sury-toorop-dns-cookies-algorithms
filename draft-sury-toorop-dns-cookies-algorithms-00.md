@@ -1,17 +1,17 @@
 %%%
-Title = "Multi-vendor Domain Name System (DNS) Cookies"
-abbrev = "rfc7873bis"
+Title = "Algorithms for Domain Name System (DNS) Cookies construction"
+abbrev = "dns-cookies-algorithms"
 docname = "@DOCNAME@"
 category = "std"
 ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2018-03-11T00:00:00Z
+date = 2019-03-11T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-sury-dnsop-rfc7873bis-00"
+value = "@DOCNAME@"
 stream = "IETF"
 status = "standard"
 
@@ -49,9 +49,9 @@ to deploy on multi-vendor anycast networks, because the Server Cookie
 constructed by one implementation cannot be validated by another.
 
 This document provides precise directions for creating Server Cookies to
-address this issue.  Furthermore, [@FNV] is obsoleted as a suitable Message
-Authentication Code function for calculating DNS Cookies. [@SipHash-2.4] is
-introduced as a new REQUIRED MAC function for calculating DNS Cookies.
+address this issue.  Furthermore, [@FNV] is obsoleted as a suitable Hash
+function for calculating DNS Cookies. [@SipHash-2.4] is introduced as a new
+REQUIRED Hash function for calculating DNS Cookies.
 
 This document updates [@!RFC7873]
 
@@ -60,22 +60,17 @@ This document updates [@!RFC7873]
 
 # Introduction
 
-In [@!RFC7873] in Section 6 it is RECOMMENDED **for simplicity** that
+In [@!RFC7873] in Section 6 it is "RECOMMENDED for simplicity that
 the Same Server Secret be used by each DNS server in a set of anycast
-servers.  However, how precisely a Server Cookie is calculated from
-this Server Secret, is left to the implementation.  Two different
-example implementations are given in Appendix B.1. and Appendix B.2.
-In the last implementation example it is suggested that the Server
-Cookie is a convenient container for various information at the
-discretion of the DNS server (implementer).
+servers."  However, how precisely a Server Cookie is calculated from
+this Server Secret, is left to the implementation.
 
-This guidance has resulted in different DNS Cookie implementations,
-all calculating the Server Cookie in different ways.  That in turn
-has caused problems with anycast deployments with DNS Software from
-multiple different vendors, because even when all DNS Software would
-share the same secret, as RECOMMENDED in Section 6. of [@!RFC7873],
-they all produce different Server Cookies based on that secret and
-(at least) the Client Cookie and Client IP Address.
+This guidance has let to DNS Cookie implementations, calculating the
+Server Cookie in different ways.  This causes problems with anycast
+deployments with DNS Software from multiple vendors, because even when
+all DNS Software would share the same secret, as RECOMMENDED in Section
+6.  of [@!RFC7873], they all produce different Server Cookies based on
+that secret and (at least) the Client Cookie and Client IP Address.
 
 ## Contents of this document
 
