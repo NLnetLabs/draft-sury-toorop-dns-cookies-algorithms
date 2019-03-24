@@ -178,9 +178,13 @@ to be:
 
 ~~~ ascii-art
 Hash = Cookie_Algorithm(
-    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp,
+    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp | Client-IP,
     Server Secret )
 ~~~
+
+Notice that Client-IP is used for hash generation even though it's not
+included in the cookie value itself. Client-IP can be either 4 bytes for
+IPv4 or 16 bytes for IPv6.
 
 # Cookie Algorithms {#cookieAlgorithms}
 
