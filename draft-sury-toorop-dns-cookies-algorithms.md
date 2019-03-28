@@ -49,9 +49,10 @@ to deploy on multi-vendor anycast networks, because the Server Cookie
 constructed by one implementation cannot be validated by another.
 
 This document provides precise directions for creating Server Cookies to
-address this issue.  Furthermore, [@FNV] is obsoleted as a suitable Hash
-function for calculating DNS Cookies. [@SipHash-2.4] is introduced as a new
-REQUIRED Hash function for calculating DNS Cookies.
+address this issue.  It also obsoletes all the previous mechanisms of cookie
+generation as they were either insecure as [@FNV], slow as SHA, or the
+description wasn't precise enough for implementers. [@SipHash-2.4] is
+introduced as a new REQUIRED Hash function for calculating DNS Cookies.
 
 This document updates [@!RFC7873]
 
@@ -178,9 +179,13 @@ to be:
 
 ~~~ ascii-art
 Hash = Cookie_Algorithm(
-    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp,
+    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp | Client-IP,
     Server Secret )
 ~~~
+
+Notice that Client-IP is used for hash generation even though it's not
+included in the cookie value itself. Client-IP can be either 4 bytes for
+IPv4 or 16 bytes for IPv6.
 
 # Cookie Algorithms {#cookieAlgorithms}
 
@@ -188,36 +193,23 @@ Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
 
 Number | Mnemonics          | Client Cookie   | Server Cookie
 :------|:-------------------|:----------------|:-------------
-1      | FNV                | MUST NOT        | MUST NOT
-2      | HMAC-SHA-256-64    | MUST NOT        | MUST NOT
-3      | AES                | MAY             | MAY
-4      | SIPHASH24          | MUST            | MUST
+1      | SIPHASH24          | MUST            | MUST
 
-
-[@FNV] is a Non-Cryptographic Hash Algorithm and this document obsoletes
-the usage of FNV in DNS Cookies.
-
-HMAC-SHA-256-64 is an HMAC-SHA-256 [@!RFC6234] algorithm reduced to 64-bit.  This particular
-algorithm was implemented in BIND, but it was never the default algorithm and the
-computational costs makes it unsuitable to be used in DNS Cookies.  Therefore
-this document obsoletes the usage of HMAC-SHA-256 algorithm in the DNS Cookies.
-
-The AES algorithm [@!RFC5649] has been the default DNS Cookies algorithm in BIND until
-version x.y.z, and other implementations MAY implement AES algorithm as
-implemented in BIND for backwards compatibility.  However it's recommended that
-new implementations implement only a pseudorandom functions for DNS Cookies, in
-this document that would be SipHash24.
 
 [@SipHash-2.4] is a pseudorandom function suitable as message authentication
 code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
 mandatory and default algorithm for DNS Cookies to ensure interoperability
-between the DNS Implementations.
+between the DNS Implementations. The Server Secret MUST be optionally
+configurable to make sure that servers in an anycast network return consistent
+results. Additional algorithms might be added in the future.
 
 # IANA Considerations
 
 IANA is requested to create and maintain a sub-registry (the "DNS Cookie
 Algorithm" registry) of the "Domain Name System (DNS) Parameters"
 registry.  The initial values for this registry are described in (#cookieAlgorithms).
+This registry operates under the IANA rules for "Expert Review"
+registration.
 
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
