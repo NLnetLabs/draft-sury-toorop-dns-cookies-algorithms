@@ -193,7 +193,7 @@ Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
 
 Number | Mnemonics          | Client Cookie   | Server Cookie
 :------|:-------------------|:----------------|:-------------
-1      | SIPHASH24          | MUST            | MUST
+1      | SIPHASH24          | RECOMMENDED     | MUST
 
 
 [@SipHash-2.4] is a pseudorandom function suitable as message authentication
