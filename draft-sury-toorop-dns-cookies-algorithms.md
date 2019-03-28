@@ -69,50 +69,61 @@ organization = "Internet Systems Consortium"
 
 .# Abstract
 
-[@!RFC7873] left the construction of Server Cookies to the discretion
-of the DNS Server (implementer) which has resulted in a gallimaufry of
-different implementations.  As a result, DNS Cookies are impractical
-to deploy on multi-vendor anycast networks, because the Server Cookie
-constructed by one implementation cannot be validated by another.
+DNS cookies, as specified in RFC 7873, are a lightweight DNS transaction
+security mechanism that provides limited protection to DNS servers and
+clients against a variety of denial-of-service and amplification, forgery,
+or cache poisoning attacks by off-path attackers.
 
-This document provides precise directions for creating Server Cookies to
-address this issue.  It also obsoletes all the previous mechanisms of cookie
-generation as they were either insecure as [@FNV], slow as SHA, or the
-description wasn't precise enough for implementers. [@SipHash-2.4] is
-introduced as a new REQUIRED Hash function for calculating DNS Cookies.
+This document provides precise directions for creating Server Cookies so
+that an anycast server set including diverse implementations will
+interoperate with standard clients.
 
 This document updates [@!RFC7873]
-
 
 {mainmatter}
 
 # Introduction
+
+DNS cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
+security mechanism that provides limited protection to DNS servers and
+clients against a variety of denial-of-service and amplification, forgery,
+or cache poisoning attacks by off-path attackers. This document specifies a
+means of producing interoperable strong cookies so that an anycast server
+set including diverse implementations can be easily configured to
+interoperate with standard clients.
+
+The threats considered for DNS Cookies and the properties of the DNS
+Security features other than DNS Cookies are discussed in [@!RFC7873].
 
 In [@!RFC7873] in Section 6 it is "RECOMMENDED for simplicity that
 the Same Server Secret be used by each DNS server in a set of anycast
 servers."  However, how precisely a Server Cookie is calculated from
 this Server Secret, is left to the implementation.
 
-This guidance has let to DNS Cookie implementations, calculating the
-Server Cookie in different ways.  This causes problems with anycast
-deployments with DNS Software from multiple vendors, because even when
-all DNS Software would share the same secret, as RECOMMENDED in Section
-6.  of [@!RFC7873], they all produce different Server Cookies based on
-that secret and (at least) the Client Cookie and Client IP Address.
+This guidance has let to gallimaufry of DNS Cookie implementations,
+calculating the Server Cookie in different ways. As a result, DNS Cookies
+are impractical to deploy on multi-vendor anycast networks, because even
+when all DNS Software would share the same secret, as RECOMMENDED in Section
+6 of [@!RFC7873], the Server Cookie constructed by one implementation
+cannot be validated by another.
+
+There is no need for DNS client (resolver) Cookies to be interoperable
+across different implementations. Each client need only be able to recognize
+its own cookies. However, this document does contain recommendations for
+constructing Client Cookies in a Client protecting fashion.
 
 ## Contents of this document
 
-In Section (#clientCookie) instructions for constructing a Client
+In Section (#clientCookie) suggestions for constructing a Client
 Cookie are given
 
 In Section (#serverCookie) instructions for constructing a Server 
 Cookie are given
 
-In Section (#cookieAlgorithms) the different hash functions usable
-for DNS Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64
-[@!RFC6234] are obsoleted and AES [@!RFC5649] and [@SipHash-2.4] are
-introduced as a REQUIRED hash function for DNS Cookie
-implementations.
+In Section (#cookieAlgorithms) the different hash functions usable for DNS
+Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@!RFC6234] are
+obsoleted and [@SipHash-2.4] is introduced as a REQUIRED hash function for
+server side DNS Cookie implementations.
 
 ## Definitions
 
@@ -122,7 +133,6 @@ The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 "**OPTIONAL**" in this document are to be interpreted as described in
 BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all
 capitals, as shown here.
-
 
 # Constructing a Client Cookie {#clientCookie}
 
