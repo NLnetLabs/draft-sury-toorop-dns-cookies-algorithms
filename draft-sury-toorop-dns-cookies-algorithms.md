@@ -114,6 +114,8 @@ constructing Client Cookies in a Client protecting fashion.
 
 ## Contents of this document
 
+Section (#changes) summarises the changes to [@!RFC7873]
+
 In Section (#clientCookie) suggestions for constructing a Client
 Cookie are given
 
@@ -136,6 +138,22 @@ capitals, as shown here.
 
 * "IP Address" is used herein as a length independent term covering
    both IPv4 and IPv6 addresses.
+
+# Changes to [@!RFC7873]
+
+In its Appendices A.1 and B.1 [@!RFC7873] provides example "simple"
+algorithms for computing Client and Server Cookies, respectively.  These
+algorithms are MUST NOT be used as the cookies produces are too weak when
+evaluated against modern security standards.
+
+In its Appendix B.2 [RFC7873] provides an example "more complex" server
+algorithm. This algorithm is replaced by the interoperable specification in
+Section (#serverCookie) of this document, which MUST be used be Server
+Cookie Implementations.
+
+This document has suggestions on Client Cookie construction in Section
+(#clientCookie).  The previous example in Appendix A.2 of [@!RFC7873] is NOT
+RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
