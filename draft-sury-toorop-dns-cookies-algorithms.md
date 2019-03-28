@@ -155,9 +155,10 @@ are described in (#cookieAlgorithms).
 ## The Reserved Sub-Field
 
 The value of the Reserved Sub-Field is reserved for future versions of Server
-Side Cookie construction.  Even though the value has no specific meaning
-in this Version, note that it **is** used in determining the Hash value
-as described in (#hashField).
+Side Cookie construction.  On construction it SHOULD be set to zero octets.  On
+Server Cookie verification the server MUST NOT enforce those fields to be zero
+and the has should be computed with the received value as described in
+(#hashField).
 
 ## The Timestamp Sub-Field
 
