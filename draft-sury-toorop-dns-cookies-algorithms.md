@@ -168,6 +168,11 @@ be within a defined period of time.  The DNS Server SHOULD allow Cookies within
 1 hour period in the past and 5 minutes into the future to allow operation of
 low volume clients and certain time skew between the DNS servers in the anycast.
 
+The Timestamp value specify a date and time in the form of a 32-bit unsigned
+number of seconds elapsed since 1 January 1970 00:00:00 UTC, ignoring leap
+seconds, in network byte order.  All comparisons involving these fields MUST
+use "Serial number arithmetic", as defined in [@!RFC1982]
+
 The DNS Server SHOULD generate new Server Cookie at least if the received Server
 Cookie from the Client is older than half an hour.
 
@@ -236,8 +241,8 @@ registration.
 
 # Acknowledgements
 
-Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and
-text and above all for implementing a prototype of an interoperable DNS Cookie
-in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
-for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
-Salzman, ...
+Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions
+and text and above all for implementing a prototype of an interoperable DNS
+Cookie in Bind9, Knot and PowerDNS during the hackathon of IETF104 in
+Prague.  Thanks for valuable input and suggestions go to Ralph Dolmans, Bob
+Harold, Daniel Salzman, Martin Hoffmann, ...
