@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-03-11T00:00:00Z
+date = 2019-03-28T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -37,55 +37,95 @@ organization = "NLnet Labs"
  city = "Amsterdam"
  code = "1098 XH"
  country = "Netherlands"
+
+[[author]]
+initials="D."
+surname="Eastlake 3rd"
+fullname="Donald E. Eastlake 3rd"
+organization = "Huawei Technologies"
+[author.address]
+ phone = "+1-508-333-2270"
+ email = "d3e3e3@gmail.com"
+[author.address.postal]
+ street = "1424 Pro Shop Court"
+ city = "Davenport"
+ code = "FL 33896"
+ country = "USA"
+
+[[author]]
+initials="M."
+surname="Andrews"
+fullname="Mark Andrews"
+organization = "Internet Systems Consortium"
+[author.address]
+ email = "marka@isc.org"
+[author.address.postal]
+ street = "950 Charter Street"
+ city = "Redwood City"
+ code = "CA 94063"
+ country = "USA"
 %%%
 
 
 .# Abstract
 
-[@!RFC7873] left the construction of Server Cookies to the discretion
-of the DNS Server (implementer) which has resulted in a gallimaufry of
-different implementations.  As a result, DNS Cookies are impractical
-to deploy on multi-vendor anycast networks, because the Server Cookie
-constructed by one implementation cannot be validated by another.
+DNS cookies, as specified in RFC 7873, are a lightweight DNS transaction
+security mechanism that provides limited protection to DNS servers and
+clients against a variety of denial-of-service and amplification, forgery,
+or cache poisoning attacks by off-path attackers.
 
-This document provides precise directions for creating Server Cookies to
-address this issue.  It also obsoletes all the previous mechanisms of cookie
-generation as they were either insecure as [@FNV], slow as SHA, or the
-description wasn't precise enough for implementers. [@SipHash-2.4] is
-introduced as a new REQUIRED Hash function for calculating DNS Cookies.
+This document provides precise directions for creating Server Cookies so
+that an anycast server set including diverse implementations will
+interoperate with standard clients.
 
 This document updates [@!RFC7873]
-
 
 {mainmatter}
 
 # Introduction
+
+DNS cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
+security mechanism that provides limited protection to DNS servers and
+clients against a variety of denial-of-service and amplification, forgery,
+or cache poisoning attacks by off-path attackers. This document specifies a
+means of producing interoperable strong cookies so that an anycast server
+set including diverse implementations can be easily configured to
+interoperate with standard clients.
+
+The threats considered for DNS Cookies and the properties of the DNS
+Security features other than DNS Cookies are discussed in [@!RFC7873].
 
 In [@!RFC7873] in Section 6 it is "RECOMMENDED for simplicity that
 the Same Server Secret be used by each DNS server in a set of anycast
 servers."  However, how precisely a Server Cookie is calculated from
 this Server Secret, is left to the implementation.
 
-This guidance has let to DNS Cookie implementations, calculating the
-Server Cookie in different ways.  This causes problems with anycast
-deployments with DNS Software from multiple vendors, because even when
-all DNS Software would share the same secret, as RECOMMENDED in Section
-6.  of [@!RFC7873], they all produce different Server Cookies based on
-that secret and (at least) the Client Cookie and Client IP Address.
+This guidance has let to gallimaufry of DNS Cookie implementations,
+calculating the Server Cookie in different ways. As a result, DNS Cookies
+are impractical to deploy on multi-vendor anycast networks, because even
+when all DNS Software would share the same secret, as RECOMMENDED in Section
+6 of [@!RFC7873], the Server Cookie constructed by one implementation
+cannot be validated by another.
+
+There is no need for DNS client (resolver) Cookies to be interoperable
+across different implementations. Each client need only be able to recognize
+its own cookies. However, this document does contain recommendations for
+constructing Client Cookies in a Client protecting fashion.
 
 ## Contents of this document
 
-In Section (#clientCookie) instructions for constructing a Client
+Section (#changes) summarises the changes to [@!RFC7873]
+
+In Section (#clientCookie) suggestions for constructing a Client
 Cookie are given
 
 In Section (#serverCookie) instructions for constructing a Server 
 Cookie are given
 
-In Section (#cookieAlgorithms) the different hash functions usable
-for DNS Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64
-[@!RFC6234] are obsoleted and AES [@!RFC5649] and [@SipHash-2.4] are
-introduced as a REQUIRED hash function for DNS Cookie
-implementations.
+In Section (#cookieAlgorithms) the different hash functions usable for DNS
+Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@!RFC6234] are
+obsoleted and [@SipHash-2.4] is introduced as a REQUIRED hash function for
+server side DNS Cookie implementations.
 
 ## Definitions
 
@@ -96,6 +136,24 @@ The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all
 capitals, as shown here.
 
+* "IP Address" is used herein as a length independent term covering
+   both IPv4 and IPv6 addresses.
+
+# Changes to [RFC7873] {#changes}
+
+In its Appendices A.1 and B.1 [@!RFC7873] provides example "simple"
+algorithms for computing Client and Server Cookies, respectively.  These
+algorithms MUST NOT be used as the cookies produces are too weak when
+evaluated against modern security standards.
+
+In its Appendix B.2 [RFC7873] provides an example "more complex" server
+algorithm. This algorithm is replaced by the interoperable specification in
+Section (#serverCookie) of this document, which MUST be used be Server
+Cookie Implementations.
+
+This document has suggestions on Client Cookie construction in Section
+(#clientCookie).  The previous example in Appendix A.2 of [@!RFC7873] is NOT
+RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
@@ -147,7 +205,7 @@ The Version Sub-Field prescribes the structure and Hash calculation
 formula.  This document defines Version 1 to be the structure and way to
 calculate the Hash Sub-Field as defined in this Section.
 
-## The Cookie algo Sub-Field
+## The Cookie Algo Sub-Field
 
 The Cookie Algo value defines what algorithm function to use for 
 calculating the Hash Sub-Field as described in (#hashField).  The values
@@ -183,8 +241,8 @@ Server Cookie.  This document defines the Version 1 of the Server Side algorithm
 to be:
 
 ~~~ ascii-art
-Hash = Cookie_Algorithm(
-    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp | Client-IP,
+Hash = Cookie_Algorithm( Client Cookie |
+    Version | Cookie Algo | Reserved | Timestamp | Client-IP,
     Server Secret )
 ~~~
 
