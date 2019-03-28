@@ -143,7 +143,7 @@ capitals, as shown here.
 
 In its Appendices A.1 and B.1 [@!RFC7873] provides example "simple"
 algorithms for computing Client and Server Cookies, respectively.  These
-algorithms are MUST NOT be used as the cookies produces are too weak when
+algorithms MUST NOT be used as the cookies produces are too weak when
 evaluated against modern security standards.
 
 In its Appendix B.2 [RFC7873] provides an example "more complex" server
