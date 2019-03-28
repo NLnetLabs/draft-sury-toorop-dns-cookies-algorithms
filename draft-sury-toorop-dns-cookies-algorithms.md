@@ -132,7 +132,7 @@ Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    Version    |  Cookie Algo  |           Reserved            |
+|    Version    |                   Reserved                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                           Timestamp                           |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -146,12 +146,6 @@ Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
 The Version Sub-Field prescribes the structure and Hash calculation
 formula.  This document defines Version 1 to be the structure and way to
 calculate the Hash Sub-Field as defined in this Section.
-
-## The Cookie algo Sub-Field
-
-The Cookie Algo value defines what algorithm function to use for 
-calculating the Hash Sub-Field as described in (#hashField).  The values
-are described in (#cookieAlgorithms).
 
 ## The Reserved Sub-Field
 
@@ -183,8 +177,8 @@ Server Cookie.  This document defines the Version 1 of the Server Side algorithm
 to be:
 
 ~~~ ascii-art
-Hash = Cookie_Algorithm(
-    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp | Client-IP,
+Hash = SipHash2.4(
+    Client Cookie | Version | Reserved | Timestamp | Client-IP,
     Server Secret )
 ~~~
 
@@ -196,10 +190,13 @@ IPv4 or 16 bytes for IPv6.
 
 Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
 
-Number | Mnemonics          | Client Cookie   | Server Cookie
-:------|:-------------------|:----------------|:-------------
-1      | SIPHASH24          | MUST            | MUST
-
+Number | Algorithm          | Server Cookie Length
+:------|:-------------------|:--------------------
+0      | Reserved           | -
+1      | SIPHASH24          | 16
+2-240  | Unassigned         | -
+240-254| Private use        | -
+255    | Reserved           | -
 
 [@SipHash-2.4] is a pseudorandom function suitable as message authentication
 code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
