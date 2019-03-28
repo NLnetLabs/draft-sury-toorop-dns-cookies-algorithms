@@ -134,6 +134,9 @@ The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all
 capitals, as shown here.
 
+* "IP Address" is used herein as a length independent term covering
+   both IPv4 and IPv6 addresses.
+
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a nonce and should be treated as such.  For simplicity,
