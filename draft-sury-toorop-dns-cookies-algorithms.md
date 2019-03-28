@@ -205,7 +205,7 @@ The Version Sub-Field prescribes the structure and Hash calculation
 formula.  This document defines Version 1 to be the structure and way to
 calculate the Hash Sub-Field as defined in this Section.
 
-## The Cookie algo Sub-Field
+## The Cookie Algo Sub-Field
 
 The Cookie Algo value defines what algorithm function to use for 
 calculating the Hash Sub-Field as described in (#hashField).  The values
@@ -241,8 +241,8 @@ Server Cookie.  This document defines the Version 1 of the Server Side algorithm
 to be:
 
 ~~~ ascii-art
-Hash = Cookie_Algorithm(
-    Client Cookie | Version | Cookie Algo | Reserved | TimeStamp | Client-IP,
+Hash = Cookie_Algorithm( Client Cookie |
+    Version | Cookie Algo | Reserved | Timestamp | Client-IP,
     Server Secret )
 ~~~
 
