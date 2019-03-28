@@ -1,4 +1,4 @@
-VERSION = 00
+VERSION = 01
 DOCNAME = draft-sury-toorop-dns-cookies-algorithms
 
 all: $(DOCNAME)-$(VERSION).txt $(DOCNAME)-$(VERSION).html
