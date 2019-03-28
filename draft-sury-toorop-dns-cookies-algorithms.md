@@ -234,3 +234,10 @@ registration.
 
 {backmatter}
 
+# Acknowledgements
+
+Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and
+text and above all for implementing a prototype of an interoperable DNS Cookie
+in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
+for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
+Salzman, ...
