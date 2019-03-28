@@ -37,6 +37,20 @@ organization = "NLnet Labs"
  city = "Amsterdam"
  code = "1098 XH"
  country = "Netherlands"
+
+[[author]]
+initials="D."
+surname="Eastlake 3rd"
+fullname="Donald E. Eastlake 3rd"
+organization = "Huawei Technologies"
+[author.address]
+ phone = "+1-508-333-2270"
+ email = "d3e3e3@gmail.com"
+[author.address.postal]
+ street = "1424 Pro Shop Court"
+ city = "Davenport"
+ code = "FL 33896"
+ country = "USA"
 %%%
 
 
