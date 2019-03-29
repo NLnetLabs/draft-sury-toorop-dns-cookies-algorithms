@@ -246,30 +246,12 @@ IPv4 or 16 bytes for IPv6.
 
 # Cookie Algorithms {#cookieAlgorithms}
 
-Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
-
-Number | Algorithm          | Server Cookie Length
-:------|:-------------------|:--------------------
-0      | Reserved           | -
-1      | SIPHASH24          | 16
-2-240  | Unassigned         | -
-240-254| Private use        | -
-255    | Reserved           | -
-
 [@SipHash-2.4] is a pseudorandom function suitable as message authentication
 code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
 mandatory and default algorithm for DNS Cookies to ensure interoperability
 between the DNS Implementations. The Server Secret MUST be optionally
 configurable to make sure that servers in an anycast network return consistent
 results. Additional algorithms might be added in the future.
-
-# IANA Considerations
-
-IANA is requested to create and maintain a sub-registry (the "DNS Cookie
-Algorithm" registry) of the "Domain Name System (DNS) Parameters"
-registry.  The initial values for this registry are described in (#cookieAlgorithms).
-This registry operates under the IANA rules for "Expert Review"
-registration.
 
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
