@@ -190,7 +190,7 @@ Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    Version    |                   Reserved                    |
+|    Version    |    SecretID   |           Reserved            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                           Timestamp                           |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -204,6 +204,14 @@ Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
 The Version Sub-Field prescribes the structure and Hash calculation
 formula.  This document defines Version 1 to be the structure and way to
 calculate the Hash Sub-Field as defined in this Section.
+
+## The SecretID Sub-Field
+
+The SecretID Sub-Field is an opaque field that identifies the Secret that
+was used to create this Server Cookie. This fields main purpose is to ease
+Secret roll-over - an operator can add a new Secret with a new ID to all the
+servers so that it can be used to verify Cookies, and only then switch the
+Secret used to create cookies.
 
 ## The Reserved Sub-Field
 
