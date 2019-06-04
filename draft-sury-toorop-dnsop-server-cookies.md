@@ -141,14 +141,14 @@ capitals, as shown here.
 
 # Changes to [RFC7873] {#changes}
 
-In its Appendices A.1 and B.1 [@!RFC7873] provides example "simple"
+In its Appendices A.1 and B.1, [@!RFC7873] provides example "simple"
 algorithms for computing Client and Server Cookies, respectively.  These
 algorithms MUST NOT be used as the cookies produces are too weak when
 evaluated against modern security standards.
 
-In its Appendix B.2 [RFC7873] provides an example "more complex" server
+In its Appendix B.2, [RFC7873] provides an example "more complex" server
 algorithm. This algorithm is replaced by the interoperable specification in
-Section (#serverCookie) of this document, which MUST be used be Server
+Section (#serverCookie) of this document, which MUST be used by Server
 Cookie Implementations.
 
 This document has suggestions on Client Cookie construction in Section
@@ -176,15 +176,15 @@ where "|" indicates concatenation.
 
 # Constructing a Server Cookie {#serverCookie}
 
-The Server Cookie is effectively message authentication code (MAC) and should be
-treated as such.
+The Server Cookie is effectively a Message Authentication Code (MAC) and should
+be treated as such.
 
 The Server Cookie is not required to be changed periodically if a secure
 pseudorandom function is used.
 
-The 128-bit Server Cookie consists of Sub-Fields: a 1 octet Version
-Sub-Field, a 1 octet Cookie Algorithm Sub-Field, a 2 octet Reserved
-Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
+The 128-bit Server Cookie consists of Sub-Fields: a 1 octet Version Sub-Field,
+a 3 octet Reserved Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash
+Sub-Field.
 
 ~~~ ascii-art
  0                   1                   2                   3
@@ -201,26 +201,27 @@ Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash Sub-Field.
 
 ## The Version Sub-Field
 
-The Version Sub-Field prescribes the structure and Hash calculation
-formula.  This document defines Version 1 to be the structure and way to
-calculate the Hash Sub-Field as defined in this Section.
+The Version Sub-Field prescribes the structure and Hash calculation formula.
+This document defines Version 1 to be the structure and way to calculate the
+Hash Sub-Field as defined in this Section.
 
 ## The Reserved Sub-Field
 
 The value of the Reserved Sub-Field is reserved for future versions of Server
 Side Cookie construction.  On construction it SHOULD be set to zero octets.  On
 Server Cookie verification the server MUST NOT enforce those fields to be zero
-and the has should be computed with the received value as described in
+and the Hash should be computed with the received value as described in
 (#hashField).
 
 ## The Timestamp Sub-Field
 
-The Timestamp value prevents Replay Attacks and MUST be checked by the server to
-be within a defined period of time.  The DNS Server SHOULD allow Cookies within
-1 hour period in the past and 5 minutes into the future to allow operation of
-low volume clients and certain time skew between the DNS servers in the anycast.
+The Timestamp value prevents Replay Attacks and MUST be checked by the server
+to be within a defined period of time.  The DNS Server SHOULD allow Cookies
+within 1 hour period in the past and 5 minutes into the future to allow
+operation of low volume clients and certain time skew between the DNS servers
+in the anycast.
 
-The Timestamp value specify a date and time in the form of a 32-bit unsigned
+The Timestamp value specifies a date and time in the form of a 32-bit unsigned
 number of seconds elapsed since 1 January 1970 00:00:00 UTC, ignoring leap
 seconds, in network byte order.  All comparisons involving these fields MUST
 use "Serial number arithmetic", as defined in [@!RFC1982]
@@ -230,9 +231,9 @@ Cookie from the Client is older than half an hour.
 
 ## The Hash Sub-Field {#hashField}
 
-It's important that all the DNS servers use the same algorithm for computing the
-Server Cookie.  This document defines the Version 1 of the Server Side algorithm
-to be:
+It's important that all the DNS servers use the same algorithm for computing
+the Server Cookie.  This document defines the Version 1 of the Server Side
+algorithm to be:
 
 ~~~ ascii-art
 Hash = SipHash2.4(
@@ -240,9 +241,9 @@ Hash = SipHash2.4(
     Server Secret )
 ~~~
 
-Notice that Client-IP is used for hash generation even though it's not
-included in the cookie value itself. Client-IP can be either 4 bytes for
-IPv4 or 16 bytes for IPv6.
+Notice that Client-IP is used for hash generation even though it's not included
+in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16
+bytes for IPv6.
 
 # Cookie Algorithms {#cookieAlgorithms}
 
