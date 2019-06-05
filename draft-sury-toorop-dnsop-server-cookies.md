@@ -213,7 +213,7 @@ Server Cookie verification the server MUST NOT enforce those fields to be zero
 and the Hash should be computed with the received value as described in
 (#hashField).
 
-## The Timestamp Sub-Field
+## The Timestamp Sub-Field {#timestampField}
 
 The Timestamp value prevents Replay Attacks and MUST be checked by the server
 to be within a defined period of time.  The DNS Server SHOULD allow Cookies
@@ -301,4 +301,6 @@ Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions
 and text and above all for implementing a prototype of an interoperable DNS
 Cookie in Bind9, Knot and PowerDNS during the hackathon of IETF104 in
 Prague.  Thanks for valuable input and suggestions go to Ralph Dolmans, Bob
-Harold, Daniel Salzman, Martin Hoffmann, ...
+Harold, Daniel Salzman, Martin Hoffmann, Nukund Sivaraman, Loganaden Velvindron
+
+{{test-vectors.md}}
