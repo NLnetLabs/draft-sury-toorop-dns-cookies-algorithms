@@ -1,6 +1,6 @@
 %%%
-Title = "Algorithms for Domain Name System (DNS) Cookies construction"
-abbrev = "dns-cookies-algorithms"
+Title = "Interoperable Domain Name System (DNS) Server Cookies"
+abbrev = "server-cookies"
 docname = "@DOCNAME@"
 category = "std"
 ipr = "trust200902"
