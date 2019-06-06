@@ -100,7 +100,7 @@ the Same Server Secret be used by each DNS server in a set of anycast
 servers."  However, how precisely a Server Cookie is calculated from
 this Server Secret, is left to the implementation.
 
-This guidance has let to gallimaufry of DNS Cookie implementations,
+This guidance has let to a gallimaufry of DNS Cookie implementations,
 calculating the Server Cookie in different ways. As a result, DNS Cookies
 are impractical to deploy on multi-vendor anycast networks, because even
 when all DNS Software would share the same secret, as RECOMMENDED in Section
@@ -122,10 +122,17 @@ Cookie are given
 In Section (#serverCookie) instructions for constructing a Server 
 Cookie are given
 
+In Section (#rollingSecret) instructions on updating Server Secrets are given
+
 In Section (#cookieAlgorithms) the different hash functions usable for DNS
 Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@!RFC6234] are
 obsoleted and [@SipHash-2.4] is introduced as a REQUIRED hash function for
 server side DNS Cookie implementations.
+
+IANA considerations are in (#ianaConsiderations)
+
+Acknowledgements in (#acknowledgements)
+
 
 ## Definitions
 
@@ -143,13 +150,13 @@ capitals, as shown here.
 
 In its Appendices A.1 and B.1, [@!RFC7873] provides example "simple"
 algorithms for computing Client and Server Cookies, respectively.  These
-algorithms MUST NOT be used as the cookies produces are too weak when
+algorithms MUST NOT be used as the resulting cookies are too weak when
 evaluated against modern security standards.
 
 In its Appendix B.2, [RFC7873] provides an example "more complex" server
 algorithm. This algorithm is replaced by the interoperable specification in
 Section (#serverCookie) of this document, which MUST be used by Server
-Cookie Implementations.
+Cookie implementations.
 
 This document has suggestions on Client Cookie construction in Section
 (#clientCookie).  The previous example in Appendix A.2 of [@!RFC7873] is NOT
@@ -157,14 +164,14 @@ RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
-The Client Cookie is a nonce and should be treated as such.  For simplicity,
-it can be calculated from Client IP Address, Server IP Address and a secret
-known only to the Client.  The Client Cookie SHOULD have at least 64-bits
-of entropy.  If a secure pseudorandom function (like SipHash24) is used there's
-no need to change Client secret periodically and change the Client secret only
-if it has been compromised.
+The Client Cookie is a nonce and should be treated as such.  For simplicity, it
+can be calculated from Client IP Address, Server IP Address and a secret known
+only to the Client. The Client Cookie SHOULD have at least 64-bits of entropy.
+If a secure pseudorandom function (like SipHash24) is used, there's no need to
+change Client secret periodically and change the Client secret only if it has
+been compromised.
 
-It's recommended but not required that a pseudorandom function is used to
+It is recommended but not required that a pseudorandom function is used to
 construct the Client Cookie:
 
 ~~~ ascii-art
@@ -177,10 +184,14 @@ where "|" indicates concatenation.
 # Constructing a Server Cookie {#serverCookie}
 
 The Server Cookie is effectively a Message Authentication Code (MAC) and should
-be treated as such.
+be treated as such.  The Server Cookie is calculated from the Client Cookie,
+a series of Sub-Fields described below, the Client IP address, and a Server
+Secret known only to the servers serving on the same address in an anycast set.
 
-The Server Cookie is not required to be changed periodically if a secure
-pseudorandom function is used.
+It is RECOMMENDED to change the Server Secret regularly but, when a secure
+pseudorandom function is used, not too frequent.  For example once a month.
+See (#rollingSecret) on operator and implementation guidelines for updating
+a Server Secret.
 
 The 128-bit Server Cookie consists of Sub-Fields: a 1 octet Version Sub-Field,
 a 3 octet Reserved Sub-Field, a 4 octet Timestamp Sub-Field and a 8 octet Hash
@@ -213,7 +224,7 @@ Server Cookie verification the server MUST NOT enforce those fields to be zero
 and the Hash should be computed with the received value as described in
 (#hashField).
 
-## The Timestamp Sub-Field
+## The Timestamp Sub-Field {#timestamp}
 
 The Timestamp value prevents Replay Attacks and MUST be checked by the server
 to be within a defined period of time.  The DNS Server SHOULD allow Cookies
@@ -226,8 +237,8 @@ number of seconds elapsed since 1 January 1970 00:00:00 UTC, ignoring leap
 seconds, in network byte order.  All comparisons involving these fields MUST
 use "Serial number arithmetic", as defined in [@!RFC1982]
 
-The DNS Server SHOULD generate new Server Cookie at least if the received Server
-Cookie from the Client is older than half an hour.
+The DNS Server SHOULD generate a new Server Cookie at least if the received
+Server Cookie from the Client is older than half an hour.
 
 ## The Hash Sub-Field {#hashField}
 
@@ -245,6 +256,60 @@ Notice that Client-IP is used for hash generation even though it's not included
 in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16
 bytes for IPv6.
 
+# Updating the Server Secret {#rollingSecret}
+
+All servers in an anycast must be able to verify the Server Cookies constructed
+by all other servers in that anycast set at all times.  Therefore it is vital
+that the Server Secret is shared among all servers before it us used to
+generate Server Cookies.
+
+Also, to maximize maintaining established relationships between clients and
+servers, an old Server Secret should be valid for verification purposes for a
+specific period.
+
+To facilitate this, deployment of a new Server Secret MUST be done in three
+stages:
+
+Stage 1
+: The new Server Secret is deployed on all the servers in an anycast set by
+  the operator.
+
+> Each server learns the new Server Secret, but keeps using the previous Server
+  Secret to generate Server Cookies.
+
+> Server Cookies constructed with the both the new Server Secret and with
+  the previous Server Secret are considered valid when verifying.
+
+> After stage 1 completed, all the servers in the anycast set have learned the
+  new Server Secret, and can verify Server Cookies constructed with it, but keep
+  generator Server Cookies with the old Server Secret.
+
+Stage 2
+: This stage starts either by explicit signalling from the operator, or after
+  a configurable period after which it is reasonable to assume that the Server
+  Cookie is present on all members from the anycast set.  A default value for
+  such a configurable time could be 5 minutes.
+
+> When entering Stage 2, servers start generating Server Cookies with the new
+  Server Secret. The previous Server Secret is not yet removed/forgotten about.
+
+> Server Cookies constructed with the both the new Server Secret and with
+  the previous Server Secret are considered valid when verifying.
+
+Stage 3
+: This stage starts either by explicit signalling from the operator, or after
+  a configurable period after which it is reasonable to assume that most
+  clients have learned the new Server Secret.
+
+> We RECOMMEND this period to be the longest TTL in the zones served by the
+  server plus half an hour, but it SHOULD be at least longer than the period
+  clients are allowed to use the same Server Cookie, which SHOULD be half an
+  hour, see (#timestamp).
+
+> After this period the previous Server Secret can be removed and MUST not be
+  used anymore for verifying.
+
+
 # Cookie Algorithms {#cookieAlgorithms}
 
 Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
@@ -257,14 +322,14 @@ Version | Algorithm          | Server Cookie Length
 240-254 | Private use        | -
 255     | Reserved           | -
 
-[@SipHash-2.4] is a pseudorandom function suitable as message authentication
-code, and this document REQUIRES compliant DNS Server to use SipHash24 as a
+[@SipHash-2.4] is a pseudorandom function suitable as Message Authentication
+Code.  This document REQUIRES compliant DNS Server to use SipHash24 as a
 mandatory and default algorithm for DNS Cookies to ensure interoperability
 between the DNS Implementations. The Server Secret MUST be optionally
 configurable to make sure that servers in an anycast network return consistent
 results. Additional algorithms might be added in the future.
 
-# IANA Considerations
+# IANA Considerations {#ianaConsiderations}
 
 IANA is requested to create and maintain a sub-registry (the "DNS Cookie
 Algorithm" registry) of the "Domain Name System (DNS) Parameters"
@@ -295,7 +360,7 @@ registration.
 
 {backmatter}
 
-# Acknowledgements
+# Acknowledgements {#acknowledgements}
 
 Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions
 and text and above all for implementing a prototype of an interoperable DNS
