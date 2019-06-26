@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-03-28T00:00:00Z
+date = 2019-06-26T11:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
