@@ -14,12 +14,12 @@ QUERY_TIME1_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME1}`
 SERVER_COOKIE1=`${TESTPATH}/server-cookie ${CLIENT_COOKIE1} ${CLIENT_IP1} ${SERVER_SECRET} ${QUERY_TIME1}`
 
 cat << EOT
-# Test vectors
+# Test vectors {#testVectors}
 
 ## Learning a new Server Cookie
 
 A resolver (client) sending from IPv4 address ${CLIENT_IP1}, sends a query for
-\`${QUERY_NAME1}\` to an authoritiative server listening on ${SERVER_IP} from
+\`${QUERY_NAME1}\` to an authoritative server listening on ${SERVER_IP} from
 which it has not yet learned the server cookie.
 
 The DNS requests and replies shown in this Appendix, are in a "dig" like format.

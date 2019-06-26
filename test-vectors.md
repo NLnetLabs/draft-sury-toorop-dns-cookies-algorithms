@@ -3,7 +3,7 @@
 ## Learning a new Server Cookie
 
 A resolver (client) sending from IPv4 address 198.51.100.100, sends a query for
-`example.com` to an authoritiative server listening on 192.0.2.53 from
+`example.com` to an authoritative server listening on 192.0.2.53 from
 which it has not yet learned the server cookie.
 
 The DNS requests and replies shown in this Appendix, are in a "dig" like format.
