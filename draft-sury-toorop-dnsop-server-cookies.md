@@ -189,7 +189,7 @@ be treated as such.  The Server Cookie is calculated from the Client Cookie,
 a series of Sub-Fields specified below, the Client IP address, and a Server
 Secret known only to the servers responding on the same address in an anycast set.
 
-Changing the Server Secret regularly Is RECOMMENDED but, when a secure
+Changing the Server Secret regularly is RECOMMENDED but, when a secure
 pseudorandom function is used, it need not be changed too frequent.  For
 example once a month would be adequate.  See (#rollingSecret) on operator and
 implementation guidelines for updating a Server Secret.
@@ -286,7 +286,7 @@ Stage 1
 
 > After stage 1 completed, all the servers in the anycast set have learned the
   new Server Secret, and can verify Server Cookies constructed with it, but keep
-  generator Server Cookies with the old Server Secret.
+  generating Server Cookies with the old Server Secret.
 
 Stage 2
 : This stage is initiated by the operator after the Server Cookie is present
@@ -378,6 +378,7 @@ Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and
 text and above all for implementing a prototype of an interoperable DNS Cookie
 in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
 for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
-Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron
+Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
+Bob Harold
 
 {{test-vectors.md}}
