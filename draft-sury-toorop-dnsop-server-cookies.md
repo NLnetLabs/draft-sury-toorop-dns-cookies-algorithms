@@ -286,10 +286,8 @@ Stage 1
   generator Server Cookies with the old Server Secret.
 
 Stage 2
-: This stage starts either by explicit signalling from the operator, or after
-  a configurable period after which it is reasonable to assume that the Server
-  Cookie is present on all members from the anycast set.  A default value for
-  such a configurable time could be 5 minutes.
+: This stage is initiated by the operator after the Server Cookie is present
+  on all members from the anycast set.
 
 > When entering Stage 2, servers start generating Server Cookies with the new
   Server Secret. The previous Server Secret is not yet removed/forgotten about.
@@ -298,17 +296,19 @@ Stage 2
   the previous Server Secret are considered valid when verifying.
 
 Stage 3
-: This stage starts either by explicit signalling from the operator, or after
-  a configurable period after which it is reasonable to assume that most
+: This stage is initiated by the operator when it can be assumed that most
   clients have learned the new Server Secret.
 
-> We RECOMMEND this period to be the longest TTL in the zones served by the
-  server plus half an hour, but it SHOULD be at least longer than the period
-  clients are allowed to use the same Server Cookie, which SHOULD be half an
-  hour, see (#timestampField).
-
-> After this period the previous Server Secret can be removed and MUST not be
+> With this stage, the previous Server Secret can be removed and MUST not be
   used anymore for verifying.
+
+> We RECOMMEND the operator to wait at least a period of the longest TTL in the
+  zones served by the server plus half an hour after it initiated Stage 2,
+  before initiating Stage 3.
+
+> The operator SHOULD wait at least longer than the period clients are allowed
+  to use the same Server Cookie, which SHOULD be half an hour,
+  see (#timestampField).
 
 
 # Cookie Algorithms {#cookieAlgorithms}
