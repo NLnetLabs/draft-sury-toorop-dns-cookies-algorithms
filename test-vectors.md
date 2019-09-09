@@ -17,7 +17,7 @@ The content of the DNS COOKIE Option is shown in hexadecimal format after
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: a05862bf552bbd22
+; COOKIE: 2464c4abcf10c957
 ;; QUESTION SECTION:
 ;example.com.                IN      A
 
@@ -39,7 +39,7 @@ below in hexadecimal format after `; COOKIE: `
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: a05862bf552bbd22010000005cf79f11de1bba0952b0ff82 (good)
+; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480 (good)
 ;; QUESTION SECTION:
 ;example.com.                IN      A
 
@@ -63,7 +63,7 @@ for `example.org` :
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: a05862bf552bbd22010000005cf79f11de1bba0952b0ff82
+; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480
 ;; QUESTION SECTION:
 ;example.org.                IN      A
 
@@ -82,7 +82,7 @@ a server to generate a new Server Cookie sooner, or even for every answer.
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: a05862bf552bbd22010000005cf7a87144c909a80f560a7f (good)
+; COOKIE: 2464c4abcf10c957010000005cf7a871d4a564a1442aca77 (good)
 ;; QUESTION SECTION:
 ;example.org.                IN      A
 
@@ -96,7 +96,7 @@ example.org.         86400   IN      A       192.0.2.34
 ~~~
 ## Another client learning a renewed Server Cookie
 
-Another resolver (client) with IPv4 address 198.51.100.100 sends a request to
+Another resolver (client) with IPv4 address 203.0.113.203 sends a request to
 the same server with a valid Server Cookie that it learned before
 (at Wed Jun  5 09:46:25 UTC 2019). Note that the Server Cookie has Reserved bytes set,
 but is still valid with the configured secret; the Hash part is calculated
@@ -109,7 +109,7 @@ taking along the Reserved bytes.
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: 35fe2405c6e35ce201abcdef5cf78f71f36da1fa58a43879
+; COOKIE: fc93fc62807ddb8601abcdef5cf78f71a314227b6679ebf5
 ;; QUESTION SECTION:
 ;example.com.                IN      A
 
@@ -127,7 +127,7 @@ bits set to zero.
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: 35fe2405c6e35ce2010000005cf7a9ac70f66429813e466a (good)
+; COOKIE: fc93fc62807ddb86010000005cf7a9acf73a7810aca2381e (good)
 ;; QUESTION SECTION:
 ;example.com.                IN      A
 
@@ -154,7 +154,7 @@ as the old secret has not expired yet.
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: fedba308ab9fddb2010000005cf7c579bbc73b7d5da18dd1
+; COOKIE: 22681ab97d52c298010000005cf7c57926556bd0934c72f8
 ;; QUESTION SECTION:
 ;example.net.                IN      A
 
@@ -171,7 +171,7 @@ cookie for this client with its new secret: 445536bcd2513298075a5d379663c962
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
-; COOKIE: fedba308ab9fddb2010000005cf7c609449d89428c0e2d92 (good)
+; COOKIE: 22681ab97d52c298010000005cf7c609a6bb79d16625507a (good)
 ;; QUESTION SECTION:
 ;example.net.                IN      A
 

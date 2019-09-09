@@ -23,16 +23,16 @@ int main(int argc, char * const argv[])
 		uint8_t secret[16];
 		int     a, b, c, d;
 
-		if (inet_pton(AF_INET6, argv[2], in_ptr) == 1)
+		if (inet_pton(AF_INET6, argv[1], in_ptr) == 1)
 			in_ptr += 16;
 
-		else if (inet_pton(AF_INET, argv[2], in_ptr) == 1)
+		else if (inet_pton(AF_INET, argv[1], in_ptr) == 1)
 			in_ptr += 4;
 		else {
 			fprintf(stderr, "Error reading server IP\n");
 			return 1;
 		}
-		if (sscanf(argv[3], "%8x%8x%8x%8x", &a, &b, &c, &d) != 4) {
+		if (sscanf(argv[2], "%8x%8x%8x%8x", &a, &b, &c, &d) != 4) {
 			fprintf(stderr, "Error reading secret\n");
 			return 1;
 		}
