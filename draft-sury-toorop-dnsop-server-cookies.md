@@ -165,22 +165,30 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a nonce and should be treated as such.  For simplicity, it
-can be calculated from Client IP Address, Server IP Address, and a secret known
-only to the Client. The Client Cookie SHOULD have at least 64-bits of entropy.
-If a secure pseudorandom function (like [@!SipHash-2.4]) is used, there's no
-need to change Client secret often. It is reasonable to change the Client secret
-only if it has been compromised or after a relatively long period of time such
-as no longer than a year.
+can be calculated from Server IP Address, and a secret known only to the
+Client. The Client Cookie SHOULD have at least 64-bits of entropy.  If a secure
+pseudorandom function (like [@!SipHash-2.4]) is used, there's no need to change
+Client secret often. It is reasonable to change the Client secret only if it has
+been compromised or after a relatively long period of time such as no longer
+than a year.
 
 It is RECOMMENDED but not required that the following pseudorandom function be
 used to construct the Client Cookie:
 
 ~~~ ascii-art
 Client-Cookie = MAC_Algorithm(
-    Client IP Address | Server IP Address, Client Secret )
+    Server IP Address, Client Secret )
 ~~~
 
 where "|" indicates concatenation.
+
+Previously, the recommended algorithm to compute the Client Cookie included
+Client IP Address as an input to the MAC_Algorithm.  However, when implementing
+the DNS Cookies, several DNS vendors found impractical to include the Client IP
+as the Client Cookie is typically computed before the Client IP address is
+known.  Therefore, the requirement to put Client IP address as input to was
+removed, and it simply RECOMMENDED to disable the DNS Cookies when privacy is
+required.
 
 # Constructing a Server Cookie {#serverCookie}
 
