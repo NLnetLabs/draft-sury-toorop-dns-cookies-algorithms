@@ -1,12 +1,14 @@
 #!/bin/sh
 
 TESTPATH=`dirname $0`
+[ ! -x "${TESTPATH}/client-cookie" ] && >&2 echo "client-cookie program missing" && exit 1
+[ ! -x "${TESTPATH}/server-cookie" ] && >&2 echo "server-cookie program missing" && exit 1
 
 CLIENT_IP1=198.51.100.100
 SERVER_IP=192.0.2.53
 CLIENT_SECRET1=3f6651c981c1d73e587925d2f9985f08
 SERVER_SECRET=e5e973e5a6b2a43f48e7dc849e37bfcf
-CLIENT_COOKIE1=`${TESTPATH}/client-cookie ${CLIENT_IP1} ${SERVER_IP} ${CLIENT_SECRET1}`
+CLIENT_COOKIE1=`${TESTPATH}/client-cookie ${SERVER_IP} ${CLIENT_SECRET1}`
 QUERY_ID1=57406
 QUERY_NAME1=example.com
 QUERY_TIME1=1559731985
@@ -123,7 +125,7 @@ EOT
 
 CLIENT_IP2=203.0.113.203
 CLIENT_SECRET2=4c311517fab6bfe2e149ab74ec1bc9a0
-CLIENT_COOKIE2=`${TESTPATH}/client-cookie ${CLIENT_IP2} ${SERVER_IP} ${CLIENT_SECRET2}`
+CLIENT_COOKIE2=`${TESTPATH}/client-cookie ${SERVER_IP} ${CLIENT_SECRET2}`
 QUERY_TIME3=1559727985
 QUERY_TIME3_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME3}`
 SERVER_COOKIE3=`${TESTPATH}/server-cookie ${CLIENT_COOKIE2} ${CLIENT_IP2} ${SERVER_SECRET} ${QUERY_TIME3} abcdef`
@@ -135,7 +137,7 @@ SERVER_COOKIE4=`${TESTPATH}/server-cookie ${CLIENT_COOKIE2} ${CLIENT_IP2} ${SERV
 cat << EOT
 ## Another client learning a renewed Server Cookie
 
-Another resolver (client) with IPv4 address ${CLIENT_IP1} sends a request to
+Another resolver (client) with IPv4 address ${CLIENT_IP2} sends a request to
 the same server with a valid Server Cookie that it learned before
 (at ${QUERY_TIME3_STR}). Note that the Server Cookie has Reserved bytes set,
 but is still valid with the configured secret; the Hash part is calculated
@@ -183,7 +185,7 @@ EOT
 CLIENT_IP6="2001:db8:220:1:59de:d0f4:8769:82b8"
 SERVER_IP6="2001:db8:8f::53"
 CLIENT_SECRET6=3b495ba6a5b7fd87735bd58f1ef7261d
-CLIENT_COOKIE6=`${TESTPATH}/client-cookie ${CLIENT_IP6} ${SERVER_IP6} ${CLIENT_SECRET6}`
+CLIENT_COOKIE6=`${TESTPATH}/client-cookie ${SERVER_IP6} ${CLIENT_SECRET6}`
 SERVER_SECRET6=dd3bdf9344b678b185a6f5cb60fca715
 QUERY_TIME6=1559741817
 QUERY_TIME6_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME6}`

@@ -1,5 +1,5 @@
 VERSION = 00
-DOCNAME = draft-sury-toorop-dnsop-server-cookies
+DOCNAME = draft-ietf-dnsop-server-cookies
 
 all: $(DOCNAME)-$(VERSION).txt $(DOCNAME)-$(VERSION).html
 
@@ -12,7 +12,13 @@ $(DOCNAME)-$(VERSION).html: $(DOCNAME).xml
 $(DOCNAME).xml: $(DOCNAME).md test-vectors.md
 	sed 's/@DOCNAME@/$(DOCNAME)-$(VERSION)/g' $< | mmark --xml2 --page > $@
 
-test-vectors.md: test-vectors/print-test-vectors.sh
+test-vectors/client-cookie:
+	cd test-vectors && make client-cookie
+
+test-vectors/server-cookie:
+	cd test-vectors && make server-cookie
+
+test-vectors.md: test-vectors/print-test-vectors.sh test-vectors/client-cookie test-vectors/server-cookie
 	test-vectors/print-test-vectors.sh > test-vectors.md
 
 clean:

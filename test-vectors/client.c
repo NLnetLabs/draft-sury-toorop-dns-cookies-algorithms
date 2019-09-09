@@ -9,7 +9,7 @@ int siphash(const uint8_t *in, const size_t inlen, const uint8_t *k,
 
 int print_usage(FILE *fh, const char * prog)
 {
-	fprintf(fh, "%s [ <client IP> <server IP> <secret> ]\n", prog);
+	fprintf(fh, "%s [ <server IP> <secret> ]\n", prog);
 	return fh == stderr ? 1 : 0;
 }
 
@@ -18,20 +18,11 @@ int main(int argc, char * const argv[])
 	uint8_t cookie[8];
 	size_t i;
 
-	if (argc == 4) {
+	if (argc == 3) {
 		uint8_t in_buf[32], *in_ptr = in_buf;
 		uint8_t secret[16];
 		int     a, b, c, d;
 
-		if (inet_pton(AF_INET6, argv[1], in_ptr) == 1)
-			in_ptr += 16;
-
-		else if (inet_pton(AF_INET, argv[1], in_ptr) == 1)
-			in_ptr += 4;
-		else {
-			fprintf(stderr, "Error reading client IP\n");
-			return 1;
-		}
 		if (inet_pton(AF_INET6, argv[2], in_ptr) == 1)
 			in_ptr += 16;
 
