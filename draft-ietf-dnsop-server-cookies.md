@@ -165,8 +165,16 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a **cryptographic** nonce and should be treated as such.
-For simplicity, it can be calculated from Server IP Address, and a secret known
-only to the Client. The Client Cookie SHOULD have at least 64-bits of entropy.
+For simplicity, it can be calculated from Server IP Address, and a Client
+Secret known only to the Client that is changed whenever an IP address
+previously used by the Client is no longer available.
+The Client Cookie SHOULD have at least 64-bits of entropy.
+
+Except for when the Client IP address changes, there is no need to change the
+Client Secret often if a secure pseudorandom function (like [@!SipHash-2.4]) is
+used. It is reasonable to change the Client secret then only if it has been
+compromised or after a relatively long period of time such as no longer than a
+year.
 
 It is RECOMMENDED but not required that the following pseudorandom function be
 used to construct the Client Cookie:
