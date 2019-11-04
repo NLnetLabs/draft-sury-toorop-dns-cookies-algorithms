@@ -176,8 +176,6 @@ Client-Cookie = MAC_Algorithm(
     Server IP Address, Client Secret )
 ~~~
 
-where "|" indicates concatenation.
-
 Previously, the recommended algorithm to compute the Client Cookie included
 Client IP Address as an input to the MAC_Algorithm.  However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
@@ -266,6 +264,8 @@ Hash = SipHash2.4(
     Client Cookie | Version | Reserved | Timestamp | Client-IP,
     Server Secret )
 ~~~
+
+where "|" indicates concatenation.
 
 Notice that Client-IP is used for hash generation even though it's not included
 in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16
