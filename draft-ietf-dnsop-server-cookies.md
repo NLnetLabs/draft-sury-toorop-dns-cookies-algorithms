@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-09-09T09:00:00Z
+date = 2019-11-04T21:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -164,7 +164,7 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
-The Client Cookie is a **cryptographic** nonce and should be treated as such.
+The Client Cookie is a cryptographic nonce and should be treated as such.
 For simplicity, it can be calculated from Server IP Address, and a Client
 Secret known only to the Client that is changed whenever an IP address
 previously used by the Client is no longer available.
@@ -188,19 +188,19 @@ Previously, the recommended algorithm to compute the Client Cookie included
 Client IP Address as an input to the MAC_Algorithm.  However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
 as the Client Cookie is typically computed before the Client IP address is
-known.  Therefore, the requirement to put Client IP address as input to was
+known.  Therefore, the requirement to put Client IP address as input was
 removed.
 
 However, for privacy reasons, in order to prevent tracking of devices across
 links and to not circumvent IPv6 Privacy Extensions [RFC4941], Clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
-The Client IP address is available on the UDP socket when it received the
-Server Cookie and can be stored for the Server alongside the Server Cookie.
-In subsequent queries to that Server with the Server Cookie, the socket MUST 
-be bound to the Client IP address that was also used when it learned the Server
-Cookie. Failure to bind must result in a new Client Cookie, which, for the
-method described in this section means a new Client Secret.
+The Client IP address is available on the UDP socket when it receives the
+Server Cookie and should be registered alongside the Server Cookie. In
+subsequent queries to the Server with that Server Cookie, the socket MUST be
+bound to the Client IP address that was also used (and registered) when it
+received the Server Cookie. Failure to bind must result in a new Client Cookie,
+which, for the method described in this section means a new Client Secret.
 
 # Constructing a Server Cookie {#serverCookie}
 
