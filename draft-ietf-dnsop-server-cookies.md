@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-09-09T09:00:00Z
+date = 2019-11-04T21:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -164,13 +164,17 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
-The Client Cookie is a nonce and should be treated as such.  For simplicity, it
-can be calculated from Server IP Address, and a secret known only to the
-Client. The Client Cookie SHOULD have at least 64-bits of entropy.  If a secure
-pseudorandom function (like [@!SipHash-2.4]) is used, there's no need to change
-Client secret often. It is reasonable to change the Client secret only if it has
-been compromised or after a relatively long period of time such as no longer
-than a year.
+The Client Cookie is a cryptographic nonce and should be treated as such.
+For simplicity, it can be calculated from Server IP Address, and a Client
+Secret known only to the Client that is changed whenever an IP address
+previously used by the Client is no longer available.
+The Client Cookie SHOULD have at least 64-bits of entropy.
+
+Except for when the Client IP address changes, there is no need to change the
+Client Secret often if a secure pseudorandom function (like [@!SipHash-2.4]) is
+used. It is reasonable to change the Client secret then only if it has been
+compromised or after a relatively long period of time such as no longer than a
+year.
 
 It is RECOMMENDED but not required that the following pseudorandom function be
 used to construct the Client Cookie:
@@ -184,9 +188,19 @@ Previously, the recommended algorithm to compute the Client Cookie included
 Client IP Address as an input to the MAC_Algorithm.  However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
 as the Client Cookie is typically computed before the Client IP address is
-known.  Therefore, the requirement to put Client IP address as input to was
-removed, and it simply RECOMMENDED to disable the DNS Cookies when privacy is
-required.
+known.  Therefore, the requirement to put Client IP address as input was
+removed.
+
+However, for privacy reasons, in order to prevent tracking of devices across
+links and to not circumvent IPv6 Privacy Extensions [RFC4941], Clients MUST
+NOT re-use a Client or Server Cookie after the Client IP address has changed.
+
+The Client IP address is available on the UDP socket when it receives the
+Server Cookie and should be registered alongside the Server Cookie. In
+subsequent queries to the Server with that Server Cookie, the socket MUST be
+bound to the Client IP address that was also used (and registered) when it
+received the Server Cookie. Failure to bind must result in a new Client Cookie,
+which, for the method described in this section means a new Client Secret.
 
 # Constructing a Server Cookie {#serverCookie}
 
@@ -387,6 +401,6 @@ text and above all for implementing a prototype of an interoperable DNS Cookie
 in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
 for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
 Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
-Bob Harold
+Bob Harold and Philip Homburg
 
 {{test-vectors.md}}
