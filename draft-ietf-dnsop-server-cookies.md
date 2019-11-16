@@ -165,27 +165,29 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a cryptographic nonce and should be treated as such.
-For simplicity, it can be calculated from Server IP Address, and a Client
-Secret known only to the Client that is changed whenever an IP address
-previously used by the Client is no longer available.
-The Client Cookie SHOULD have at least 64-bits of entropy.
+It is RECOMMENDED to create a new Client Cookie for each new upstream Server a
+Client connects to. The Client Cookie SHOULD have at least 64-bits of entropy.
+
+When a Server does not support DNS Cookies, the Client MUST NOT send the same
+Client Cookie to that same Server again. Instead, it is recommended that the
+Client does not send a Client Cookie to that Server for a certain period, like
+for example 5 minutes, before it retries with a new Client Cookie.
+
+When a Server does support DNS Cookies, the Client should store the Client
+Cookie alongside the Server Cookie it registered for that Server.
 
 Except for when the Client IP address changes, there is no need to change the
-Client Secret often if a secure pseudorandom function (like [@!SipHash-2.4]) is
-used. It is reasonable to change the Client secret then only if it has been
-compromised or after a relatively long period of time such as no longer than a
-year.
-
-It is RECOMMENDED but not required that the following pseudorandom function be
-used to construct the Client Cookie:
+Client Cookie often. It is reasonable to change the Client Cookie then only if
+it has been compromised or after a relatively long period of time such as no 
+longer than a year. Client Cookies are not expected to survive a program
+restart.
 
 ~~~ ascii-art
-Client-Cookie = MAC_Algorithm(
-    Server IP Address, Client Secret )
+Client-Cookie = 64 bits of entropy
 ~~~
 
 Previously, the recommended algorithm to compute the Client Cookie included
-Client IP Address as an input to the MAC_Algorithm.  However, when implementing
+Client IP Address as an input to a hashing function.  However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
 as the Client Cookie is typically computed before the Client IP address is
 known.  Therefore, the requirement to put Client IP address as input was
@@ -199,8 +201,7 @@ The Client IP address is available on the UDP socket when it receives the
 Server Cookie and should be registered alongside the Server Cookie. In
 subsequent queries to the Server with that Server Cookie, the socket MUST be
 bound to the Client IP address that was also used (and registered) when it
-received the Server Cookie. Failure to bind must result in a new Client Cookie,
-which, for the method described in this section means a new Client Secret.
+received the Server Cookie. Failure to bind must result in a new Client Cookie.
 
 # Constructing a Server Cookie {#serverCookie}
 
