@@ -167,7 +167,7 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a cryptographic nonce and should be treated as such.
-It is RECOMMENDED to create a new Client Cookie for each new upstream Server a
+It is RECOMMENDED to create a new Client Cookie for each new upstream server a
 Client connects to. The Client Cookie SHOULD have at least 64-bits of entropy.
 
 When a Server does not support DNS Cookies, the Client MUST NOT send the same
@@ -199,11 +199,11 @@ However, for privacy reasons, in order to prevent tracking of devices across
 links and to not circumvent IPv6 Privacy Extensions [RFC4941], Clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
-The Client IP address is available on the UDP socket when it receives the
-Server Cookie and should be registered alongside the Server Cookie. In
-subsequent queries to the Server with that Server Cookie, the socket MUST be
-bound to the Client IP address that was also used (and registered) when it
-received the Server Cookie. Failure to bind must result in a new Client Cookie.
+One way to track Client IP addresses, is to register the Client IP address
+alongside the Server Cookie when it receives the Server Cookie.  In subsequent
+queries to the Server with that Server Cookie, the socket MAY be bound to the
+Client IP address that was also used (and registered) when it received the
+Server Cookie.  Failure to bind MUST then result in a new Client Cookie.
 
 # Constructing a Server Cookie {#serverCookie}
 
