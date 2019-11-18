@@ -379,7 +379,10 @@ Version | Size  | Method
 DNS Cookies  provides limited protection to DNS servers and clients against a
 variety of denial-of-service and amplification/forgery or cache poisoning
 attacks by off-path attackers. They provide no protection against on-path
-adversaries that can observe the plaintext DNS traffic.
+adversaries that can observe the plaintext DNS traffic. An on-path adversary
+that can observe a Server Cookie for a client and server interaction, can use
+that Server Cookie for amplification and denial-of-service forgery attacks
+for the lifetime of the Server Cookie.
 
 In [@!RFC7873] it was RECOMMENDED to construct a Client Cookie by using a
 pseudorandom function of the Client IP Address, the Server IP Address, and a
