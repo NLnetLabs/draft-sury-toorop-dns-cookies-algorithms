@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-11-04T21:00:00Z
+date = 2019-11-18T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -119,7 +119,7 @@ Section (#changes) summarises the changes to [@!RFC7873].
 In Section (#clientCookie) suggestions for constructing a Client
 Cookie are given.
 
-In Section (#serverCookie) instructions for constructing a Server 
+In Section (#serverCookie) instructions for constructing a Server
 Cookie are given.
 
 In Section (#rollingSecret) instructions on updating Server Secrets are given.
@@ -131,13 +131,15 @@ server side DNS Cookie implementations.
 
 IANA considerations are in (#ianaConsiderations).
 
+Privacy and Security Considerations in (#securityConsiderations).
+
 Acknowledgements are in (#acknowledgements).
 
 Test vectors are in (#testVectors).
 
 ## Definitions
 
-The key words "**MUST**", "**MUST NOT**", "**REQUIRED**", 
+The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**",
 "**RECOMMENDED**", "**NOT RECOMMENDED**", "**MAY**", and
 "**OPTIONAL**" in this document are to be interpreted as described in
@@ -165,42 +167,43 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie is a cryptographic nonce and should be treated as such.
-For simplicity, it can be calculated from Server IP Address, and a Client
-Secret known only to the Client that is changed whenever an IP address
-previously used by the Client is no longer available.
-The Client Cookie SHOULD have at least 64-bits of entropy.
+It is RECOMMENDED to create a new Client Cookie for each new upstream server a
+Client connects to. The Client Cookie SHOULD have at least 64-bits of entropy.
+
+When a Server does not support DNS Cookies, the Client MUST NOT send the same
+Client Cookie to that same Server again. Instead, it is recommended that the
+Client does not send a Client Cookie to that Server for a certain period, like
+for example five minutes, before it retries with a new Client Cookie.
+
+When a Server does support DNS Cookies, the Client should store the Client
+Cookie alongside the Server Cookie it registered for that Server.
 
 Except for when the Client IP address changes, there is no need to change the
-Client Secret often if a secure pseudorandom function (like [@!SipHash-2.4]) is
-used. It is reasonable to change the Client secret then only if it has been
-compromised or after a relatively long period of time such as no longer than a
-year.
-
-It is RECOMMENDED but not required that the following pseudorandom function be
-used to construct the Client Cookie:
+Client Cookie often. It is reasonable to change the Client Cookie then only if
+it has been compromised or after a relatively long period of time such as no
+longer than a year. Client Cookies are not expected to survive a program
+restart.
 
 ~~~ ascii-art
-Client-Cookie = MAC_Algorithm(
-    Server IP Address, Client Secret )
+Client-Cookie = 64 bits of entropy
 ~~~
 
 Previously, the recommended algorithm to compute the Client Cookie included
-Client IP Address as an input to the MAC_Algorithm.  However, when implementing
+Client IP Address as an input to a hashing function. However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
 as the Client Cookie is typically computed before the Client IP address is
-known.  Therefore, the requirement to put Client IP address as input was
+known. Therefore, the requirement to put Client IP address as input was
 removed.
 
 However, for privacy reasons, in order to prevent tracking of devices across
 links and to not circumvent IPv6 Privacy Extensions [RFC4941], Clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
-The Client IP address is available on the UDP socket when it receives the
-Server Cookie and should be registered alongside the Server Cookie. In
-subsequent queries to the Server with that Server Cookie, the socket MUST be
-bound to the Client IP address that was also used (and registered) when it
-received the Server Cookie. Failure to bind must result in a new Client Cookie,
-which, for the method described in this section means a new Client Secret.
+One way to track Client IP addresses, is to register the Client IP address
+alongside the Server Cookie when it receives the Server Cookie.  In subsequent
+queries to the Server with that Server Cookie, the socket MAY be bound to the
+Client IP address that was also used (and registered) when it received the
+Server Cookie.  Failure to bind MUST then result in a new Client Cookie.
 
 # Constructing a Server Cookie {#serverCookie}
 
@@ -354,14 +357,14 @@ IANA web page as follows:
 
 Registry Name: DNS Server Cookie Methods\\
 Assignment Policy: Expert Review\\
-Reference: [this document], [RFC7873]\\
+Reference: [this document], [@!RFC7873]\\
 Note: Server Cookie method (construction and pseudorandom algorithm) are
 determined by the Version in the first byte of the Cookie and by the Cookie
 size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.
 
 Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
 
-Version | Size  | Method 
+Version | Size  | Method
 -------:|------:|:--------------------
 0       |  8-32 | reserved
 1       |  8-15 | unassiged
@@ -370,6 +373,51 @@ Version | Size  | Method
 2-239   |  8-32 | unassigned
 240-254 |  8-32 | private use
 255     |  8-32 | reserved
+
+# Security and Privacy Considerations {#securityConsiderations}
+
+DNS Cookies  provides limited protection to DNS servers and clients against a
+variety of denial-of-service and amplification/forgery or cache poisoning
+attacks by off-path attackers. They provide no protection against on-path
+adversaries that can observe the plaintext DNS traffic. An on-path adversary
+that can observe a Server Cookie for a client and server interaction, can use
+that Server Cookie for amplification and denial-of-service forgery attacks
+for the lifetime of the Server Cookie.
+
+In [@!RFC7873] it was RECOMMENDED to construct a Client Cookie by using a
+pseudorandom function of the Client IP Address, the Server IP Address, and a
+secret quantity known only to the client. The Client IP Address was included to
+ensure that a client could not be tracked if its IP Address changes due to
+privacy mechanisms or otherwise.
+
+In this document, we changed Client Cookie construction to be just 64 bits of
+entropy newly created for each new upstream server the client connects to.
+As a consequence additional care needs to be taken to prevent tracking of
+clients.  To prevent tracking, a new Client Cookie for a server MUST be created
+whenever the Client IP Address changes.
+
+Unfortunately, tracking Client IP Address Changes is impractical with servers
+that do not support DNS Cookies. To prevent tracking of clients with non DNS
+Cookie supporting servers, a client MUST NOT send a previously sent Client
+Cookie. To prevent the creation of a new Client Cookie for each query to an non
+DNS Cookies supporting server, it is RECOMMENDED to not send a Client Cookie to
+that server for a certain period, like for example five minute.
+
+Summarizing:
+
+  * In order to provide minimal authentication, a client MUST use a
+    different Client Cookie for each different Server IP Address.
+
+  * To prevent tracking of clients, a new Client Cookie MUST be created
+    when the Client IP Address changes.
+
+  * To prevent tracking of clients for a non DNS Cookie supporting server,
+    a client MUST NOT send a previously sent Client Cookie to that server,
+    unless it can track Client IP Address changes for those servers too.
+
+Besides the Client Cookie construction, this update on [@!RFC7873] does not
+introduce any new characteristics to DNS Cookies operations and the Security
+Considerations section of [@!RFC7873] still applies.
 
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
