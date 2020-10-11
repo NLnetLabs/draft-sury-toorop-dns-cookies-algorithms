@@ -1,4 +1,4 @@
-VERSION = 02
+VERSION = 03
 DOCNAME = draft-ietf-dnsop-server-cookies
 
 all: $(DOCNAME)-$(VERSION).txt $(DOCNAME)-$(VERSION).html

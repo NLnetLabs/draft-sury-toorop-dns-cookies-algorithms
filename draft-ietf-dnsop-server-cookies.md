@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2019-11-18T00:00:00Z
+date = 2020-05-20T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -452,3 +452,13 @@ Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
 Bob Harold and Philip Homburg
 
 {{test-vectors.md}}
+
+# Implementation status
+
+At the time of writing, BIND from version 9.16 and Knot DNS from version 2.9.0
+create Server Cookies according to the recipe described in this draft. Unbound
+and NSD have an Proof of Concept implementation that has been tested for
+interoperability during the hackathon at the IETF104 in Prague.  Construction
+of privacy maintaining Client Cookies according to the directions in this draft
+have been implemented in the getdns library and will be in the upcoming
+getdns-1.6.1 release and in Stubby version 0.3.1.
