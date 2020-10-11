@@ -69,7 +69,7 @@ organization = "Internet Systems Consortium"
 
 .# Abstract
 
-DNS cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
+DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provides limited protection to DNS servers and
 clients against a variety of denial-of-service and amplification, forgery,
 or cache poisoning attacks by off-path attackers.
@@ -114,17 +114,17 @@ constructing Client Cookies in a Client protecting fashion.
 
 ## Contents of this document
 
-Section (#changes) summarises the changes to [@!RFC7873].
+(#changes) summarises the changes to [@!RFC7873].
 
-In Section (#clientCookie) suggestions for constructing a Client
+In (#clientCookie) suggestions for constructing a Client
 Cookie are given.
 
-In Section (#serverCookie) instructions for constructing a Server
+In (#serverCookie) instructions for constructing a Server
 Cookie are given.
 
-In Section (#rollingSecret) instructions on updating Server Secrets are given.
+In (#rollingSecret) instructions on updating Server Secrets are given.
 
-In Section (#cookieAlgorithms) the different hash functions usable for DNS
+In (#cookieAlgorithms) the different hash functions usable for DNS
 Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@RFC6234] are
 deprecated and [@!SipHash-2.4] is introduced as a REQUIRED hash function for
 server side DNS Cookie implementations.
@@ -172,7 +172,7 @@ Client connects to. The Client Cookie SHOULD have 64-bits of entropy.
 
 When a Server does not support DNS Cookies, the Client MUST NOT send the same
 Client Cookie to that same Server again. Instead, it is recommended that the
-Client does not send a Client Cookie to that Server for a certain period, like
+Client does not send a Client Cookie to that Server for a certain period,
 for example five minutes, before it retries with a new Client Cookie.
 
 When a Server does support DNS Cookies, the Client should store the Client
@@ -213,7 +213,7 @@ a series of Sub-Fields specified below, the Client IP address, and a Server
 Secret known only to the servers responding on the same address in an anycast set.
 
 Changing the Server Secret regularly is RECOMMENDED but, when a secure
-pseudorandom function is used, it need not be changed too frequent.  For
+pseudorandom function is used, it need not be changed too frequently.  For
 example once a month would be adequate.  See (#rollingSecret) on operator and
 implementation guidelines for updating a Server Secret.
 
@@ -254,7 +254,7 @@ The Timestamp value prevents Replay Attacks and MUST be checked by the server
 to be within a defined period of time.  The DNS Server SHOULD allow Cookies
 within 1 hour period in the past and 5 minutes into the future to allow
 operation of low volume clients and some limited time skew between the DNS
-servers in the anycast.
+servers in the anycast set.
 
 The Timestamp value specifies a date and time in the form of a 32-bit unsigned
 number of seconds elapsed since 1 January 1970 00:00:00 UTC, ignoring leap
@@ -287,9 +287,9 @@ network return consistent results.
 
 # Updating the Server Secret {#rollingSecret}
 
-All servers in an anycast group must be able to verify the Server Cookies
+All servers in an anycast set must be able to verify the Server Cookies
 constructed by all other servers in that anycast set at all times.  Therefore
-it is vital that the Server Secret is shared among all servers before it us
+it is vital that the Server Secret is shared among all servers before it is
 used to generate Server Cookies.
 
 Also, to maximize maintaining established relationships between clients and
@@ -374,7 +374,7 @@ Version | Size  | Method
 
 # Security and Privacy Considerations {#securityConsiderations}
 
-DNS Cookies  provides limited protection to DNS servers and clients against a
+DNS Cookies provides limited protection to DNS servers and clients against a
 variety of denial-of-service and amplification/forgery or cache poisoning
 attacks by off-path attackers. They provide no protection against on-path
 adversaries that can observe the plaintext DNS traffic. An on-path adversary
@@ -399,7 +399,7 @@ that do not support DNS Cookies. To prevent tracking of clients with non DNS
 Cookie supporting servers, a client MUST NOT send a previously sent Client
 Cookie. To prevent the creation of a new Client Cookie for each query to an non
 DNS Cookies supporting server, it is RECOMMENDED to not send a Client Cookie to
-that server for a certain period, like for example five minute.
+that server for a certain period, for example five minute.
 
 Summarizing:
 
@@ -447,7 +447,7 @@ text and above all for implementing a prototype of an interoperable DNS Cookie
 in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
 for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
 Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
-Bob Harold and Philip Homburg
+Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
 
 {{test-vectors.md}}
 
