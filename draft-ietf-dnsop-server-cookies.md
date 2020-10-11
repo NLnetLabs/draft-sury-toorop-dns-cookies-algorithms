@@ -69,7 +69,7 @@ organization = "Internet Systems Consortium"
 
 .# Abstract
 
-DNS cookies, as specified in RFC 7873, are a lightweight DNS transaction
+DNS cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provides limited protection to DNS servers and
 clients against a variety of denial-of-service and amplification, forgery,
 or cache poisoning attacks by off-path attackers.
@@ -137,7 +137,7 @@ Acknowledgements are in (#acknowledgements).
 
 Test vectors are in (#testVectors).
 
-## Definitions
+## Terminology and Definitions
 
 The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**",
@@ -156,7 +156,7 @@ for computing Client and Server Cookies, respectively.  These algorithms MUST
 NOT be used as the resulting cookies are too weak when evaluated against modern
 security standards.
 
-In its Appendix B.2, [RFC7873] provides an example "more complex" server
+In its Appendix B.2, [@!RFC7873] provides an example "more complex" server
 algorithm. This algorithm is replaced by the interoperable specification in
 (#serverCookie) of this document, which MUST be used by Server Cookie
 implementations.
@@ -196,7 +196,7 @@ known. Therefore, the requirement to put Client IP address as input was
 removed.
 
 However, for privacy reasons, in order to prevent tracking of devices across
-links and to not circumvent IPv6 Privacy Extensions [RFC4941], Clients MUST
+links and to not circumvent IPv6 Privacy Extensions [@RFC4941], Clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
 One way to track Client IP addresses, is to register the Client IP address
@@ -361,8 +361,6 @@ Reference: [this document], [@!RFC7873]\\
 Note: Server Cookie method (construction and pseudorandom algorithm) are
 determined by the Version in the first byte of the Cookie and by the Cookie
 size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.
-
-Implementation recommendations for Cookie Algorithms [DNSCOOKIE-IANA]:
 
 Version | Size  | Method
 -------:|------:|:--------------------
