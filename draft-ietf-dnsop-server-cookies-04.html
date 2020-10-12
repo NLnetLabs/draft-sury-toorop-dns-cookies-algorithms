@@ -1,0 +1,1059 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Interoperable Domain Name System (DNS) Server Cookies</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Contents of this document">
+<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Terminology and Definitions">
+<link href="#rfc.section.2" rel="Chapter" title="2 Changes to [RFC7873]">
+<link href="#rfc.section.3" rel="Chapter" title="3 Constructing a Client Cookie">
+<link href="#rfc.section.4" rel="Chapter" title="4 Constructing a Server Cookie">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 The Version Sub-Field">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 The Reserved Sub-Field">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 The Timestamp Sub-Field">
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 The Hash Sub-Field">
+<link href="#rfc.section.5" rel="Chapter" title="5 Updating the Server Secret">
+<link href="#rfc.section.6" rel="Chapter" title="6 Cookie Algorithms">
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
+<link href="#rfc.section.8" rel="Chapter" title="8 Security and Privacy Considerations">
+<link href="#rfc.references" rel="Chapter" title="9 References">
+<link href="#rfc.references.1" rel="Chapter" title="9.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="9.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Test vectors">
+<link href="#rfc.appendix.B.1" rel="Chapter" title="B.1 Learning a new Server Cookie">
+<link href="#rfc.appendix.B.2" rel="Chapter" title="B.2 The same client learning a renewed (fresh) Server Cookie">
+<link href="#rfc.appendix.B.3" rel="Chapter" title="B.3 Another client learning a renewed Server Cookie">
+<link href="#rfc.appendix.B.4" rel="Chapter" title="B.4 IPv6 query with rolled over secret">
+<link href="#rfc.appendix.C" rel="Chapter" title="C Implementation status">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.40.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Sury, O., Toorop, W., Eastlake 3rd, D., and M. Andrews" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-dnsop-server-cookies-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-10-26" />
+  <meta name="dct.abstract" content="DNS Cookies, as specified in , are a lightweight DNS transaction security mechanism that provide limited protection to DNS servers and clients against a variety of denial-of-service and amplification, forgery, or cache poisoning attacks by off-path attackers.   This document provides precise directions for creating Server Cookies so that an anycast server set including diverse implementations will interoperate with standard clients.   This document updates   " />
+  <meta name="description" content="DNS Cookies, as specified in , are a lightweight DNS transaction security mechanism that provide limited protection to DNS servers and clients against a variety of denial-of-service and amplification, forgery, or cache poisoning attacks by off-path attackers.   This document provides precise directions for creating Server Cookies so that an anycast server set including diverse implementations will interoperate with standard clients.   This document updates   " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">DNSOP Working Group</td>
+<td class="right">O. Sury</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">Internet Systems Consortium</td>
+</tr>
+<tr>
+<td class="left">Updates: 7873 (if approved)</td>
+<td class="right">W. Toorop</td>
+</tr>
+<tr>
+<td class="left">Intended status: Standards Track</td>
+<td class="right">NLnet Labs</td>
+</tr>
+<tr>
+<td class="left">Expires: April 29, 2021</td>
+<td class="right">D. Eastlake 3rd</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Futurewei Technologies</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">M. Andrews</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Internet Systems Consortium</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">October 26, 2020</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Interoperable Domain Name System (DNS) Server Cookies<br />
+  <span class="filename">draft-ietf-dnsop-server-cookies-04</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>DNS Cookies, as specified in <a href="#RFC7873" class="xref">[RFC7873]</a>, are a lightweight DNS transaction security mechanism that provide limited protection to DNS servers and clients against a variety of denial-of-service and amplification, forgery, or cache poisoning attacks by off-path attackers.  </p>
+<p>This document provides precise directions for creating Server Cookies so that an anycast server set including diverse implementations will interoperate with standard clients.  </p>
+<p>This document updates <a href="#RFC7873" class="xref">[RFC7873]</a> </p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on April 29, 2021.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Contents of this document</a>
+</li>
+<li>1.2.   <a href="#rfc.section.1.2">Terminology and Definitions</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">Changes to [RFC7873]</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Constructing a Client Cookie</a>
+</li>
+<li>4.   <a href="#rfc.section.4">Constructing a Server Cookie</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">The Version Sub-Field</a>
+</li>
+<li>4.2.   <a href="#rfc.section.4.2">The Reserved Sub-Field</a>
+</li>
+<li>4.3.   <a href="#rfc.section.4.3">The Timestamp Sub-Field</a>
+</li>
+<li>4.4.   <a href="#rfc.section.4.4">The Hash Sub-Field</a>
+</li>
+</ul><li>5.   <a href="#rfc.section.5">Updating the Server Secret</a>
+</li>
+<li>6.   <a href="#rfc.section.6">Cookie Algorithms</a>
+</li>
+<li>7.   <a href="#rfc.section.7">IANA Considerations</a>
+</li>
+<li>8.   <a href="#rfc.section.8">Security and Privacy Considerations</a>
+</li>
+<li>9.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>9.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
+</li>
+<li>Appendix B.   <a href="#rfc.appendix.B">Test vectors</a>
+</li>
+<ul><li>B.1.   <a href="#rfc.appendix.B.1">Learning a new Server Cookie</a>
+</li>
+<li>B.2.   <a href="#rfc.appendix.B.2">The same client learning a renewed (fresh) Server Cookie</a>
+</li>
+<li>B.3.   <a href="#rfc.appendix.B.3">Another client learning a renewed Server Cookie</a>
+</li>
+<li>B.4.   <a href="#rfc.appendix.B.4">IPv6 query with rolled over secret</a>
+</li>
+</ul><li>Appendix C.   <a href="#rfc.appendix.C">Implementation status</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">DNS Cookies, as specified in <a href="#RFC7873" class="xref">[RFC7873]</a>, are a lightweight DNS transaction security mechanism that provide limited protection to DNS servers and clients against a variety of denial-of-service and amplification, forgery, or cache poisoning attacks by off-path attackers. This document specifies a means of producing interoperable strong cookies so that an anycast server set including diverse implementations can be easily configured to interoperate with standard clients.  </p>
+<p id="rfc.section.1.p.2">The threats considered for DNS Cookies and the properties of the DNS Security features other than DNS Cookies are discussed in <a href="#RFC7873" class="xref">[RFC7873]</a>.  </p>
+<p id="rfc.section.1.p.3">In <a href="#RFC7873" class="xref">[RFC7873]</a> in Section 6 it is "RECOMMENDED for simplicity that the same Server Secret be used by each DNS server in a set of anycast servers."  However, how precisely a Server Cookie is calculated from this Server Secret, is left to the implementation.  </p>
+<p id="rfc.section.1.p.4">This guidance has led to a gallimaufry of DNS Cookie implementations, calculating the Server Cookie in different ways. As a result, DNS Cookies are impractical to deploy on multi-vendor anycast networks, because even when all DNS Software share the same secret, as RECOMMENDED in Section 6 of <a href="#RFC7873" class="xref">[RFC7873]</a>, the Server Cookie constructed by one implementation cannot generally be validated by another.  </p>
+<p id="rfc.section.1.p.5">There is no need for DNS client (resolver) Cookies to be interoperable across different implementations. Each client need only be able to recognize its own cookies. However, this document does contain recommendations for constructing Client Cookies in a Client protecting fashion.  </p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#contents-of-this-document" id="contents-of-this-document">Contents of this document</a>
+</h1>
+<p><a href="#changes" class="xref">Section 2</a> summarises the changes to <a href="#RFC7873" class="xref">[RFC7873]</a>.  </p>
+<p id="rfc.section.1.1.p.2">In <a href="#clientCookie" class="xref">Section 3</a> suggestions for constructing a Client Cookie are given.  </p>
+<p id="rfc.section.1.1.p.3">In <a href="#serverCookie" class="xref">Section 4</a> instructions for constructing a Server Cookie are given.  </p>
+<p id="rfc.section.1.1.p.4">In <a href="#rollingSecret" class="xref">Section 5</a> instructions on updating Server Secrets are given.  </p>
+<p id="rfc.section.1.1.p.5">In <a href="#cookieAlgorithms" class="xref">Section 6</a> the different hash functions usable for DNS Cookie construction are listed.  <a href="#FNV" class="xref">[FNV]</a> and HMAC-SHA-256-64 <a href="#RFC6234" class="xref">[RFC6234]</a> are deprecated and <a href="#SipHash-2.4" class="xref">[SipHash-2.4]</a> is introduced as a REQUIRED hash function for server side DNS Cookie implementations.  </p>
+<p id="rfc.section.1.1.p.6">IANA considerations are in <a href="#ianaConsiderations" class="xref">Section 7</a>.  </p>
+<p id="rfc.section.1.1.p.7">Privacy and Security Considerations in <a href="#securityConsiderations" class="xref">Section 8</a>.  </p>
+<p id="rfc.section.1.1.p.8">Acknowledgements are in <a href="#acknowledgements" class="xref">Appendix A</a>.  </p>
+<p id="rfc.section.1.1.p.9">Test vectors are in <a href="#testVectors" class="xref">Appendix B</a>.  </p>
+<h1 id="rfc.section.1.2">
+<a href="#rfc.section.1.2">1.2.</a> <a href="#terminology-and-definitions" id="terminology-and-definitions">Terminology and Definitions</a>
+</h1>
+<p id="rfc.section.1.2.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "<strong>NOT RECOMMENDED</strong>", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.  </p>
+<p></p>
+
+<ul><li>"IP Address" is used herein as a length independent term covering both IPv4 and IPv6 addresses.</li></ul>
+
+<p> </p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#changes" id="changes">Changes to [RFC7873]</a>
+</h1>
+<p id="rfc.section.2.p.1">In its Appendices A.1 and B.1, <a href="#RFC7873" class="xref">[RFC7873]</a> provides example "simple" algorithms for computing Client and Server Cookies, respectively.  These algorithms MUST NOT be used as the resulting cookies are too weak when evaluated against modern security standards.  </p>
+<p id="rfc.section.2.p.2">In its Appendix B.2, <a href="#RFC7873" class="xref">[RFC7873]</a> provides an example "more complex" server algorithm. This algorithm is replaced by the interoperable specification in <a href="#serverCookie" class="xref">Section 4</a> of this document, which MUST be used by Server Cookie implementations.  </p>
+<p id="rfc.section.2.p.3">This document has suggestions on Client Cookie construction in <a href="#clientCookie" class="xref">Section 3</a>.  The previous example in Appendix A.2 of <a href="#RFC7873" class="xref">[RFC7873]</a> is NOT RECOMMENDED.  </p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#clientCookie" id="clientCookie">Constructing a Client Cookie</a>
+</h1>
+<p id="rfc.section.3.p.1">The Client Cookie is a cryptographic nonce and should be treated as such.  It is RECOMMENDED to create a new Client Cookie for each new upstream server a Client connects to. The Client Cookie SHOULD have 64-bits of entropy.  </p>
+<p id="rfc.section.3.p.2">When a Server does not support DNS Cookies, the Client MUST NOT send the same Client Cookie to that same Server again. Instead, it is recommended that the Client does not send a Client Cookie to that Server for a certain period, for example five minutes, before it retries with a new Client Cookie.  </p>
+<p id="rfc.section.3.p.3">When a Server does support DNS Cookies, the Client should store the Client Cookie alongside the Server Cookie it registered for that Server.  </p>
+<p id="rfc.section.3.p.4">Except for when the Client IP address changes, there is no need to change the Client Cookie often. It is reasonable to change the Client Cookie then only if it has been compromised or after a relatively long period of time such as no longer than a year. Client Cookies are not expected to survive a program restart.  </p>
+<pre>
+Client-Cookie = 64 bits of entropy
+</pre>
+<p id="rfc.section.3.p.5">Previously, the recommended algorithm to compute the Client Cookie included Client IP Address as an input to a hashing function. However, when implementing the DNS Cookies, several DNS vendors found impractical to include the Client IP as the Client Cookie is typically computed before the Client IP address is known. Therefore, the requirement to put Client IP address as input was removed.  </p>
+<p id="rfc.section.3.p.6">However, for privacy reasons, in order to prevent tracking of devices across links and to not circumvent IPv6 Privacy Extensions <a href="#RFC4941" class="xref">[RFC4941]</a>, Clients MUST NOT re-use a Client or Server Cookie after the Client IP address has changed.  </p>
+<p id="rfc.section.3.p.7">One way to track Client IP addresses, is to register the Client IP address alongside the Server Cookie when it receives the Server Cookie.  In subsequent queries to the Server with that Server Cookie, the socket MAY be bound to the Client IP address that was also used (and registered) when it received the Server Cookie.  Failure to bind MUST then result in a new Client Cookie.  </p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#serverCookie" id="serverCookie">Constructing a Server Cookie</a>
+</h1>
+<p id="rfc.section.4.p.1">The Server Cookie is effectively a Message Authentication Code (MAC) and should be treated as such.  The Server Cookie is calculated from the Client Cookie, a series of Sub-Fields specified below, the Client IP address, and a Server Secret known only to the servers responding on the same address in an anycast set.  </p>
+<p id="rfc.section.4.p.2">Changing the Server Secret regularly is RECOMMENDED but, when a secure pseudorandom function is used, it need not be changed too frequently.  For example once a month would be adequate.  See <a href="#rollingSecret" class="xref">Section 5</a> on operator and implementation guidelines for updating a Server Secret.  </p>
+<p id="rfc.section.4.p.3">The 128-bit Server Cookie consists of Sub-Fields: a 1 octet Version Sub-Field, a 3 octet Reserved Sub-Field, a 4 octet Timestamp Sub-Field and an 8 octet Hash Sub-Field.  </p>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    Version    |                   Reserved                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           Timestamp                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Hash                              |
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#the-version-subfield" id="the-version-subfield">The Version Sub-Field</a>
+</h1>
+<p id="rfc.section.4.1.p.1">The Version Sub-Field prescribes the structure and Hash calculation formula.  This document defines Version 1 to be the structure and way to calculate the Hash Sub-Field as defined in this Section.  </p>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> <a href="#the-reserved-subfield" id="the-reserved-subfield">The Reserved Sub-Field</a>
+</h1>
+<p id="rfc.section.4.2.p.1">The value of the Reserved Sub-Field is reserved for future versions of Server Side Cookie construction.  On construction it SHOULD be set to zero octets.  On Server Cookie verification the server MUST NOT enforce those fields to be zero and the Hash should be computed with the received value as described in <a href="#hashField" class="xref">Section 4.4</a>.  </p>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#timestampField" id="timestampField">The Timestamp Sub-Field</a>
+</h1>
+<p id="rfc.section.4.3.p.1">The Timestamp value prevents Replay Attacks and MUST be checked by the server to be within a defined period of time.  The DNS Server SHOULD allow Cookies within 1 hour period in the past and 5 minutes into the future to allow operation of low volume clients and some limited time skew between the DNS servers in the anycast set.  </p>
+<p id="rfc.section.4.3.p.2">The Timestamp value specifies a date and time in the form of a 32-bit unsigned number of seconds elapsed since 1 January 1970 00:00:00 UTC, ignoring leap seconds, in network byte order.  All comparisons involving these fields MUST use "Serial number arithmetic", as defined in <a href="#RFC1982" class="xref">[RFC1982]</a> </p>
+<p id="rfc.section.4.3.p.3">The DNS Server SHOULD generate a new Server Cookie at least if the received Server Cookie from the Client is more than half an hour old.  </p>
+<h1 id="rfc.section.4.4">
+<a href="#rfc.section.4.4">4.4.</a> <a href="#hashField" id="hashField">The Hash Sub-Field</a>
+</h1>
+<p id="rfc.section.4.4.p.1">It's important that all the DNS servers use the same algorithm for computing the Server Cookie.  This document defines the Version 1 of the Server Side algorithm to be: </p>
+<pre>
+Hash = SipHash2.4(
+    Client Cookie | Version | Reserved | Timestamp | Client-IP,
+    Server Secret )
+</pre>
+<p id="rfc.section.4.4.p.2">where "|" indicates concatenation.  </p>
+<p id="rfc.section.4.4.p.3">Notice that Client-IP is used for hash generation even though it's not included in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16 bytes for IPv6.  </p>
+<p id="rfc.section.4.4.p.4">The Server Secret MUST be configurable to make sure that servers in an anycast network return consistent results.  </p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#rollingSecret" id="rollingSecret">Updating the Server Secret</a>
+</h1>
+<p id="rfc.section.5.p.1">All servers in an anycast set must be able to verify the Server Cookies constructed by all other servers in that anycast set at all times.  Therefore it is vital that the Server Secret is shared among all servers before it is used to generate Server Cookies.  </p>
+<p id="rfc.section.5.p.2">Also, to maximize maintaining established relationships between clients and servers, an old Server Secret should be valid for verification purposes for a specific period.  </p>
+<p id="rfc.section.5.p.3">To facilitate this, deployment of a new Server Secret MUST be done in three stages: </p>
+<p></p>
+
+<dl>
+<dt>Stage 1</dt>
+<dd style="margin-left: 8">
+<br> The new Server Secret is deployed on all the servers in an anycast set by the operator.</dd>
+</dl>
+
+<p> </p>
+<p></p>
+
+<ul class="empty">
+<li>Each server learns the new Server Secret, but keeps using the previous Server Secret to generate Server Cookies.  </li>
+<li>Server Cookies constructed with the both the new Server Secret and with the previous Server Secret are considered valid when verifying.  </li>
+<li>After stage 1 completed, all the servers in the anycast set have learned the new Server Secret, and can verify Server Cookies constructed with it, but keep generating Server Cookies with the old Server Secret.  </li>
+</ul>
+<p></p>
+
+<dl>
+<dt>Stage 2</dt>
+<dd style="margin-left: 8">
+<br> This stage is initiated by the operator after the Server Cookie is present on all members in the anycast set.</dd>
+</dl>
+
+<p> </p>
+<p></p>
+
+<ul class="empty">
+<li>When entering Stage 2, servers start generating Server Cookies with the new Server Secret. The previous Server Secret is not yet removed/forgotten about.  </li>
+<li>Server Cookies constructed with the both the new Server Secret and with the previous Server Secret are considered valid when verifying.  </li>
+</ul>
+<p></p>
+
+<dl>
+<dt>Stage 3</dt>
+<dd style="margin-left: 8">
+<br> This stage is initiated by the operator when it can be assumed that most clients have learned the new Server Secret.</dd>
+</dl>
+
+<p> </p>
+<p></p>
+
+<ul class="empty">
+<li>With this stage, the previous Server Secret can be removed and MUST NOT be used anymore for verifying.  </li>
+<li>We RECOMMEND the operator to wait at least a period to be the longest TTL in the zones served by the server plus half an hour after it initiated Stage 2, before initiating Stage 3.  </li>
+<li>The operator SHOULD wait at least longer than the period clients are allowed to use the same Server Cookie, which SHOULD be half an hour, see <a href="#timestampField" class="xref">Section 4.3</a>.  </li>
+</ul>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#cookieAlgorithms" id="cookieAlgorithms">Cookie Algorithms</a>
+</h1>
+<p><a href="#SipHash-2.4" class="xref">[SipHash-2.4]</a> is a pseudorandom function suitable as Message Authentication Code.  This document REQUIRES compliant DNS Server to use SipHash-2.4 as a mandatory and default algorithm for DNS Cookies to ensure interoperability between the DNS Implementations.  </p>
+<p id="rfc.section.6.p.2">The construction method and pseudorandom function used in calculating and verifying the Server Cookies are determined by the initial version byte and by the length of the Server Cookie. Additional pseudorandom or construction algorithms for Server Cookies might be added in the future.  </p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#ianaConsiderations" id="ianaConsiderations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.7.p.1">IANA is requested to create a registry on the "Domain Name System (DNS) Parameters" IANA web page as follows: </p>
+<p id="rfc.section.7.p.2">Registry Name: DNS Server Cookie Methods <br> Assignment Policy: Expert Review <br> Reference: [this document], <a href="#RFC7873" class="xref">[RFC7873]</a> <br> Note: Server Cookie method (construction and pseudorandom algorithm) are determined by the Version in the first byte of the Cookie and by the Cookie size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.  </p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="right">Version</th>
+<th class="right">Size</th>
+<th class="left">Method</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">8-32</td>
+<td class="left">reserved</td>
+</tr>
+<tr>
+<td class="right">1</td>
+<td class="right">8-15</td>
+<td class="left">unassiged</td>
+</tr>
+<tr>
+<td class="right">1</td>
+<td class="right">16</td>
+<td class="left">SipHash-2.4 [this document] <a href="#serverCookie" class="xref">Section 4</a>
+</td>
+</tr>
+<tr>
+<td class="right">1</td>
+<td class="right">17-32</td>
+<td class="left">unassigned</td>
+</tr>
+<tr>
+<td class="right">2-239</td>
+<td class="right">8-32</td>
+<td class="left">unassigned</td>
+</tr>
+<tr>
+<td class="right">240-254</td>
+<td class="right">8-32</td>
+<td class="left">private use</td>
+</tr>
+<tr>
+<td class="right">255</td>
+<td class="right">8-32</td>
+<td class="left">reserved</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#securityConsiderations" id="securityConsiderations">Security and Privacy Considerations</a>
+</h1>
+<p id="rfc.section.8.p.1">DNS Cookies provide limited protection to DNS servers and clients against a variety of denial-of-service and amplification/forgery or cache poisoning attacks by off-path attackers. They provide no protection against on-path adversaries that can observe the plaintext DNS traffic. An on-path adversary that can observe a Server Cookie for a client and server interaction, can use that Server Cookie for amplification and denial-of-service forgery attacks for the lifetime of the Server Cookie.  </p>
+<p id="rfc.section.8.p.2">In <a href="#RFC7873" class="xref">[RFC7873]</a> it was RECOMMENDED to construct a Client Cookie by using a pseudorandom function of the Client IP Address, the Server IP Address, and a secret quantity known only to the client. The Client IP Address was included to ensure that a client could not be tracked if its IP Address changes due to privacy mechanisms or otherwise.  </p>
+<p id="rfc.section.8.p.3">In this document, we changed Client Cookie construction to be just 64 bits of entropy newly created for each new upstream server the client connects to.  As a consequence additional care needs to be taken to prevent tracking of clients.  To prevent tracking, a new Client Cookie for a server MUST be created whenever the Client IP Address changes.  </p>
+<p id="rfc.section.8.p.4">Unfortunately, tracking Client IP Address Changes is impractical with servers that do not support DNS Cookies. To prevent tracking of clients with non DNS Cookie supporting servers, a client MUST NOT send a previously sent Client Cookie. To prevent the creation of a new Client Cookie for each query to an non DNS Cookies supporting server, it is RECOMMENDED to not send a Client Cookie to that server for a certain period, for example five minute.  </p>
+<p id="rfc.section.8.p.5">Summarizing: </p>
+<p></p>
+
+<ul>
+<li>In order to provide minimal authentication, a client MUST use a different Client Cookie for each different Server IP Address.</li>
+<li>To prevent tracking of clients, a new Client Cookie MUST be created when the Client IP Address changes.</li>
+<li>To prevent tracking of clients for a non DNS Cookie supporting server, a client MUST NOT send a previously sent Client Cookie to that server, unless it can track Client IP Address changes for those servers too.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.8.p.7">Besides the Client Cookie construction, this update on <a href="#RFC7873" class="xref">[RFC7873]</a> does not introduce any new characteristics to DNS Cookies operations and the Security Considerations section of <a href="#RFC7873" class="xref">[RFC7873]</a> still applies.  </p>
+<h1 id="rfc.references">
+<a href="#rfc.references">9.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">9.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC1982">[RFC1982]</b></td>
+<td class="top">
+<a>Elz, R.</a> and <a>R. Bush</a>, "<a href="https://tools.ietf.org/html/rfc1982">Serial Number Arithmetic</a>", RFC 1982, DOI 10.17487/RFC1982, August 1996.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7873">[RFC7873]</b></td>
+<td class="top">
+<a>Eastlake 3rd, D.</a> and <a>M. Andrews</a>, "<a href="https://tools.ietf.org/html/rfc7873">Domain Name System (DNS) Cookies</a>", RFC 7873, DOI 10.17487/RFC7873, May 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="SipHash-2.4">[SipHash-2.4]</b></td>
+<td class="top">
+<a>Aumasson, J.</a> and <a>D. Bernstein</a>, "<a href="https://131002.net/siphash/">SipHash: a fast short-input PRF</a>", 2012.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">9.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="FNV">[FNV]</b></td>
+<td class="top">
+<a>Fowler, G.</a>, <a>Noll, L.</a>, <a>Vo, K.</a>, <a>Eastlake, D.</a> and <a>T. Hansen</a>, "<a href="https://datatracker.ietf.org/doc/draft-eastlake-fnv">The FNV Non-Cryptographic Hash Algorithm</a>"</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4941">[RFC4941]</b></td>
+<td class="top">
+<a>Narten, T.</a>, <a>Draves, R.</a> and <a>S. Krishnan</a>, "<a href="https://tools.ietf.org/html/rfc4941">Privacy Extensions for Stateless Address Autoconfiguration in IPv6</a>", RFC 4941, DOI 10.17487/RFC4941, September 2007.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6234">[RFC6234]</b></td>
+<td class="top">
+<a>Eastlake 3rd, D.</a> and <a>T. Hansen</a>, "<a href="https://tools.ietf.org/html/rfc6234">US Secure Hash Algorithms (SHA and SHA-based HMAC and HKDF)</a>", RFC 6234, DOI 10.17487/RFC6234, May 2011.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
+</h1>
+<p id="rfc.section.A.p.1">Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and text and above all for implementing a prototype of an interoperable DNS Cookie in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron, Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.  </p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#testVectors" id="testVectors">Test vectors</a>
+</h1>
+<h1 id="rfc.appendix.B.1">
+<a href="#rfc.appendix.B.1">B.1.</a> <a href="#learning-a-new-server-cookie" id="learning-a-new-server-cookie">Learning a new Server Cookie</a>
+</h1>
+<p id="rfc.section.B.1.p.1">A resolver (client) sending from IPv4 address 198.51.100.100, sends a query for <samp>example.com</samp> to an authoritative server listening on 192.0.2.53 from which it has not yet learned the server cookie.  </p>
+<p id="rfc.section.B.1.p.2">The DNS requests and replies shown in this Appendix, are in a "dig" like format.  The content of the DNS COOKIE Option is shown in hexadecimal format after <samp>; COOKIE:</samp>.  </p>
+<pre>
+;; Sending:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 57406
+;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 2464c4abcf10c957
+;; QUESTION SECTION:
+;example.com.                IN      A
+
+;; QUERY SIZE: 52
+</pre>
+<p id="rfc.section.B.1.p.3">The authoritative nameserver (server) is configured with the following secret: e5e973e5a6b2a43f48e7dc849e37bfcf (as hex data).  </p>
+<p id="rfc.section.B.1.p.4">It receives the query at Wed Jun  5 10:53:05 UTC 2019.  </p>
+<p id="rfc.section.B.1.p.5">The content of the DNS COOKIE Option that the server will return is shown below in hexadecimal format after <samp>; COOKIE:</samp> </p>
+<pre>
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 57406
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480 (good)
+;; QUESTION SECTION:
+;example.com.                IN      A
+
+;; ANSWER SECTION:
+example.com.         86400   IN      A       192.0.2.34
+
+;; Query time: 6 msec
+;; SERVER: 192.0.2.53#53(192.0.2.53)
+;; WHEN: Wed Jun  5 10:53:05 UTC 2019
+;; MSD SIZE  rcvd: 84
+</pre>
+<h1 id="rfc.appendix.B.2">
+<a href="#rfc.appendix.B.2">B.2.</a> <a href="#the-same-client-learning-a-renewed-fresh-server-cookie" id="the-same-client-learning-a-renewed-fresh-server-cookie">The same client learning a renewed (fresh) Server Cookie</a>
+</h1>
+<p id="rfc.section.B.2.p.1">40 minutes later, the same resolver (client) queries the same server for for <samp>example.org</samp> : </p>
+<pre>
+;; Sending:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50939
+;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480
+;; QUESTION SECTION:
+;example.org.                IN      A
+
+;; QUERY SIZE: 52
+</pre>
+<p id="rfc.section.B.2.p.2">The authoritative nameserver (server) now generates a new Server Cookie.  The server SHOULD do this because it can see the Server Cookie send by the client is older than half an hour <a href="#timestampField" class="xref">Section 4.3</a>, but it is also fine for a server to generate a new Server Cookie sooner, or even for every answer.  </p>
+<pre>
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50939
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 2464c4abcf10c957010000005cf7a871d4a564a1442aca77 (good)
+;; QUESTION SECTION:
+;example.org.                IN      A
+
+;; ANSWER SECTION:
+example.org.         86400   IN      A       192.0.2.34
+
+;; Query time: 6 msec
+;; SERVER: 192.0.2.53#53(192.0.2.53)
+;; WHEN: Wed Jun  5 11:33:05 UTC 2019
+;; MSD SIZE  rcvd: 84
+</pre>
+<h1 id="rfc.appendix.B.3">
+<a href="#rfc.appendix.B.3">B.3.</a> <a href="#another-client-learning-a-renewed-server-cookie" id="another-client-learning-a-renewed-server-cookie">Another client learning a renewed Server Cookie</a>
+</h1>
+<p id="rfc.section.B.3.p.1">Another resolver (client) with IPv4 address 203.0.113.203 sends a request to the same server with a valid Server Cookie that it learned before (at Wed Jun  5 09:46:25 UTC 2019). Note that the Server Cookie has Reserved bytes set, but is still valid with the configured secret; the Hash part is calculated taking along the Reserved bytes.  </p>
+<pre>
+;; Sending:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 34736
+;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: fc93fc62807ddb8601abcdef5cf78f71a314227b6679ebf5
+;; QUESTION SECTION:
+;example.com.                IN      A
+
+;; QUERY SIZE: 52
+</pre>
+<p id="rfc.section.B.3.p.2">The authoritative nameserver (server) replies with a freshly generated Server Cookie for this client conformant with this specification; so with the Reserved bits set to zero.  </p>
+<pre>
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 34736
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: fc93fc62807ddb86010000005cf7a9acf73a7810aca2381e (good)
+;; QUESTION SECTION:
+;example.com.                IN      A
+
+;; ANSWER SECTION:
+example.com.         86400   IN      A       192.0.2.34
+
+;; Query time: 6 msec
+;; SERVER: 192.0.2.53#53(192.0.2.53)
+;; WHEN: Wed Jun  5 11:38:20 UTC 2019
+;; MSD SIZE  rcvd: 84
+</pre>
+<h1 id="rfc.appendix.B.4">
+<a href="#rfc.appendix.B.4">B.4.</a> <a href="#ipv6-query-with-rolled-over-secret" id="ipv6-query-with-rolled-over-secret">IPv6 query with rolled over secret</a>
+</h1>
+<p id="rfc.section.B.4.p.1">The query below is from a client with IPv6 address 2001:db8:220:1:59de:d0f4:8769:82b8 to a server with IPv6 address 2001:db8:8f::53.  The client has learned a valid Server Cookie before when the Server had secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a new secret, but it can still validate the Server Cookie provided by the client as the old secret has not expired yet.  </p>
+<pre>
+;; Sending:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 6774
+;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 22681ab97d52c298010000005cf7c57926556bd0934c72f8
+;; QUESTION SECTION:
+;example.net.                IN      A
+
+;; QUERY SIZE: 52
+</pre>
+<p id="rfc.section.B.4.p.2">The authoritative nameserver (server) replies with a freshly generated server cookie for this client with its new secret: 445536bcd2513298075a5d379663c962 </p>
+<pre>
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 6774
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 22681ab97d52c298010000005cf7c609a6bb79d16625507a (good)
+;; QUESTION SECTION:
+;example.net.                IN      A
+
+;; ANSWER SECTION:
+example.net.         86400   IN      A       192.0.2.34
+
+;; Query time: 6 msec
+;; SERVER: 2001:db8:8f::53#53(2001:db8:8f::53)
+;; WHEN: Wed Jun  5 13:36:57 UTC 2019
+;; MSD SIZE  rcvd: 84
+</pre>
+<h1 id="rfc.appendix.C">
+<a href="#rfc.appendix.C">Appendix C.</a> <a href="#implementation-status" id="implementation-status">Implementation status</a>
+</h1>
+<p id="rfc.section.C.p.1">At the time of writing, BIND from version 9.16 and Knot DNS from version 2.9.0 create Server Cookies according to the recipe described in this draft. Unbound and NSD have an Proof of Concept implementation that has been tested for interoperability during the hackathon at the IETF104 in Prague.  Construction of privacy maintaining Client Cookies according to the directions in this draft have been implemented in the getdns library and will be in the upcoming getdns-1.6.1 release and in Stubby version 0.3.1.  </p>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Ondrej Sury</span> 
+	  <span class="n hidden">
+		<span class="family-name">Sury</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Internet Systems Consortium</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline">CZ</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ondrej@isc.org">ondrej@isc.org</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Willem Toorop</span> 
+	  <span class="n hidden">
+		<span class="family-name">Toorop</span>
+	  </span>
+	</span>
+	<span class="org vcardline">NLnet Labs</span>
+	<span class="adr">
+	  <span class="vcardline">Science Park 400</span>
+
+	  <span class="vcardline">
+		<span class="locality">Amsterdam</span>,  
+		<span class="region"></span>
+		<span class="code">1098 XH</span>
+	  </span>
+	  <span class="country-name vcardline">Netherlands</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:willem@nlnetlabs.nl">willem@nlnetlabs.nl</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Donald E. Eastlake 3rd</span> 
+	  <span class="n hidden">
+		<span class="family-name">Eastlake 3rd</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Futurewei Technologies</span>
+	<span class="adr">
+	  <span class="vcardline">1424 Pro Shop Court</span>
+
+	  <span class="vcardline">
+		<span class="locality">Davenport</span>,  
+		<span class="region"></span>
+		<span class="code">FL 33896</span>
+	  </span>
+	  <span class="country-name vcardline">USA</span>
+	</span>
+	<span class="vcardline">Phone: +1-508-333-2270</span>
+
+<span class="vcardline">EMail: <a href="mailto:d3e3e3@gmail.com">d3e3e3@gmail.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Mark Andrews</span> 
+	  <span class="n hidden">
+		<span class="family-name">Andrews</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Internet Systems Consortium</span>
+	<span class="adr">
+	  <span class="vcardline">950 Charter Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">Redwood City</span>,  
+		<span class="region"></span>
+		<span class="code">CA 94063</span>
+	  </span>
+	  <span class="country-name vcardline">USA</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:marka@isc.org">marka@isc.org</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
