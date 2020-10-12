@@ -70,7 +70,7 @@ organization = "Internet Systems Consortium"
 .# Abstract
 
 DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
-security mechanism that provides limited protection to DNS servers and
+security mechanism that provide limited protection to DNS servers and
 clients against a variety of denial-of-service and amplification, forgery,
 or cache poisoning attacks by off-path attackers.
 
@@ -84,8 +84,8 @@ This document updates [@!RFC7873]
 
 # Introduction
 
-DNS cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
-security mechanism that provides limited protection to DNS servers and
+DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
+security mechanism that provide limited protection to DNS servers and
 clients against a variety of denial-of-service and amplification, forgery,
 or cache poisoning attacks by off-path attackers. This document specifies a
 means of producing interoperable strong cookies so that an anycast server
@@ -374,7 +374,7 @@ Version | Size  | Method
 
 # Security and Privacy Considerations {#securityConsiderations}
 
-DNS Cookies provides limited protection to DNS servers and clients against a
+DNS Cookies provide limited protection to DNS servers and clients against a
 variety of denial-of-service and amplification/forgery or cache poisoning
 attacks by off-path attackers. They provide no protection against on-path
 adversaries that can observe the plaintext DNS traffic. An on-path adversary
