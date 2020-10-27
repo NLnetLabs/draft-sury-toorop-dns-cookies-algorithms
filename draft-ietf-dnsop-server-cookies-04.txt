@@ -454,7 +454,7 @@ Internet-Draft               server-cookies                 October 2020
         | Version |  Size | Method                                |
         +---------+-------+---------------------------------------+
         |       0 |  8-32 | reserved                              |
-        |       1 |  8-15 | unassiged                             |
+        |       1 |  8-15 | unassigned                            |
         |       1 |    16 | SipHash-2.4 [this document] Section 4 |
         |       1 | 17-32 | unassigned                            |
         |   2-239 |  8-32 | unassigned                            |
@@ -753,9 +753,10 @@ B.4.  IPv6 query with rolled over secret
    The query below is from a client with IPv6 address
    2001:db8:220:1:59de:d0f4:8769:82b8 to a server with IPv6 address
    2001:db8:8f::53.  The client has learned a valid Server Cookie before
-   when the Server had secret: dd3bdf9344b678b185a6f5cb60fca715.  The
-   server now uses a new secret, but it can still validate the Server
-   Cookie provided by the client as the old secret has not expired yet.
+   when the Server had the secret: dd3bdf9344b678b185a6f5cb60fca715.
+   The server now uses a new secret, but it can still validate the
+   Server Cookie provided by the client as the old secret has not
+   expired yet.
 
         ;; Sending:
         ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6774
@@ -772,7 +773,6 @@ B.4.  IPv6 query with rolled over secret
    The authoritative nameserver (server) replies with a freshly
    generated server cookie for this client with its new secret:
    445536bcd2513298075a5d379663c962
-
 
 
 

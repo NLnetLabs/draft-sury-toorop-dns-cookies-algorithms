@@ -703,7 +703,7 @@ Hash = SipHash2.4(
 <tr>
 <td class="right">1</td>
 <td class="right">8-15</td>
-<td class="left">unassiged</td>
+<td class="left">unassigned</td>
 </tr>
 <tr>
 <td class="right">1</td>
@@ -925,7 +925,7 @@ example.com.         86400   IN      A       192.0.2.34
 <h1 id="rfc.appendix.B.4">
 <a href="#rfc.appendix.B.4">B.4.</a> <a href="#ipv6-query-with-rolled-over-secret" id="ipv6-query-with-rolled-over-secret">IPv6 query with rolled over secret</a>
 </h1>
-<p id="rfc.section.B.4.p.1">The query below is from a client with IPv6 address 2001:db8:220:1:59de:d0f4:8769:82b8 to a server with IPv6 address 2001:db8:8f::53.  The client has learned a valid Server Cookie before when the Server had secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a new secret, but it can still validate the Server Cookie provided by the client as the old secret has not expired yet.  </p>
+<p id="rfc.section.B.4.p.1">The query below is from a client with IPv6 address 2001:db8:220:1:59de:d0f4:8769:82b8 to a server with IPv6 address 2001:db8:8f::53.  The client has learned a valid Server Cookie before when the Server had the secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a new secret, but it can still validate the Server Cookie provided by the client as the old secret has not expired yet.  </p>
 <pre>
 ;; Sending:
 ;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 6774

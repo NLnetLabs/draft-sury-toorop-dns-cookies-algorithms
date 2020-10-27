@@ -365,7 +365,7 @@ size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.
 Version | Size  | Method
 -------:|------:|:--------------------
 0       |  8-32 | reserved
-1       |  8-15 | unassiged
+1       |  8-15 | unassigned
 1       |    16 | SipHash-2.4 \[this document\] (#serverCookie)
 1       | 17-32 | unassigned
 2-239   |  8-32 | unassigned

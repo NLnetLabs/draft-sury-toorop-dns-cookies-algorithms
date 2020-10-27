@@ -418,7 +418,7 @@ size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.
 <ttcol align="left">Method</ttcol>
 
 <c>0</c><c>8-32</c><c>reserved</c>
-<c>1</c><c>8-15</c><c>unassiged</c>
+<c>1</c><c>8-15</c><c>unassigned</c>
 <c>1</c><c>16</c><c>SipHash-2.4 [this document] <xref target="serverCookie"/></c>
 <c>1</c><c>17-32</c><c>unassigned</c>
 <c>2-239</c><c>8-32</c><c>unassigned</c>
@@ -666,7 +666,7 @@ example.com.         86400   IN      A       192.0.2.34
 <section anchor="ipv6-query-with-rolled-over-secret" title="IPv6 query with rolled over secret">
 <t>The query below is from a client with IPv6 address 2001:db8:220:1:59de:d0f4:8769:82b8 to a server
 with IPv6 address 2001:db8:8f::53.  The client has learned a valid Server Cookie
-before when the Server had secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a
+before when the Server had the secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a
 new secret, but it can still validate the Server Cookie provided by the client
 as the old secret has not expired yet.
 </t>

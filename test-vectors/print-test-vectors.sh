@@ -203,7 +203,7 @@ cat << EOT
 
 The query below is from a client with IPv6 address ${CLIENT_IP6} to a server
 with IPv6 address ${SERVER_IP6}.  The client has learned a valid Server Cookie
-before when the Server had secret: ${SERVER_SECRET6}.  The server now uses a
+before when the Server had the secret: ${SERVER_SECRET6}.  The server now uses a
 new secret, but it can still validate the Server Cookie provided by the client
 as the old secret has not expired yet.
 

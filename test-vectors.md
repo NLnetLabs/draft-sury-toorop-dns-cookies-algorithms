@@ -143,7 +143,7 @@ example.com.         86400   IN      A       192.0.2.34
 
 The query below is from a client with IPv6 address 2001:db8:220:1:59de:d0f4:8769:82b8 to a server
 with IPv6 address 2001:db8:8f::53.  The client has learned a valid Server Cookie
-before when the Server had secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a
+before when the Server had the secret: dd3bdf9344b678b185a6f5cb60fca715.  The server now uses a
 new secret, but it can still validate the Server Cookie provided by the client
 as the old secret has not expired yet.
 
