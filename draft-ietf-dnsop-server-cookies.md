@@ -417,6 +417,15 @@ Besides the Client Cookie construction, this update on [@!RFC7873] does not
 introduce any new characteristics to DNS Cookies operations and the Security
 Considerations section of [@!RFC7873] still applies.
 
+# Acknowledgements {#acknowledgements}
+
+Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and
+text and above all for implementing a prototype of an interoperable DNS Cookie
+in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
+for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
+Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
+Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
+
 <reference anchor='FNV' target='https://datatracker.ietf.org/doc/draft-eastlake-fnv'>
     <front>
         <title>The FNV Non-Cryptographic Hash Algorithm</title>
@@ -439,15 +448,6 @@ Considerations section of [@!RFC7873] still applies.
 </reference>
 
 {backmatter}
-
-# Acknowledgements {#acknowledgements}
-
-Thanks to Witold Krecicki and Pieter Lexis for valuable input, suggestions and
-text and above all for implementing a prototype of an interoperable DNS Cookie
-in Bind9, Knot and PowerDNS during the hackathon of IETF104 in Prague.  Thanks
-for valuable input and suggestions go to Ralph Dolmans, Bob Harold, Daniel
-Salzman, Martin Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron,
-Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
 
 {{test-vectors.md}}
 
