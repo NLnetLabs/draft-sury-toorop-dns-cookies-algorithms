@@ -6,11 +6,11 @@ DNSOP Working Group                                              O. Sury
 Internet-Draft                               Internet Systems Consortium
 Updates: 7873 (if approved)                                    W. Toorop
 Intended status: Standards Track                              NLnet Labs
-Expires: April 29, 2021                                  D. Eastlake 3rd
+Expires: 29 April 2021                                   D. Eastlake 3rd
                                                   Futurewei Technologies
                                                               M. Andrews
                                              Internet Systems Consortium
-                                                        October 26, 2020
+                                                         26 October 2020
 
 
          Interoperable Domain Name System (DNS) Server Cookies
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 29, 2021.
+   This Internet-Draft will expire on 29 April 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Sury, et al.             Expires April 29, 2021                 [Page 1]
+Sury, et al.              Expires 29 April 2021                 [Page 1]
 
 Internet-Draft               server-cookies                 October 2020
 
@@ -64,18 +64,17 @@ Copyright Notice
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Simplified BSD License text
+   as described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Simplified BSD License.
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Contents of this document . . . . . . . . . . . . . . . .   3
      1.2.  Terminology and Definitions . . . . . . . . . . . . . . .   4
    2.  Changes to [RFC7873]  . . . . . . . . . . . . . . . . . . . .   4
@@ -89,31 +88,37 @@ Table of Contents
    6.  Cookie Algorithms . . . . . . . . . . . . . . . . . . . . . .   8
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
    8.  Security and Privacy Considerations . . . . . . . . . . . . .   9
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
-   Appendix B.  Test vectors . . . . . . . . . . . . . . . . . . . .  11
-     B.1.  Learning a new Server Cookie  . . . . . . . . . . . . . .  11
-     B.2.  The same client learning a renewed (fresh) Server Cookie   12
-     B.3.  Another client learning a renewed Server Cookie . . . . .  13
-     B.4.  IPv6 query with rolled over secret  . . . . . . . . . . .  14
-   Appendix C.  Implementation status  . . . . . . . . . . . . . . .  15
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   10. Normative References  . . . . . . . . . . . . . . . . . . . .  10
+   11. Informative References  . . . . . . . . . . . . . . . . . . .  11
+   Appendix A.  Test vectors . . . . . . . . . . . . . . . . . . . .  11
+     A.1.  Learning a new Server Cookie  . . . . . . . . . . . . . .  11
+     A.2.  The same client learning a renewed (fresh) Server
+           Cookie  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     A.3.  Another client learning a renewed Server Cookie . . . . .  13
+     A.4.  IPv6 query with rolled over secret  . . . . . . . . . . .  14
+   Appendix B.  Implementation status  . . . . . . . . . . . . . . .  15
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+
+
+
+
+
+
+
+
+
+
+Sury, et al.              Expires 29 April 2021                 [Page 2]
+
+Internet-Draft               server-cookies                 October 2020
+
 
 1.  Introduction
 
    DNS Cookies, as specified in [RFC7873], are a lightweight DNS
    transaction security mechanism that provide limited protection to DNS
    servers and clients against a variety of denial-of-service and
-
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 2]
-
-Internet-Draft               server-cookies                 October 2020
-
-
    amplification, forgery, or cache poisoning attacks by off-path
    attackers.  This document specifies a means of producing
    interoperable strong cookies so that an anycast server set including
@@ -158,29 +163,28 @@ Internet-Draft               server-cookies                 October 2020
 
    IANA considerations are in Section 7.
 
-   Privacy and Security Considerations in Section 8.
-
-   Acknowledgements are in Appendix A.
 
 
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 3]
+Sury, et al.              Expires 29 April 2021                 [Page 3]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-   Test vectors are in Appendix B.
+   Privacy and Security Considerations in Section 8.
+
+   Acknowledgements are in Section 9.
+
+   Test vectors are in Appendix A.
 
 1.2.  Terminology and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "*NOT RECOMMENDED*", "MAY",
-   and "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   o  "IP Address" is used herein as a length independent term covering
+   *  "IP Address" is used herein as a length independent term covering
       both IPv4 and IPv6 addresses.
 
 2.  Changes to [RFC7873]
@@ -212,25 +216,27 @@ Internet-Draft               server-cookies                 October 2020
    Server for a certain period, for example five minutes, before it
    retries with a new Client Cookie.
 
+
+
+
+
+
+Sury, et al.              Expires 29 April 2021                 [Page 4]
+
+Internet-Draft               server-cookies                 October 2020
+
+
    When a Server does support DNS Cookies, the Client should store the
    Client Cookie alongside the Server Cookie it registered for that
    Server.
 
    Except for when the Client IP address changes, there is no need to
    change the Client Cookie often.  It is reasonable to change the
-
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 4]
-
-Internet-Draft               server-cookies                 October 2020
-
-
    Client Cookie then only if it has been compromised or after a
    relatively long period of time such as no longer than a year.  Client
    Cookies are not expected to survive a program restart.
 
-                    Client-Cookie = 64 bits of entropy
+   Client-Cookie = 64 bits of entropy
 
    Previously, the recommended algorithm to compute the Client Cookie
    included Client IP Address as an input to a hashing function.
@@ -271,27 +277,21 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-
-
-
-
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 5]
+Sury, et al.              Expires 29 April 2021                 [Page 5]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-      0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |    Version    |                   Reserved                    |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                           Timestamp                           |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                             Hash                              |
-     |                                                               |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |    Version    |                   Reserved                    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                           Timestamp                           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                             Hash                              |
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 4.1.  The Version Sub-Field
 
@@ -333,14 +333,14 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.             Expires April 29, 2021                 [Page 6]
+Sury, et al.              Expires 29 April 2021                 [Page 6]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-      Hash = SipHash2.4(
-          Client Cookie | Version | Reserved | Timestamp | Client-IP,
-          Server Secret )
+   Hash = SipHash2.4(
+       Client Cookie | Version | Reserved | Timestamp | Client-IP,
+       Server Secret )
 
    where "|" indicates concatenation.
 
@@ -365,57 +365,53 @@ Internet-Draft               server-cookies                 October 2020
    To facilitate this, deployment of a new Server Secret MUST be done in
    three stages:
 
-   Stage 1
-      The new Server Secret is deployed on all the servers in an anycast
-      set by the operator.
+   Stage 1  The new Server Secret is deployed on all the servers in an
+      anycast set by the operator.
 
-      Each server learns the new Server Secret, but keeps using the
-      previous Server Secret to generate Server Cookies.
+   |  Each server learns the new Server Secret, but keeps using the
+   |  previous Server Secret to generate Server Cookies.
+   |  
+   |  Server Cookies constructed with the both the new Server Secret and
+   |  with the previous Server Secret are considered valid when
+   |  verifying.
+   |  
+   |  After stage 1 completed, all the servers in the anycast set have
+   |  learned the new Server Secret, and can verify Server Cookies
+   |  constructed with it, but keep generating Server Cookies with the
+   |  old Server Secret.
 
-      Server Cookies constructed with the both the new Server Secret and
-      with the previous Server Secret are considered valid when
-      verifying.
+   Stage 2  This stage is initiated by the operator after the Server
+      Cookie is present on all members in the anycast set.
 
-      After stage 1 completed, all the servers in the anycast set have
-      learned the new Server Secret, and can verify Server Cookies
-      constructed with it, but keep generating Server Cookies with the
-      old Server Secret.
-
-   Stage 2
-      This stage is initiated by the operator after the Server Cookie is
-      present on all members in the anycast set.
+   |  When entering Stage 2, servers start generating Server Cookies
+   |  with the new Server Secret.  The previous Server Secret is not yet
+   |  removed/forgotten about.
 
 
 
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 7]
+Sury, et al.              Expires 29 April 2021                 [Page 7]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-      When entering Stage 2, servers start generating Server Cookies
-      with the new Server Secret.  The previous Server Secret is not yet
-      removed/forgotten about.
+   |  
+   |  Server Cookies constructed with the both the new Server Secret and
+   |  with the previous Server Secret are considered valid when
+   |  verifying.
 
-      Server Cookies constructed with the both the new Server Secret and
-      with the previous Server Secret are considered valid when
-      verifying.
+   Stage 3  This stage is initiated by the operator when it can be
+      assumed that most clients have learned the new Server Secret.
 
-   Stage 3
-      This stage is initiated by the operator when it can be assumed
-      that most clients have learned the new Server Secret.
-
-      With this stage, the previous Server Secret can be removed and
-      MUST NOT be used anymore for verifying.
-
-      We RECOMMEND the operator to wait at least a period to be the
-      longest TTL in the zones served by the server plus half an hour
-      after it initiated Stage 2, before initiating Stage 3.
-
-      The operator SHOULD wait at least longer than the period clients
-      are allowed to use the same Server Cookie, which SHOULD be half an
-      hour, see Section 4.3.
+   |  With this stage, the previous Server Secret can be removed and
+   |  MUST NOT be used anymore for verifying.
+   |  
+   |  We RECOMMEND the operator to wait at least a period to be the
+   |  longest TTL in the zones served by the server plus half an hour
+   |  after it initiated Stage 2, before initiating Stage 3.
+   |  
+   |  The operator SHOULD wait at least longer than the period clients
+   |  are allowed to use the same Server Cookie, which SHOULD be half an
+   |  hour, see Section 4.3.
 
 6.  Cookie Algorithms
 
@@ -435,32 +431,44 @@ Internet-Draft               server-cookies                 October 2020
    IANA is requested to create a registry on the "Domain Name System
    (DNS) Parameters" IANA web page as follows:
 
-   Registry Name: DNS Server Cookie Methods
-   Assignment Policy: Expert Review
-   Reference: [this document], [RFC7873]
-   Note: Server Cookie method (construction and pseudorandom algorithm)
-   are determined by the Version in the first byte of the Cookie and by
-   the Cookie size.  Server Cookie size is limited to the inclusive
-   range of 8 to 32 bytes.
+   Registry Name: DNS Server Cookie Methods\ Assignment Policy: Expert
+   Review\ Reference: [this document], [RFC7873]\ Note: Server Cookie
+   method (construction and pseudorandom algorithm) are determined by
+   the Version in the first byte of the Cookie and by the Cookie size.
+   Server Cookie size is limited to the inclusive range of 8 to 32
+   bytes.
 
 
 
-Sury, et al.             Expires April 29, 2021                 [Page 8]
+
+
+
+
+
+Sury, et al.              Expires 29 April 2021                 [Page 8]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-        +---------+-------+---------------------------------------+
+        +=========+=======+=======================================+
         | Version |  Size | Method                                |
-        +---------+-------+---------------------------------------+
+        +=========+=======+=======================================+
         |       0 |  8-32 | reserved                              |
+        +---------+-------+---------------------------------------+
         |       1 |  8-15 | unassigned                            |
+        +---------+-------+---------------------------------------+
         |       1 |    16 | SipHash-2.4 [this document] Section 4 |
+        +---------+-------+---------------------------------------+
         |       1 | 17-32 | unassigned                            |
+        +---------+-------+---------------------------------------+
         |   2-239 |  8-32 | unassigned                            |
+        +---------+-------+---------------------------------------+
         | 240-254 |  8-32 | private use                           |
+        +---------+-------+---------------------------------------+
         |     255 |  8-32 | reserved                              |
         +---------+-------+---------------------------------------+
+
+                                  Table 1
 
 8.  Security and Privacy Considerations
 
@@ -490,26 +498,27 @@ Internet-Draft               server-cookies                 October 2020
    servers that do not support DNS Cookies.  To prevent tracking of
    clients with non DNS Cookie supporting servers, a client MUST NOT
    send a previously sent Client Cookie.  To prevent the creation of a
+
+
+
+Sury, et al.              Expires 29 April 2021                 [Page 9]
+
+Internet-Draft               server-cookies                 October 2020
+
+
    new Client Cookie for each query to an non DNS Cookies supporting
    server, it is RECOMMENDED to not send a Client Cookie to that server
    for a certain period, for example five minute.
 
    Summarizing:
 
-   o  In order to provide minimal authentication, a client MUST use a
+   *  In order to provide minimal authentication, a client MUST use a
       different Client Cookie for each different Server IP Address.
 
-
-
-Sury, et al.             Expires April 29, 2021                 [Page 9]
-
-Internet-Draft               server-cookies                 October 2020
-
-
-   o  To prevent tracking of clients, a new Client Cookie MUST be
+   *  To prevent tracking of clients, a new Client Cookie MUST be
       created when the Client IP Address changes.
 
-   o  To prevent tracking of clients for a non DNS Cookie supporting
+   *  To prevent tracking of clients for a non DNS Cookie supporting
       server, a client MUST NOT send a previously sent Client Cookie to
       that server, unless it can track Client IP Address changes for
       those servers too.
@@ -518,9 +527,17 @@ Internet-Draft               server-cookies                 October 2020
    not introduce any new characteristics to DNS Cookies operations and
    the Security Considerations section of [RFC7873] still applies.
 
-9.  References
+9.  Acknowledgements
 
-9.1.  Normative References
+   Thanks to Witold Krecicki and Pieter Lexis for valuable input,
+   suggestions and text and above all for implementing a prototype of an
+   interoperable DNS Cookie in Bind9, Knot and PowerDNS during the
+   hackathon of IETF104 in Prague.  Thanks for valuable input and
+   suggestions go to Ralph Dolmans, Bob Harold, Daniel Salzman, Martin
+   Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron, Bob
+   Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
+
+10.  Normative References
 
    [RFC1982]  Elz, R. and R. Bush, "Serial Number Arithmetic", RFC 1982,
               DOI 10.17487/RFC1982, August 1996,
@@ -535,15 +552,25 @@ Internet-Draft               server-cookies                 October 2020
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
               <https://www.rfc-editor.org/info/rfc7873>.
 
+
+
+
+
+
+Sury, et al.              Expires 29 April 2021                [Page 10]
+
+Internet-Draft               server-cookies                 October 2020
+
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [SipHash-2.4]
-              Aumasson, J. and D. Bernstein, "SipHash: a fast short-
+              Aumasson, J. and D. J. Bernstein, "SipHash: a fast short-
               input PRF", 2012, <https://131002.net/siphash/>.
 
-9.2.  Informative References
+11.  Informative References
 
    [FNV]      Fowler, G., Noll, L., Vo, K., Eastlake, D., and T. Hansen,
               "The FNV Non-Cryptographic Hash Algorithm",
@@ -554,32 +581,14 @@ Internet-Draft               server-cookies                 October 2020
               IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
               <https://www.rfc-editor.org/info/rfc4941>.
 
-
-
-
-Sury, et al.             Expires April 29, 2021                [Page 10]
-
-Internet-Draft               server-cookies                 October 2020
-
-
    [RFC6234]  Eastlake 3rd, D. and T. Hansen, "US Secure Hash Algorithms
               (SHA and SHA-based HMAC and HKDF)", RFC 6234,
               DOI 10.17487/RFC6234, May 2011,
               <https://www.rfc-editor.org/info/rfc6234>.
 
-Appendix A.  Acknowledgements
+Appendix A.  Test vectors
 
-   Thanks to Witold Krecicki and Pieter Lexis for valuable input,
-   suggestions and text and above all for implementing a prototype of an
-   interoperable DNS Cookie in Bind9, Knot and PowerDNS during the
-   hackathon of IETF104 in Prague.  Thanks for valuable input and
-   suggestions go to Ralph Dolmans, Bob Harold, Daniel Salzman, Martin
-   Hoffmann, Mukund Sivaraman, Petr Spacek, Loganaden Velvindron, Bob
-   Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
-
-Appendix B.  Test vectors
-
-B.1.  Learning a new Server Cookie
+A.1.  Learning a new Server Cookie
 
    A resolver (client) sending from IPv4 address 198.51.100.100, sends a
    query for "example.com" to an authoritative server listening on
@@ -589,17 +598,25 @@ B.1.  Learning a new Server Cookie
    like format.  The content of the DNS COOKIE Option is shown in
    hexadecimal format after "; COOKIE:".
 
-        ;; Sending:
-        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57406
-        ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Sending:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57406
+   ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
 
-        ;; OPT PSEUDOSECTION:
-        ; EDNS: version: 0, flags:; udp: 4096
-        ; COOKIE: 2464c4abcf10c957
-        ;; QUESTION SECTION:
-        ;example.com.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 2464c4abcf10c957
+   ;; QUESTION SECTION:
+   ;example.com.                IN      A
 
-        ;; QUERY SIZE: 52
+   ;; QUERY SIZE: 52
+
+
+
+
+Sury, et al.              Expires 29 April 2021                [Page 11]
+
+Internet-Draft               server-cookies                 October 2020
+
 
    The authoritative nameserver (server) is configured with the
    following secret: e5e973e5a6b2a43f48e7dc849e37bfcf (as hex data).
@@ -609,49 +626,40 @@ B.1.  Learning a new Server Cookie
    The content of the DNS COOKIE Option that the server will return is
    shown below in hexadecimal format after "; COOKIE:"
 
+   ;; Got answer:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57406
+   ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480 (good)
+   ;; QUESTION SECTION:
+   ;example.com.                IN      A
 
+   ;; ANSWER SECTION:
+   example.com.         86400   IN      A       192.0.2.34
 
+   ;; Query time: 6 msec
+   ;; SERVER: 192.0.2.53#53(192.0.2.53)
+   ;; WHEN: Wed Jun  5 10:53:05 UTC 2019
+   ;; MSD SIZE  rcvd: 84
 
-Sury, et al.             Expires April 29, 2021                [Page 11]
-
-Internet-Draft               server-cookies                 October 2020
-
-
-     ;; Got answer:
-     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57406
-     ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
-
-     ;; OPT PSEUDOSECTION:
-     ; EDNS: version: 0, flags:; udp: 4096
-     ; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480 (good)
-     ;; QUESTION SECTION:
-     ;example.com.                IN      A
-
-     ;; ANSWER SECTION:
-     example.com.         86400   IN      A       192.0.2.34
-
-     ;; Query time: 6 msec
-     ;; SERVER: 192.0.2.53#53(192.0.2.53)
-     ;; WHEN: Wed Jun  5 10:53:05 UTC 2019
-     ;; MSD SIZE  rcvd: 84
-
-B.2.  The same client learning a renewed (fresh) Server Cookie
+A.2.  The same client learning a renewed (fresh) Server Cookie
 
    40 minutes later, the same resolver (client) queries the same server
    for for "example.org" :
 
-        ;; Sending:
-        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50939
-        ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Sending:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50939
+   ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
 
-        ;; OPT PSEUDOSECTION:
-        ; EDNS: version: 0, flags:; udp: 4096
-        ; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480
-        ;; QUESTION SECTION:
-        ;example.org.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 2464c4abcf10c957010000005cf79f111f8130c3eee29480
+   ;; QUESTION SECTION:
+   ;example.org.                IN      A
 
-        ;; QUERY SIZE: 52
+   ;; QUERY SIZE: 52
 
    The authoritative nameserver (server) now generates a new Server
    Cookie.  The server SHOULD do this because it can see the Server
@@ -661,38 +669,30 @@ B.2.  The same client learning a renewed (fresh) Server Cookie
 
 
 
-
-
-
-
-
-
-
-
-Sury, et al.             Expires April 29, 2021                [Page 12]
+Sury, et al.              Expires 29 April 2021                [Page 12]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-     ;; Got answer:
-     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50939
-     ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Got answer:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50939
+   ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
-     ;; OPT PSEUDOSECTION:
-     ; EDNS: version: 0, flags:; udp: 4096
-     ; COOKIE: 2464c4abcf10c957010000005cf7a871d4a564a1442aca77 (good)
-     ;; QUESTION SECTION:
-     ;example.org.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 2464c4abcf10c957010000005cf7a871d4a564a1442aca77 (good)
+   ;; QUESTION SECTION:
+   ;example.org.                IN      A
 
-     ;; ANSWER SECTION:
-     example.org.         86400   IN      A       192.0.2.34
+   ;; ANSWER SECTION:
+   example.org.         86400   IN      A       192.0.2.34
 
-     ;; Query time: 6 msec
-     ;; SERVER: 192.0.2.53#53(192.0.2.53)
-     ;; WHEN: Wed Jun  5 11:33:05 UTC 2019
-     ;; MSD SIZE  rcvd: 84
+   ;; Query time: 6 msec
+   ;; SERVER: 192.0.2.53#53(192.0.2.53)
+   ;; WHEN: Wed Jun  5 11:33:05 UTC 2019
+   ;; MSD SIZE  rcvd: 84
 
-B.3.  Another client learning a renewed Server Cookie
+A.3.  Another client learning a renewed Server Cookie
 
    Another resolver (client) with IPv4 address 203.0.113.203 sends a
    request to the same server with a valid Server Cookie that it learned
@@ -700,17 +700,17 @@ B.3.  Another client learning a renewed Server Cookie
    has Reserved bytes set, but is still valid with the configured
    secret; the Hash part is calculated taking along the Reserved bytes.
 
-        ;; Sending:
-        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34736
-        ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Sending:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34736
+   ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
 
-        ;; OPT PSEUDOSECTION:
-        ; EDNS: version: 0, flags:; udp: 4096
-        ; COOKIE: fc93fc62807ddb8601abcdef5cf78f71a314227b6679ebf5
-        ;; QUESTION SECTION:
-        ;example.com.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: fc93fc62807ddb8601abcdef5cf78f71a314227b6679ebf5
+   ;; QUESTION SECTION:
+   ;example.com.                IN      A
 
-        ;; QUERY SIZE: 52
+   ;; QUERY SIZE: 52
 
    The authoritative nameserver (server) replies with a freshly
    generated Server Cookie for this client conformant with this
@@ -725,30 +725,30 @@ B.3.  Another client learning a renewed Server Cookie
 
 
 
-Sury, et al.             Expires April 29, 2021                [Page 13]
+Sury, et al.              Expires 29 April 2021                [Page 13]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-     ;; Got answer:
-     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34736
-     ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Got answer:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34736
+   ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
-     ;; OPT PSEUDOSECTION:
-     ; EDNS: version: 0, flags:; udp: 4096
-     ; COOKIE: fc93fc62807ddb86010000005cf7a9acf73a7810aca2381e (good)
-     ;; QUESTION SECTION:
-     ;example.com.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: fc93fc62807ddb86010000005cf7a9acf73a7810aca2381e (good)
+   ;; QUESTION SECTION:
+   ;example.com.                IN      A
 
-     ;; ANSWER SECTION:
-     example.com.         86400   IN      A       192.0.2.34
+   ;; ANSWER SECTION:
+   example.com.         86400   IN      A       192.0.2.34
 
-     ;; Query time: 6 msec
-     ;; SERVER: 192.0.2.53#53(192.0.2.53)
-     ;; WHEN: Wed Jun  5 11:38:20 UTC 2019
-     ;; MSD SIZE  rcvd: 84
+   ;; Query time: 6 msec
+   ;; SERVER: 192.0.2.53#53(192.0.2.53)
+   ;; WHEN: Wed Jun  5 11:38:20 UTC 2019
+   ;; MSD SIZE  rcvd: 84
 
-B.4.  IPv6 query with rolled over secret
+A.4.  IPv6 query with rolled over secret
 
    The query below is from a client with IPv6 address
    2001:db8:220:1:59de:d0f4:8769:82b8 to a server with IPv6 address
@@ -758,17 +758,17 @@ B.4.  IPv6 query with rolled over secret
    Server Cookie provided by the client as the old secret has not
    expired yet.
 
-        ;; Sending:
-        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6774
-        ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Sending:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6774
+   ;; flags:; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
 
-        ;; OPT PSEUDOSECTION:
-        ; EDNS: version: 0, flags:; udp: 4096
-        ; COOKIE: 22681ab97d52c298010000005cf7c57926556bd0934c72f8
-        ;; QUESTION SECTION:
-        ;example.net.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 22681ab97d52c298010000005cf7c57926556bd0934c72f8
+   ;; QUESTION SECTION:
+   ;example.net.                IN      A
 
-        ;; QUERY SIZE: 52
+   ;; QUERY SIZE: 52
 
    The authoritative nameserver (server) replies with a freshly
    generated server cookie for this client with its new secret:
@@ -781,30 +781,30 @@ B.4.  IPv6 query with rolled over secret
 
 
 
-Sury, et al.             Expires April 29, 2021                [Page 14]
+Sury, et al.              Expires 29 April 2021                [Page 14]
 
 Internet-Draft               server-cookies                 October 2020
 
 
-     ;; Got answer:
-     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6774
-     ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+   ;; Got answer:
+   ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6774
+   ;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
-     ;; OPT PSEUDOSECTION:
-     ; EDNS: version: 0, flags:; udp: 4096
-     ; COOKIE: 22681ab97d52c298010000005cf7c609a6bb79d16625507a (good)
-     ;; QUESTION SECTION:
-     ;example.net.                IN      A
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 4096
+   ; COOKIE: 22681ab97d52c298010000005cf7c609a6bb79d16625507a (good)
+   ;; QUESTION SECTION:
+   ;example.net.                IN      A
 
-     ;; ANSWER SECTION:
-     example.net.         86400   IN      A       192.0.2.34
+   ;; ANSWER SECTION:
+   example.net.         86400   IN      A       192.0.2.34
 
-     ;; Query time: 6 msec
-     ;; SERVER: 2001:db8:8f::53#53(2001:db8:8f::53)
-     ;; WHEN: Wed Jun  5 13:36:57 UTC 2019
-     ;; MSD SIZE  rcvd: 84
+   ;; Query time: 6 msec
+   ;; SERVER: 2001:db8:8f::53#53(2001:db8:8f::53)
+   ;; WHEN: Wed Jun  5 13:36:57 UTC 2019
+   ;; MSD SIZE  rcvd: 84
 
-Appendix C.  Implementation status
+Appendix B.  Implementation status
 
    At the time of writing, BIND from version 9.16 and Knot DNS from
    version 2.9.0 create Server Cookies according to the recipe described
@@ -819,7 +819,7 @@ Authors' Addresses
 
    Ondrej Sury
    Internet Systems Consortium
-   CZ
+   Czechia
 
    Email: ondrej@isc.org
 
@@ -827,7 +827,7 @@ Authors' Addresses
    Willem Toorop
    NLnet Labs
    Science Park 400
-   Amsterdam  1098 XH
+   1098 XH Amsterdam
    Netherlands
 
    Email: willem@nlnetlabs.nl
@@ -837,7 +837,7 @@ Authors' Addresses
 
 
 
-Sury, et al.             Expires April 29, 2021                [Page 15]
+Sury, et al.              Expires 29 April 2021                [Page 15]
 
 Internet-Draft               server-cookies                 October 2020
 
@@ -845,8 +845,8 @@ Internet-Draft               server-cookies                 October 2020
    Donald E. Eastlake 3rd
    Futurewei Technologies
    1424 Pro Shop Court
-   Davenport  FL 33896
-   USA
+   Davenport,  FL 33896
+   United States of America
 
    Phone: +1-508-333-2270
    Email: d3e3e3@gmail.com
@@ -855,8 +855,8 @@ Internet-Draft               server-cookies                 October 2020
    Mark Andrews
    Internet Systems Consortium
    950 Charter Street
-   Redwood City  CA 94063
-   USA
+   Redwood City,  CA 94063
+   United States of America
 
    Email: marka@isc.org
 
@@ -893,4 +893,4 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.             Expires April 29, 2021                [Page 16]
+Sury, et al.              Expires 29 April 2021                [Page 16]

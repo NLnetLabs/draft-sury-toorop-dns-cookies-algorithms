@@ -10,7 +10,7 @@ $(DOCNAME)-$(VERSION).html: $(DOCNAME).xml
 	xml2rfc --html -o $@ $<
 
 $(DOCNAME).xml: $(DOCNAME).md test-vectors.md
-	sed 's/@DOCNAME@/$(DOCNAME)-$(VERSION)/g' $< | mmark --xml2 --page > $@
+	sed 's/@DOCNAME@/$(DOCNAME)-$(VERSION)/g' $< | mmark > $@
 
 test-vectors/client-cookie:
 	cd test-vectors && make client-cookie
