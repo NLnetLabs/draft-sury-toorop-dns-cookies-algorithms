@@ -39,7 +39,19 @@ or cache poisoning attacks by off-path attackers.</t>
 <t>This document provides precise directions for creating Server Cookies so
 that an anycast server set including diverse implementations will
 interoperate with standard clients.</t>
-<t>This document updates <xref target="RFC7873"></xref></t>
+<t>This document updates <xref target="RFC7873"></xref> with</t>
+
+<ul>
+<li><t>suggestions for constructing Client Cookies in a privacy preserving fashion,</t>
+</li>
+<li><t>precise instructions for constructing Server Cookies depricating the methods
+described in <xref target="RFC7873"></xref>, and</t>
+</li>
+<li><t>suggestions on how to update a server secret.</t>
+</li>
+</ul>
+<t>An IANA registry listing the method and associated pseudo random function
+suitable for creating DNS Server cookies is requested.</t>
 </abstract>
 
 </front>

@@ -28,7 +28,18 @@ Abstract
    so that an anycast server set including diverse implementations will
    interoperate with standard clients.
 
-   This document updates [RFC7873]
+   This document updates [RFC7873] with
+
+   *  suggestions for constructing Client Cookies in a privacy
+      preserving fashion,
+
+   *  precise instructions for constructing Server Cookies depricating
+      the methods described in [RFC7873], and
+
+   *  suggestions on how to update a server secret.
+
+   An IANA registry listing the method and associated pseudo random
+   function suitable for creating DNS Server cookies is requested.
 
 Status of This Memo
 
@@ -40,23 +51,19 @@ Status of This Memo
    working documents as Internet-Drafts.  The list of current Internet-
    Drafts is at https://datatracker.ietf.org/drafts/current/.
 
-   Internet-Drafts are draft documents valid for a maximum of six months
-   and may be updated, replaced, or obsoleted by other documents at any
-   time.  It is inappropriate to use Internet-Drafts as reference
-   material or to cite them other than as "work in progress."
-
-   This Internet-Draft will expire on 29 April 2021.
-
-
-
-
-
 
 
 Sury, et al.              Expires 29 April 2021                 [Page 1]
 
 Internet-Draft               server-cookies                 October 2020
 
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 29 April 2021.
 
 Copyright Notice
 
@@ -99,13 +106,6 @@ Table of Contents
      A.4.  IPv6 query with rolled over secret  . . . . . . . . . . .  14
    Appendix B.  Implementation status  . . . . . . . . . . . . . . .  15
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
-
-
-
-
-
-
-
 
 
 

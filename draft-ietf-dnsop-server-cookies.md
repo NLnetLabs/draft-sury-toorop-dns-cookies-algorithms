@@ -78,7 +78,18 @@ This document provides precise directions for creating Server Cookies so
 that an anycast server set including diverse implementations will
 interoperate with standard clients.
 
-This document updates [@!RFC7873]
+This document updates [@!RFC7873] with
+
+* suggestions for constructing Client Cookies in a privacy preserving fashion,
+
+* precise instructions for constructing Server Cookies deprecating the methods
+  described in [@!RFC7873], and
+
+* suggestions on how to update a server secret.
+
+An IANA registry listing the methods and associated pseudo random function
+suitable for creating DNS Server cookies is requested containing the method
+described in this document as the first and as of yet only entry.
 
 {mainmatter}
 
