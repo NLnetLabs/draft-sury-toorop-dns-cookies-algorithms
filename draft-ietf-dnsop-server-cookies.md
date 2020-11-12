@@ -88,7 +88,7 @@ This document updates [@!RFC7873] with
 * suggestions on how to update a server secret.
 
 An IANA registry listing the methods and associated pseudo random function
-suitable for creating DNS Server cookies is requested, with the method
+suitable for creating DNS Server cookies is created, with the method
 described in this document as the first and as of yet only entry.
 
 {mainmatter}
