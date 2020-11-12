@@ -6,11 +6,11 @@ DNSOP Working Group                                              O. Sury
 Internet-Draft                               Internet Systems Consortium
 Updates: 7873 (if approved)                                    W. Toorop
 Intended status: Standards Track                              NLnet Labs
-Expires: 29 April 2021                                   D. Eastlake 3rd
+Expires: 16 May 2021                                     D. Eastlake 3rd
                                                   Futurewei Technologies
                                                               M. Andrews
                                              Internet Systems Consortium
-                                                         26 October 2020
+                                                        12 November 2020
 
 
          Interoperable Domain Name System (DNS) Server Cookies
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 1]
+Sury, et al.               Expires 16 May 2021                  [Page 1]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    Internet-Drafts are working documents of the Internet Engineering
@@ -68,7 +68,7 @@ Internet-Draft               server-cookies                 October 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2021.
+   This Internet-Draft will expire on 16 May 2021.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 2]
+Sury, et al.               Expires 16 May 2021                  [Page 2]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
      A.2.  The same client learning a renewed (fresh) Server
@@ -165,9 +165,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 3]
+Sury, et al.               Expires 16 May 2021                  [Page 3]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    In Section 6 the different hash functions usable for DNS Cookie
@@ -221,9 +221,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 4]
+Sury, et al.               Expires 16 May 2021                  [Page 4]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    When a Server does not support DNS Cookies, the Client MUST NOT send
@@ -277,9 +277,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 5]
+Sury, et al.               Expires 16 May 2021                  [Page 5]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    Changing the Server Secret regularly is RECOMMENDED but, when a
@@ -333,9 +333,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 6]
+Sury, et al.               Expires 16 May 2021                  [Page 6]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    The DNS Server SHOULD generate a new Server Cookie at least if the
@@ -389,9 +389,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 7]
+Sury, et al.               Expires 16 May 2021                  [Page 7]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    |  After stage 1 completed, all the servers in the anycast set have
@@ -445,9 +445,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 8]
+Sury, et al.               Expires 16 May 2021                  [Page 8]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    Registry Name: DNS Server Cookie Methods\ Assignment Policy: Expert
@@ -501,9 +501,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                 [Page 9]
+Sury, et al.               Expires 16 May 2021                  [Page 9]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    In this document, we changed Client Cookie construction to be just 64
@@ -557,9 +557,9 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 10]
+Sury, et al.               Expires 16 May 2021                 [Page 10]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -613,9 +613,9 @@ A.1.  Learning a new Server Cookie
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 11]
+Sury, et al.               Expires 16 May 2021                 [Page 11]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    ;; Sending:
@@ -669,9 +669,9 @@ A.2.  The same client learning a renewed (fresh) Server Cookie
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 12]
+Sury, et al.               Expires 16 May 2021                 [Page 12]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    ;; Sending:
@@ -725,9 +725,9 @@ A.3.  Another client learning a renewed Server Cookie
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 13]
+Sury, et al.               Expires 16 May 2021                 [Page 13]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    ;; Sending:
@@ -781,9 +781,9 @@ A.4.  IPv6 query with rolled over secret
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 14]
+Sury, et al.               Expires 16 May 2021                 [Page 14]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    ;; Sending:
@@ -837,9 +837,9 @@ Authors' Addresses
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 15]
+Sury, et al.               Expires 16 May 2021                 [Page 15]
 
-Internet-Draft               server-cookies                 October 2020
+Internet-Draft               server-cookies                November 2020
 
 
    Ondrej Sury
@@ -893,4 +893,4 @@ Internet-Draft               server-cookies                 October 2020
 
 
 
-Sury, et al.              Expires 29 April 2021                [Page 16]
+Sury, et al.               Expires 16 May 2021                 [Page 16]
