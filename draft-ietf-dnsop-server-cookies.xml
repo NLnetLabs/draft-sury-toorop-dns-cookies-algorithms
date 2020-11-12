@@ -44,14 +44,15 @@ interoperate with standard clients.</t>
 <ul>
 <li><t>suggestions for constructing Client Cookies in a privacy preserving fashion,</t>
 </li>
-<li><t>precise instructions for constructing Server Cookies depricating the methods
+<li><t>precise instructions for constructing Server Cookies deprecating the methods
 described in <xref target="RFC7873"></xref>, and</t>
 </li>
 <li><t>suggestions on how to update a server secret.</t>
 </li>
 </ul>
-<t>An IANA registry listing the method and associated pseudo random function
-suitable for creating DNS Server cookies is requested.</t>
+<t>An IANA registry listing the methods and associated pseudo random function
+suitable for creating DNS Server cookies is requested containing the method
+described in this document as the first and as of yet only entry.</t>
 </abstract>
 
 </front>
