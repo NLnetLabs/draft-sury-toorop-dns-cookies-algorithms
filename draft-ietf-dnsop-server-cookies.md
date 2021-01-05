@@ -342,12 +342,11 @@ Stage 3
   used anymore for verifying.
 
 > We RECOMMEND the operator to wait at least a period to be the longest TTL in
-  the zones served by the server plus half an hour after it initiated Stage 2,
+  the zones served by the server plus 1 hour after it initiated Stage 2,
   before initiating Stage 3.
 
 > The operator SHOULD wait at least longer than the period clients are allowed
-  to use the same Server Cookie, which SHOULD be half an hour,
-  see (#timestampField).
+  to use the same Server Cookie, which SHOULD be 1 hour, see (#timestampField).
 
 # Cookie Algorithms {#cookieAlgorithms}
 
