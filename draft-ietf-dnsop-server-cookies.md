@@ -366,9 +366,9 @@ algorithms for Server Cookies might be added in the future.
 IANA is requested to create a registry on the "Domain Name System (DNS) Parameters"
 IANA web page as follows:
 
-Registry Name: DNS Server Cookie Methods\\
-Assignment Policy: Expert Review\\
-Reference: [this document], [@!RFC7873]\\
+Registry Name: DNS Server Cookie Methods<br>
+Assignment Policy: Expert Review<br>
+Reference: [this document], [@!RFC7873]<br>
 Note: Server Cookie method (construction and pseudorandom algorithm) are
 determined by the Version in the first byte of the Cookie and by the Cookie
 size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.
