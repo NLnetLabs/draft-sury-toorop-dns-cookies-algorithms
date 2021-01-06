@@ -229,7 +229,7 @@ within the timespan a Server Cookie is valid (see (#timestampField)).
 
 The Server Cookie is calculated from the Client Cookie, a series of Sub-Fields
 specified below, the Client IP address, and a Server Secret known only to the
-servers responding on the same address in an anycast set.
+server, or servers responding on the same address in an anycast set.
 
 For calculation of the Server Cookie, a pseudorandom function is RECOMMENDED
 with the property that an attacker that does not know the Server Secret, cannot
