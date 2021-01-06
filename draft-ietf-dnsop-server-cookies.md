@@ -137,7 +137,7 @@ In (#rollingSecret) instructions on updating Server Secrets are given.
 
 In (#cookieAlgorithms) the different hash functions usable for DNS
 Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@RFC6234] are
-deprecated and [@!SipHash-2.4] is introduced as a REQUIRED hash function for
+deprecated and [@!SipHash-2-4] is introduced as a REQUIRED hash function for
 server side DNS Cookie implementations.
 
 IANA considerations are in (#ianaConsiderations).
@@ -218,10 +218,33 @@ Server Cookie.  Failure to bind MUST then result in a new Client Cookie.
 
 # Constructing a Server Cookie {#serverCookie}
 
-The Server Cookie is effectively a Message Authentication Code (MAC) and should
-be treated as such.  The Server Cookie is calculated from the Client Cookie,
-a series of Sub-Fields specified below, the Client IP address, and a Server
-Secret known only to the servers responding on the same address in an anycast set.
+The Server Cookie is effectively a Message Authentication Code (MAC). The
+Server Cookie, when it occurs in a COOKIE option in a request, is intended to
+weakly assure the server that the request came from a client that is both at
+the source IP address of the request and using the Client Cookie included in
+the option.  This assurance is provided by the Server Cookie that the server
+(or any other server from the anycast set) sent to that client in an earlier
+response appearing as the Server Cookie field in the request (see Section 5.2
+of [@!RFC7873]).
+
+DNS Cookies do not provide protection against "on-path" adversaries (see
+Section 9 of [@!RFC7873]). An on path observer that has seen a Server Cookie
+for a client, can abuse that Server Cookie to spoof request for that client
+within the timespan a Server Cookie is valid (see (#timestampField)).
+
+The Server Cookie is calculated from the Client Cookie, a series of Sub-Fields
+specified below, the Client IP address, and a Server Secret known only to the
+servers responding on the same address in an anycast set.
+
+For calculation of the Server Cookie, a pseudorandom function is RECOMMENDED
+with the property that an attacker that does not know the Server Secret, cannot
+find (any information about) the Server Secret and cannot create a Server
+Cookie for any combination of - the Client Cookie, the  series of Sub-Fields
+specified below and the Client IP address - for which it has not seen a Server
+Cookie before. Because DNS servers need to calculate in order to verify Server
+Cookies, it is RECOMMENDED for the pseudorandom function to be performant. The
+[@!SipHash-2-4] pseudorandom function introduced in (#hashField) fit these
+recommendations.
 
 Changing the Server Secret regularly is RECOMMENDED but, when a secure
 pseudorandom function is used, it need not be changed too frequently.  For
@@ -282,7 +305,7 @@ the Server Cookie.  This document defines the Version 1 of the Server Side
 algorithm to be:
 
 ~~~ ascii-art
-Hash = SipHash2.4(
+Hash = SipHash-2-4(
     Client Cookie | Version | Reserved | Timestamp | Client-IP,
     Server Secret )
 ~~~
@@ -350,8 +373,8 @@ Stage 3
 
 # Cookie Algorithms {#cookieAlgorithms}
 
-[@!SipHash-2.4] is a pseudorandom function suitable as Message Authentication
-Code.  This document REQUIRES compliant DNS Server to use SipHash-2.4 as a
+[@!SipHash-2-4] is a pseudorandom function suitable as Message Authentication
+Code.  This document REQUIRES compliant DNS Server to use SipHash-2-4 as a
 mandatory and default algorithm for DNS Cookies to ensure interoperability
 between the DNS Implementations.
 
@@ -376,7 +399,7 @@ Version | Size  | Method
 -------:|------:|:--------------------
 0       |  8-32 | reserved
 1       |  8-15 | unassigned
-1       |    16 | SipHash-2.4 \[this document\] (#serverCookie)
+1       |    16 | SipHash-2-4 \[this document\] (#serverCookie)
 1       | 17-32 | unassigned
 2-239   |  8-32 | unassigned
 240-254 |  8-32 | private use
@@ -448,7 +471,7 @@ Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
     </front>
 </reference>
 
-<reference anchor='SipHash-2.4' target='https://131002.net/siphash/'>
+<reference anchor='SipHash-2-4' target='https://131002.net/siphash/'>
     <front>
         <title>SipHash: a fast short-input PRF</title>
 	<author fullname="Jean-Philippe Aumasson" initials="J." surname="Aumasson" />
