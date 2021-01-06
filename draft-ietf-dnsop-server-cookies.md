@@ -291,7 +291,8 @@ seconds, in network byte order.  All comparisons involving these fields MUST
 use "Serial number arithmetic", as defined in [@!RFC1982]
 
 The DNS Server SHOULD generate a new Server Cookie at least if the received
-Server Cookie from the Client is more than half an hour old.
+Server Cookie from the Client is more than half an hour old, but MAY
+generate a new cookie more often than that.
 
 ## The Hash Sub-Field {#hashField}
 
