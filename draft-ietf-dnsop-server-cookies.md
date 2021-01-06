@@ -204,11 +204,12 @@ However, for privacy reasons, in order to prevent tracking of devices across
 links and to not circumvent IPv6 Privacy Extensions [@RFC4941], Clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
-One way to track Client IP addresses, is to register the Client IP address
-alongside the Server Cookie when it receives the Server Cookie.  In subsequent
-queries to the Server with that Server Cookie, the socket MAY be bound to the
-Client IP address that was also used (and registered) when it received the
-Server Cookie.  Failure to bind MUST then result in a new Client Cookie.
+One way to satisfy this requirement for non-re-use is to register the Client IP
+address alongside the Server Cookie when it receives the Server Cookie.  In
+subsequent queries to the Server with that Server Cookie, the socket MUST be
+bound to the Client IP address that was also used (and registered) when it
+received the Server Cookie.  Failure to bind MUST then result in a new Client
+Cookie.
 
 # Constructing a Server Cookie {#serverCookie}
 
