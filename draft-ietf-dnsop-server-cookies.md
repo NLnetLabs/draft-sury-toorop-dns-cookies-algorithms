@@ -170,9 +170,10 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 
 # Constructing a Client Cookie {#clientCookie}
 
-The Client Cookie is a cryptographic nonce and should be treated as such.
-It is RECOMMENDED to create a new Client Cookie for each new upstream server a
-Client connects to. The Client Cookie SHOULD have 64-bits of entropy.
+The Client Cookie acts as an identifier for a given client and its IP address,
+that should be unguessable.  It is RECOMMENDED to create a new Client Cookie
+for each new upstream server a Client connects to. The Client Cookie SHOULD
+have 64-bits of entropy.
 
 When a Server does not support DNS Cookies, the Client MUST NOT send the same
 Client Cookie to that same Server again. Instead, it is recommended that the
