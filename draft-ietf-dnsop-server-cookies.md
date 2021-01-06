@@ -74,21 +74,12 @@ security mechanism that provide limited protection to DNS servers and
 clients against a variety of denial-of-service and amplification, forgery,
 or cache poisoning attacks by off-path attackers.
 
-This document provides precise directions for creating Server Cookies so
-that an anycast server set including diverse implementations will
-interoperate with standard clients.
-
-This document updates [@!RFC7873] with
-
-* suggestions for constructing Client Cookies in a privacy preserving fashion,
-
-* precise instructions for constructing Server Cookies deprecating the methods
-  described in [@!RFC7873], and
-
-* suggestions on how to update a server secret.
-
-An IANA registry listing the methods and associated pseudo random function
-suitable for creating DNS Server cookies is created, with the method
+This document updates [@!RFC7873] with precise directions for creating Server
+Cookies so that an anycast server set including diverse implementations will
+interoperate with standard clients, suggestions for constructing Client Cookies
+in a privacy preserving fashion, and suggestions on how to update a Server
+Secret.  An IANA registry listing the methods and associated pseudo random
+function suitable for creating DNS Server cookies is created, with the method
 described in this document as the first and as of yet only entry.
 
 {mainmatter}
@@ -240,7 +231,7 @@ For calculation of the Server Cookie, a pseudorandom function is RECOMMENDED
 with the property that an attacker that does not know the Server Secret, cannot
 find (any information about) the Server Secret and cannot create a Server
 Cookie for any combination of - the Client Cookie, the  series of Sub-Fields
-specified below and the Client IP address - for which it has not seen a Server
+specified below and the client IP address - for which it has not seen a Server
 Cookie before. Because DNS servers need to calculate in order to verify Server
 Cookies, it is RECOMMENDED for the pseudorandom function to be performant. The
 [@!SipHash-2-4] pseudorandom function introduced in (#hashField) fit these
