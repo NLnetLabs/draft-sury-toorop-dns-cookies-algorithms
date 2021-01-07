@@ -308,23 +308,22 @@ Hash = SipHash-2-4(
 
 where "|" indicates concatenation.
 
-Notice that Client-IP is used for hash generation even though it is not included
-in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16
-bytes for IPv6. The length of all the concatenated elements (the byte string
-input into [@!SipHash-2-4]) MUST be either precisely 20 bytes in case of an IPv4
+Notice that Client-IP is used for hash generation even though it is not
+included in the cookie value itself. Client-IP can be either 4 bytes for IPv4
+or 16 bytes for IPv6. The length of all the concatenated elements (the input
+into [@!SipHash-2-4]) MUST be either precisely 20 bytes in case of an IPv4
 Client-IP or precisely 32 bytes in case of an IPv6 Client-IP.
 
 When a DNS Server receives a Server Cookie version 1 for validation, the length
 of the received COOKIE option MUST be precisely 24 bytes: 8 bytes for the
 Client Cookie plus 16 bytes for the Server Cookie. Verification of the length
-of the received COOKIE option is REQUIRED to guarantee the length of the byte
-string input into [@!SipHash-2-4] to be precisely 20 bytes in case of an IPv4
-Client-IP and precisely 32 bytes in case of an IPv6 Client-IP.  These length
-verifications ensure that the byte string input into [@!SipHash-2-4] is an
-injective function of the elements making up the byte string, and prevents data
-substitution attacks. More specifically, these length verifications prevent a
-36 byte COOKIE option coming from an IPv4 Client-IP to be validated as if it
-were coming from an IPv6 Client-IP.
+of the received COOKIE option is REQUIRED to guarantee the length of the input
+into [@!SipHash-2-4] to be precisely 20 bytes in case of an IPv4 Client-IP and
+precisely 32 bytes in case of an IPv6 Client-IP. This ensures that the input
+into [@!SipHash-2-4] is an injective function of the elements making up the
+input, and thereby prevents data substitution attacks.  More specifically, this
+prevents a 36 byte COOKIE option coming from an IPv4 Client-IP to be validated
+as if it were coming from an IPv6 Client-IP.
 
 The Server Secret MUST be configurable to make sure that servers in an anycast
 network return consistent results.
@@ -334,7 +333,7 @@ network return consistent results.
 All servers in an anycast set must be able to verify the Server Cookies
 constructed by all other servers in that anycast set at all times.  Therefore
 it is vital that the Server Secret is shared among all servers before it is
-used to generate Server Cookies.
+used to generate Server Cookies on any server.
 
 Also, to maximize maintaining established relationships between clients and
 servers, an old Server Secret should be valid for verification purposes for a
@@ -369,7 +368,7 @@ Stage 2
 
 Stage 3
 : This stage is initiated by the operator when it can be assumed that most
-  clients have learned the new Server Secret.
+  clients have obtained a Server Cookie derived from the new Server Secret.
 
 > With this stage, the previous Server Secret can be removed and MUST NOT be
   used anymore for verifying.
@@ -423,7 +422,7 @@ attacks by off-path attackers. They provide no protection against on-path
 adversaries that can observe the plaintext DNS traffic. An on-path adversary
 that can observe a Server Cookie for a client and server interaction, can use
 that Server Cookie for amplification and denial-of-service forgery attacks
-for the lifetime of the Server Cookie.
+directed at that client for the lifetime of the Server Cookie.
 
 In [@!RFC7873] it was RECOMMENDED to construct a Client Cookie by using a
 pseudorandom function of the Client IP Address, the Server IP Address, and a
@@ -440,9 +439,10 @@ whenever the Client IP Address changes.
 Unfortunately, tracking Client IP Address Changes is impractical with servers
 that do not support DNS Cookies. To prevent tracking of clients with non DNS
 Cookie supporting servers, a client MUST NOT send a previously sent Client
-Cookie. To prevent the creation of a new Client Cookie for each query to an non
-DNS Cookies supporting server, it is RECOMMENDED to not send a Client Cookie to
-that server for a certain period, for example five minute.
+Cookie to a server not known to support DNS Cookies. To prevent the creation of
+a new Client Cookie for each query to an non DNS Cookies supporting server, it
+is RECOMMENDED to not send a Client Cookie to that server for a certain period,
+for example five minute.
 
 Summarizing:
 
@@ -452,9 +452,9 @@ Summarizing:
   * To prevent tracking of clients, a new Client Cookie MUST be created
     when the Client IP Address changes.
 
-  * To prevent tracking of clients for a non DNS Cookie supporting server,
-    a client MUST NOT send a previously sent Client Cookie to that server,
-    unless it can track Client IP Address changes for those servers too.
+  * To prevent tracking of clients by a non DNS Cookie supporting server,
+    a client MUST NOT send a previously sent Client Cookie to a server in the
+    absence of an associated Server Cookie.
 
 Besides the Client Cookie construction, this update on [@!RFC7873] does not
 introduce any new characteristics to DNS Cookies operations and the Security
