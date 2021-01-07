@@ -308,9 +308,23 @@ Hash = SipHash-2-4(
 
 where "|" indicates concatenation.
 
-Notice that Client-IP is used for hash generation even though it's not included
+Notice that Client-IP is used for hash generation even though it is not included
 in the cookie value itself. Client-IP can be either 4 bytes for IPv4 or 16
-bytes for IPv6.
+bytes for IPv6. The length of all the concatenated elements (the byte string
+input into [@!SipHash-2-4]) MUST be either precisely 20 bytes in case of an IPv4
+Client-IP or precisely 32 bytes in case of an IPv6 Client-IP.
+
+When a DNS Server receives a Server Cookie version 1 for validation, the length
+of the received COOKIE option MUST be precisely 24 bytes: 8 bytes for the
+Client Cookie plus 16 bytes for the Server Cookie. Verification of the length
+of the received COOKIE option is REQUIRED to guarantee the length of the byte
+string input into [@!SipHash-2-4] to be precisely 20 bytes in case of an IPv4
+Client-IP and precisely 32 bytes in case of an IPv6 Client-IP.  These length
+verifications ensure that the byte string input into [@!SipHash-2-4] is an
+injective function of the elements making up the byte string, and prevents data
+substitution attacks. More specifically, these length verifications prevent a
+36 byte COOKIE option coming from an IPv4 Client-IP to be validated as if it
+were coming from an IPv6 Client-IP.
 
 The Server Secret MUST be configurable to make sure that servers in an anycast
 network return consistent results.
