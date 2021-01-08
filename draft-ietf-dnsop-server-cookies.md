@@ -171,9 +171,10 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 # Constructing a Client Cookie {#clientCookie}
 
 The Client Cookie acts as an identifier for a given client and its IP address,
-that should be unguessable.  It is RECOMMENDED to create a new Client Cookie
-for each new upstream server a Client connects to. The Client Cookie SHOULD
-have 64-bits of entropy.
+and needs to be unguessable. In order to provide minimal authentication of the
+targeted server, a client MUST use a different Client Cookie for each different
+Server IP Address. This complicates a server's ability to spoof answers for
+other DNS servers. The Client Cookie SHOULD have 64-bits of entropy.
 
 When a Server does not support DNS Cookies, the Client MUST NOT send the same
 Client Cookie to that same Server again. Instead, it is recommended that the
