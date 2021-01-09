@@ -425,6 +425,8 @@ that can observe a Server Cookie for a client and server interaction, can use
 that Server Cookie for amplification and denial-of-service forgery attacks
 directed at that client for the lifetime of the Server Cookie.
 
+## Client Cookie construction
+
 In [@!RFC7873] it was RECOMMENDED to construct a Client Cookie by using a
 pseudorandom function of the Client IP Address, the Server IP Address, and a
 secret quantity known only to the client. The Client IP Address was included to
@@ -457,9 +459,38 @@ Summarizing:
     a client MUST NOT send a previously sent Client Cookie to a server in the
     absence of an associated Server Cookie.
 
-Besides the Client Cookie construction, this update on [@!RFC7873] does not
-introduce any new characteristics to DNS Cookies operations and the Security
-Considerations section of [@!RFC7873] still applies.
+## Server Cookie construction
+
+[@!RFC7873] did not give a precise recipe for constructing Server Cookies, but
+did recommend usage of a pseudorandom function strong enough to prevent
+guessing of cookies. In this document SipHash-2-4 is assigned as the
+pseudorandom function to be used for version 1 Server Cookies. SipHash-2-4 is
+considered sufficiently strong for the immediate future, but predictions about
+future development in cryptography and cryptanalysis are beyond the scope of
+this document.
+
+The precise structure of version 1 Server Cookies is defined in this document.
+Portion of the structure is made up of unhashed data elements which are exposed
+in clear text to an on-path observer. These unhashed data elements are taken
+along as input to the SipHash-2-4 function of which the result is the other
+portion of the Server Cookie, so the unhashed portion of the Server Cookie can
+not by changed by an on-path attacking without also recalculating the hashed
+portion for which the Server Secret needs to be known.
+
+One of the elements in the unhashed portion of version 1 Server Cookies is a
+Timestamp used to prevent Replay Attacks.  Servers verifying version 1 Server
+Cookies need to have access to a reliable time value to compare with the
+Timestamp value, that cannot be altered by an attacker. Furthermore, all
+servers participating in an anycast set that validate version 1 Server Cookies
+need to have their clocks synchronized.
+
+The cleartext Timestamp data element reveal to an on-path adversary using an
+observed Server Cookie to attack the client for which the Server Cookie was
+constructed (as shown in the first paragraph of this Section), the lifetime the
+observed Server Cookie can be used for the attack.
+
+In addition to the Security Considerations in this section, the Security
+Considerations section of [@!RFC7873] still apply.
 
 # Acknowledgements {#acknowledgements}
 
