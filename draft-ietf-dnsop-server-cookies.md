@@ -162,9 +162,8 @@ Cookie alongside the Server Cookie it registered for that Server.
 Except for when the Client IP address changes, there is no need to change the
 Client Cookie often. It is reasonable to change the Client Cookie then only if
 it has been compromised or after a relatively long implementation-defined
-period of time such as one month.  The time period should be no longer than a
-year, and in any case Client Cookies are not expected to survive a program
-restart.
+period of time.  The time period should be no longer than a year, and in any
+case Client Cookies are not expected to survive a program restart.
 
 ~~~ ascii-art
 Client-Cookie = 64 bits of entropy
