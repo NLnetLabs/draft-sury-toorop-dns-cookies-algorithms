@@ -71,7 +71,7 @@ organization = "Internet Systems Consortium"
 
 DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and
-clients against a variety of denial-of-service and amplification, forgery,
+clients against a variety of ampilifaction denial of service, forgery,
 or cache poisoning attacks by off-path attackers.
 
 This document updates [@!RFC7873] with precise directions for creating Server
@@ -88,7 +88,7 @@ described in this document as the first and as of yet only entry.
 
 DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and clients
-against a variety of denial-of-service and amplification, forgery, or cache
+against a variety of denial of service amplification, forgery, or cache
 poisoning attacks by off-path attackers. This document specifies a means of
 producing interoperable Cookies so that an anycast server set including diverse
 implementations can be easily configured to interoperate with standard clients.
@@ -397,12 +397,12 @@ Version | Size  | Method
 # Security and Privacy Considerations {#securityConsiderations}
 
 DNS Cookies provide limited protection to DNS servers and clients against a
-variety of denial-of-service and amplification/forgery or cache poisoning
-attacks by off-path attackers. They provide no protection against on-path
-adversaries that can observe the plaintext DNS traffic. An on-path adversary
-that can observe a Server Cookie for a client and server interaction, can use
-that Server Cookie for amplification and denial-of-service forgery attacks
-directed at that client for the lifetime of the Server Cookie.
+variety of denial of service amplification, forgery or cache poisoning attacks
+by off-path attackers. They provide no protection against on-path adversaries
+that can observe the plaintext DNS traffic. An on-path adversary that can
+observe a Server Cookie for a client and server interaction, can use that
+Server Cookie for denial of service amplification, forgery or cache poisoning
+attacks directed at that client for the lifetime of the Server Cookie.
 
 ## Client Cookie construction
 
