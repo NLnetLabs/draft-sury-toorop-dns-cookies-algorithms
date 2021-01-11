@@ -309,10 +309,11 @@ network return consistent results.
 
 # Updating the Server Secret {#rollingSecret}
 
-All servers in an anycast set must be able to verify the Server Cookies
-constructed by all other servers in that anycast set at all times.  Therefore
-it is vital that the Server Secret is shared among all servers before it is
-used to generate Server Cookies on any server.
+Changing the Server Secret regularly is RECOMMENDED.  All servers in an anycast
+set must be able to verify the Server Cookies constructed by all other servers
+in that anycast set at all times.  Therefore it is vital that the Server Secret
+is shared among all servers before it is used to generate Server Cookies on any
+server.
 
 Also, to maximize maintaining established relationships between clients and
 servers, an old Server Secret should be valid for verification purposes for a
