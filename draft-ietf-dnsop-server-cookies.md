@@ -424,7 +424,7 @@ Cookie supporting servers, a client MUST NOT send a previously sent Client
 Cookie to a server not known to support DNS Cookies. To prevent the creation of
 a new Client Cookie for each query to an non DNS Cookies supporting server, it
 is RECOMMENDED to not send a Client Cookie to that server for a certain period,
-for example five minute.
+for example five minutes.
 
 Summarizing:
 

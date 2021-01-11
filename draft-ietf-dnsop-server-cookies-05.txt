@@ -569,7 +569,7 @@ Internet-Draft               server-cookies                 January 2021
    DNS Cookies.  To prevent the creation of a new Client Cookie for each
    query to an non DNS Cookies supporting server, it is RECOMMENDED to
    not send a Client Cookie to that server for a certain period, for
-   example five minute.
+   example five minutes.
 
    Summarizing:
 
