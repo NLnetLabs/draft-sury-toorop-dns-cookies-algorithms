@@ -90,9 +90,9 @@ DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and clients
 against a variety of denial-of-service and amplification, forgery, or cache
 poisoning attacks by off-path attackers. This document specifies a means of
-producing interoperable strong cookies so that an anycast server set including
-diverse implementations can be easily configured to interoperate with standard
-clients. Also single implementation or non-anycast services can benefit from a
+producing interoperable Cookies so that an anycast server set including diverse
+implementations can be easily configured to interoperate with standard clients.
+Also single implementation or non-anycast services can benefit from a
 well-studied standardized algorithm for which the behavioural and security
 characteristics are more widely known.
 
