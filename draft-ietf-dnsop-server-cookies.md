@@ -516,13 +516,14 @@ Bob Harold, Philip Homburg, Tim Wicinski and Brian Dickson.
     </front>
 </reference>
 
-<reference anchor='SipHash-2-4' target='https://131002.net/siphash/'>
+<reference anchor='SipHash-2-4' target='https://doi.org/10.1007/978-3-642-34931-7_28'>
     <front>
         <title>SipHash: a fast short-input PRF</title>
 	<author fullname="Jean-Philippe Aumasson" initials="J." surname="Aumasson" />
 	<author fullname="Daniel J. Bernstein" initials="D. J." surname="Bernstein" />
 	<date year="2012"/>
     </front>
+    <seriesInfo name='Progress in Cryptology - INDOCRYPT 2012.' value='Lecture Notes in Computer Science, vol 7668. Springer.'/>
 </reference>
 
 {backmatter}
