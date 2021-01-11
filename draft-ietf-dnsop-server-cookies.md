@@ -116,31 +116,6 @@ across different implementations. Each client need only be able to recognize
 its own cookies. However, this document does contain recommendations for
 constructing Client Cookies in a Client protecting fashion.
 
-## Contents of this document
-
-(#changes) summarises the changes to [@!RFC7873].
-
-In (#clientCookie) suggestions for constructing a Client
-Cookie are given.
-
-In (#serverCookie) instructions for constructing a Server
-Cookie are given.
-
-In (#rollingSecret) instructions on updating Server Secrets are given.
-
-In (#cookieAlgorithms) the different hash functions usable for DNS
-Cookie construction are listed.  [@FNV] and HMAC-SHA-256-64 [@RFC6234] are
-deprecated and [@!SipHash-2-4] is introduced as a REQUIRED hash function for
-server side DNS Cookie implementations.
-
-IANA considerations are in (#ianaConsiderations).
-
-Privacy and Security Considerations in (#securityConsiderations).
-
-Acknowledgements are in (#acknowledgements).
-
-Test vectors are in (#testVectors).
-
 ## Terminology and Definitions
 
 The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
