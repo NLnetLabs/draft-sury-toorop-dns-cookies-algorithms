@@ -249,7 +249,7 @@ Hash Sub-Field as defined in this Section.
 ## The Reserved Sub-Field
 
 The value of the Reserved Sub-Field is reserved for future versions of Server
-Side Cookie construction.  On construction it SHOULD be set to zero octets.  On
+Side Cookie construction.  On construction it MUST be set to zero octets.  On
 Server Cookie verification the server MUST NOT enforce those fields to be zero
 and the Hash should be computed with the received value as described in
 (#hashField).
