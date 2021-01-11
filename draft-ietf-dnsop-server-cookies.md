@@ -438,6 +438,12 @@ Summarizing:
     a client MUST NOT send a previously sent Client Cookie to a server in the
     absence of an associated Server Cookie.
 
+Note that it is infeasible for a client to detect change of the public IP
+address when the client is behind a routing device performing Network Address
+Translation (NAT).  A server may track the public IP address of that routing
+device performing the NAT. Preventing tracking of the public IP of a NAT
+performing routing device is beyond the scope of this document.
+
 ## Server Cookie construction
 
 [@!RFC7873] did not give a precise recipe for constructing Server Cookies, but
