@@ -20,9 +20,8 @@ Abstract
 
    DNS Cookies, as specified in [RFC7873], are a lightweight DNS
    transaction security mechanism that provide limited protection to DNS
-   servers and clients against a variety of denial-of-service and
-   amplification, forgery, or cache poisoning attacks by off-path
-   attackers.
+   servers and clients against a variety of ampilifaction denial of
+   service, forgery, or cache poisoning attacks by off-path attackers.
 
    This document updates [RFC7873] with precise directions for creating
    Server Cookies so that an anycast server set including diverse
@@ -49,6 +48,7 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on 16 July 2021.
+
 
 
 
@@ -118,7 +118,7 @@ Internet-Draft               server-cookies                 January 2021
 
    DNS Cookies, as specified in [RFC7873], are a lightweight DNS
    transaction security mechanism that provide limited protection to DNS
-   servers and clients against a variety of denial-of-service and
+   servers and clients against a variety of denial of service
    amplification, forgery, or cache poisoning attacks by off-path
    attackers.  This document specifies a means of producing
    interoperable Cookies so that an anycast server set including diverse
@@ -529,13 +529,13 @@ Internet-Draft               server-cookies                 January 2021
 8.  Security and Privacy Considerations
 
    DNS Cookies provide limited protection to DNS servers and clients
-   against a variety of denial-of-service and amplification/forgery or
+   against a variety of denial of service amplification, forgery or
    cache poisoning attacks by off-path attackers.  They provide no
    protection against on-path adversaries that can observe the plaintext
    DNS traffic.  An on-path adversary that can observe a Server Cookie
    for a client and server interaction, can use that Server Cookie for
-   amplification and denial-of-service forgery attacks directed at that
-   client for the lifetime of the Server Cookie.
+   denial of service amplification, forgery or cache poisoning attacks
+   directed at that client for the lifetime of the Server Cookie.
 
 8.1.  Client Cookie construction
 

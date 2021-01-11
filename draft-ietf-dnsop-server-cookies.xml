@@ -34,7 +34,7 @@
 <abstract>
 <t>DNS Cookies, as specified in <xref target="RFC7873"></xref>, are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and
-clients against a variety of denial-of-service and amplification, forgery,
+clients against a variety of ampilifaction denial of service, forgery,
 or cache poisoning attacks by off-path attackers.</t>
 <t>This document updates <xref target="RFC7873"></xref> with precise directions for creating Server
 Cookies so that an anycast server set including diverse implementations will
@@ -52,7 +52,7 @@ described in this document as the first and as of yet only entry.</t>
 <section anchor="introduction"><name>Introduction</name>
 <t>DNS Cookies, as specified in <xref target="RFC7873"></xref>, are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and clients
-against a variety of denial-of-service and amplification, forgery, or cache
+against a variety of denial of service amplification, forgery, or cache
 poisoning attacks by off-path attackers. This document specifies a means of
 producing interoperable Cookies so that an anycast server set including diverse
 implementations can be easily configured to interoperate with standard clients.
@@ -376,12 +376,12 @@ size. Server Cookie size is limited to the inclusive range of 8 to 32 bytes.</t>
 
 <section anchor="securityConsiderations"><name>Security and Privacy Considerations</name>
 <t>DNS Cookies provide limited protection to DNS servers and clients against a
-variety of denial-of-service and amplification/forgery or cache poisoning
-attacks by off-path attackers. They provide no protection against on-path
-adversaries that can observe the plaintext DNS traffic. An on-path adversary
-that can observe a Server Cookie for a client and server interaction, can use
-that Server Cookie for amplification and denial-of-service forgery attacks
-directed at that client for the lifetime of the Server Cookie.</t>
+variety of denial of service amplification, forgery or cache poisoning attacks
+by off-path attackers. They provide no protection against on-path adversaries
+that can observe the plaintext DNS traffic. An on-path adversary that can
+observe a Server Cookie for a client and server interaction, can use that
+Server Cookie for denial of service amplification, forgery or cache poisoning
+attacks directed at that client for the lifetime of the Server Cookie.</t>
 
 <section anchor="client-cookie-construction"><name>Client Cookie construction</name>
 <t>In <xref target="RFC7873"></xref> it was RECOMMENDED to construct a Client Cookie by using a
