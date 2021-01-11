@@ -79,7 +79,7 @@ Cookies so that an anycast server set including diverse implementations will
 interoperate with standard clients, suggestions for constructing Client Cookies
 in a privacy preserving fashion, and suggestions on how to update a Server
 Secret.  An IANA registry listing the methods and associated pseudo random
-function suitable for creating DNS Server cookies is created, with the method
+function suitable for creating DNS Server Cookies is created, with the method
 described in this document as the first and as of yet only entry.
 
 {mainmatter}
@@ -114,7 +114,7 @@ cannot generally be validated by another.
 There is no need for DNS client (resolver) Cookies to be interoperable
 across different implementations. Each client need only be able to recognize
 its own cookies. However, this document does contain recommendations for
-constructing Client Cookies in a Client protecting fashion.
+constructing Client Cookies in a client protecting fashion.
 
 ## Terminology and Definitions
 
@@ -125,7 +125,7 @@ The key words "**MUST**", "**MUST NOT**", "**REQUIRED**",
 BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all
 capitals, as shown here.
 
-* "IP Address" is used herein as a length independent term covering
+* "IP address" is used herein as a length independent term covering
    both IPv4 and IPv6 addresses.
 
 # Changes to [RFC7873] {#changes}
@@ -148,16 +148,16 @@ The previous example in Appendix A.2 of [@!RFC7873] is NOT RECOMMENDED.
 The Client Cookie acts as an identifier for a given client and its IP address,
 and needs to be unguessable. In order to provide minimal authentication of the
 targeted server, a client MUST use a different Client Cookie for each different
-Server IP Address. This complicates a server's ability to spoof answers for
+Server IP address. This complicates a server's ability to spoof answers for
 other DNS servers. The Client Cookie SHOULD have 64-bits of entropy.
 
-When a Server does not support DNS Cookies, the Client MUST NOT send the same
-Client Cookie to that same Server again. Instead, it is recommended that the
-Client does not send a Client Cookie to that Server for a certain period,
+When a server does not support DNS Cookies, the client MUST NOT send the same
+Client Cookie to that same server again. Instead, it is recommended that the
+client does not send a Client Cookie to that server for a certain period,
 for example five minutes, before it retries with a new Client Cookie.
 
-When a Server does support DNS Cookies, the Client should store the Client
-Cookie alongside the Server Cookie it registered for that Server.
+When a server does support DNS Cookies, the client should store the Client
+Cookie alongside the Server Cookie it registered for that server.
 
 Except for when the Client IP address changes, there is no need to change the
 Client Cookie often. It is reasonable to change the Client Cookie then only if
@@ -170,19 +170,19 @@ Client-Cookie = 64 bits of entropy
 ~~~
 
 Previously, the recommended algorithm to compute the Client Cookie included
-Client IP Address as an input to a hashing function. However, when implementing
+Client IP address as an input to a hashing function. However, when implementing
 the DNS Cookies, several DNS vendors found impractical to include the Client IP
 as the Client Cookie is typically computed before the Client IP address is
 known. Therefore, the requirement to put Client IP address as input was
 removed.
 
 However, for privacy reasons, in order to prevent tracking of devices across
-links and to not circumvent IPv6 Privacy Extensions [@RFC4941], Clients MUST
+links and to not circumvent IPv6 Privacy Extensions [@RFC4941], clients MUST
 NOT re-use a Client or Server Cookie after the Client IP address has changed.
 
 One way to satisfy this requirement for non-re-use is to register the Client IP
 address alongside the Server Cookie when it receives the Server Cookie.  In
-subsequent queries to the Server with that Server Cookie, the socket MUST be
+subsequent queries to the server with that Server Cookie, the socket MUST be
 bound to the Client IP address that was also used (and registered) when it
 received the Server Cookie.  Failure to bind MUST then result in a new Client
 Cookie.
@@ -247,8 +247,8 @@ Hash Sub-Field as defined in this Section.
 
 ## The Reserved Sub-Field
 
-The value of the Reserved Sub-Field is reserved for future versions of Server
-Side Cookie construction.  On construction it MUST be set to zero octets.  On
+The value of the Reserved Sub-Field is reserved for future versions of server
+side Cookie construction.  On construction it MUST be set to zero octets.  On
 Server Cookie verification the server MUST NOT enforce those fields to be zero
 and the Hash should be computed with the received value as described in
 (#hashField).
@@ -256,7 +256,7 @@ and the Hash should be computed with the received value as described in
 ## The Timestamp Sub-Field {#timestampField}
 
 The Timestamp value prevents Replay Attacks and MUST be checked by the server
-to be within a defined period of time.  The DNS Server SHOULD allow Cookies
+to be within a defined period of time.  The DNS server SHOULD allow Cookies
 within 1 hour period in the past and 5 minutes into the future to allow
 operation of low volume clients and some limited time skew between the DNS
 servers in the anycast set.
@@ -269,14 +269,14 @@ fields MUST use "Serial number arithmetic", as defined in [@!RFC1982]. The
 relative time window less than 68 years, at any time in the future (2038 or
 2106 or 2256 or 22209 or later.)
 
-The DNS Server SHOULD generate a new Server Cookie at least if the received
-Server Cookie from the Client is more than half an hour old, but MAY
+The DNS server SHOULD generate a new Server Cookie at least if the received
+Server Cookie from the client is more than half an hour old, but MAY
 generate a new cookie more often than that.
 
 ## The Hash Sub-Field {#hashField}
 
 It's important that all the DNS servers use the same algorithm for computing
-the Server Cookie.  This document defines the Version 1 of the Server Side
+the Server Cookie.  This document defines the Version 1 of the server side
 algorithm to be:
 
 ~~~ ascii-art
@@ -293,7 +293,7 @@ or 16 bytes for IPv6. The length of all the concatenated elements (the input
 into [@!SipHash-2-4]) MUST be either precisely 20 bytes in case of an IPv4
 Client-IP or precisely 32 bytes in case of an IPv6 Client-IP.
 
-When a DNS Server receives a Server Cookie version 1 for validation, the length
+When a DNS server receives a Server Cookie version 1 for validation, the length
 of the received COOKIE option MUST be precisely 24 bytes: 8 bytes for the
 Client Cookie plus 16 bytes for the Server Cookie. Verification of the length
 of the received COOKIE option is REQUIRED to guarantee the length of the input
@@ -363,7 +363,7 @@ Stage 3
 # Cookie Algorithms {#cookieAlgorithms}
 
 [@!SipHash-2-4] is a pseudorandom function suitable as Message Authentication
-Code.  This document REQUIRES compliant DNS Server to use SipHash-2-4 as a
+Code.  This document REQUIRES compliant DNS server to use SipHash-2-4 as a
 mandatory and default algorithm for DNS Cookies to ensure interoperability
 between the DNS Implementations.
 
@@ -407,18 +407,18 @@ directed at that client for the lifetime of the Server Cookie.
 ## Client Cookie construction
 
 In [@!RFC7873] it was RECOMMENDED to construct a Client Cookie by using a
-pseudorandom function of the Client IP Address, the Server IP Address, and a
-secret quantity known only to the client. The Client IP Address was included to
-ensure that a client could not be tracked if its IP Address changes due to
+pseudorandom function of the Client IP address, the Server IP address, and a
+secret quantity known only to the client. The Client IP address was included to
+ensure that a client could not be tracked if its IP address changes due to
 privacy mechanisms or otherwise.
 
 In this document, we changed Client Cookie construction to be just 64 bits of
 entropy newly created for each new upstream server the client connects to.
 As a consequence additional care needs to be taken to prevent tracking of
 clients.  To prevent tracking, a new Client Cookie for a server MUST be created
-whenever the Client IP Address changes.
+whenever the Client IP address changes.
 
-Unfortunately, tracking Client IP Address Changes is impractical with servers
+Unfortunately, tracking Client IP address changes is impractical with servers
 that do not support DNS Cookies. To prevent tracking of clients with non DNS
 Cookie supporting servers, a client MUST NOT send a previously sent Client
 Cookie to a server not known to support DNS Cookies. To prevent the creation of
@@ -429,10 +429,10 @@ for example five minute.
 Summarizing:
 
   * In order to provide minimal authentication, a client MUST use a
-    different Client Cookie for each different Server IP Address.
+    different Client Cookie for each different Server IP address.
 
   * To prevent tracking of clients, a new Client Cookie MUST be created
-    when the Client IP Address changes.
+    when the Client IP address changes.
 
   * To prevent tracking of clients by a non DNS Cookie supporting server,
     a client MUST NOT send a previously sent Client Cookie to a server in the
