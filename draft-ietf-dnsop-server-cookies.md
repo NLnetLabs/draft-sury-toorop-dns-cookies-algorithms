@@ -71,7 +71,7 @@ organization = "Internet Systems Consortium"
 
 DNS Cookies, as specified in [@!RFC7873], are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and
-clients against a variety of ampilifaction denial of service, forgery,
+clients against a variety of amplification denial of service, forgery,
 or cache poisoning attacks by off-path attackers.
 
 This document updates [@!RFC7873] with precise directions for creating Server
