@@ -409,39 +409,39 @@ Internet-Draft               server-cookies                 January 2021
    To facilitate this, deployment of a new Server Secret MUST be done in
    three stages:
 
-   Stage 1  The new Server Secret is deployed on all the servers in an
-      anycast set by the operator.
+   Stage 1
+      The new Server Secret is deployed on all the servers in an anycast
+      set by the operator.
 
-   |  Each server learns the new Server Secret, but keeps using the
-   |  previous Server Secret to generate Server Cookies.
-   |  
-   |  Server Cookies constructed with the both the new Server Secret and
-   |  with the previous Server Secret are considered valid when
-   |  verifying.
-   |  
-   |  After stage 1 completed, all the servers in the anycast set have
-   |  learned the new Server Secret, and can verify Server Cookies
-   |  constructed with it, but keep generating Server Cookies with the
-   |  old Server Secret.
+      Each server learns the new Server Secret, but keeps using the
+      previous Server Secret to generate Server Cookies.
 
-   Stage 2  This stage is initiated by the operator after the Server
-      Cookie is present on all members in the anycast set.
+      Server Cookies constructed with the both the new Server Secret and
+      with the previous Server Secret are considered valid when
+      verifying.
 
-   |  When entering Stage 2, servers start generating Server Cookies
-   |  with the new Server Secret.  The previous Server Secret is not yet
-   |  removed/forgotten about.
-   |  
-   |  Server Cookies constructed with the both the new Server Secret and
-   |  with the previous Server Secret are considered valid when
-   |  verifying.
+      After stage 1 completed, all the servers in the anycast set have
+      learned the new Server Secret, and can verify Server Cookies
+      constructed with it, but keep generating Server Cookies with the
+      old Server Secret.
 
-   Stage 3  This stage is initiated by the operator when it can be
-      assumed that most clients have obtained a Server Cookie derived
-      from the new Server Secret.
+   Stage 2
+      This stage is initiated by the operator after the Server Cookie is
+      present on all members in the anycast set.
 
-   |  With this stage, the previous Server Secret can be removed and
-   |  MUST NOT be used anymore for verifying.
-   |  
+      When entering Stage 2, servers start generating Server Cookies
+      with the new Server Secret.  The previous Server Secret is not yet
+      removed/forgotten about.
+
+      Server Cookies constructed with the both the new Server Secret and
+      with the previous Server Secret are considered valid when
+      verifying.
+
+   Stage 3
+      This stage is initiated by the operator when it can be assumed
+      that most clients have obtained a Server Cookie derived from the
+      new Server Secret.
+
 
 
 
@@ -450,13 +450,16 @@ Sury, et al.              Expires 16 July 2021                  [Page 8]
 Internet-Draft               server-cookies                 January 2021
 
 
-   |  We RECOMMEND the operator to wait at least a period to be the
-   |  longest TTL in the zones served by the server plus 1 hour after it
-   |  initiated Stage 2, before initiating Stage 3.
-   |  
-   |  The operator SHOULD wait at least longer than the period clients
-   |  are allowed to use the same Server Cookie, which SHOULD be 1 hour,
-   |  see Section 4.3.
+      With this stage, the previous Server Secret can be removed and
+      MUST NOT be used anymore for verifying.
+
+      We RECOMMEND the operator to wait at least a period to be the
+      longest TTL in the zones served by the server plus 1 hour after it
+      initiated Stage 2, before initiating Stage 3.
+
+      The operator SHOULD wait at least longer than the period clients
+      are allowed to use the same Server Cookie, which SHOULD be 1 hour,
+      see Section 4.3.
 
 6.  Cookie Algorithms
 
@@ -483,9 +486,6 @@ Internet-Draft               server-cookies                 January 2021
    are determined by the Version in the first byte of the Cookie and by
    the Cookie size.  Server Cookie size is limited to the inclusive
    range of 8 to 32 bytes.
-
-
-
 
 
 

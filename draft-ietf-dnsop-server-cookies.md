@@ -323,42 +323,34 @@ To facilitate this, deployment of a new Server Secret MUST be done in three
 stages:
 
 Stage 1
-: The new Server Secret is deployed on all the servers in an anycast set by
-  the operator.
-
-> Each server learns the new Server Secret, but keeps using the previous Server
-  Secret to generate Server Cookies.
-
-> Server Cookies constructed with the both the new Server Secret and with
-  the previous Server Secret are considered valid when verifying.
-
-> After stage 1 completed, all the servers in the anycast set have learned the
+: <t><br>The new Server Secret is deployed on all the servers in an anycast set by
+  the operator.</t>
+  <t>Each server learns the new Server Secret, but keeps using the previous Server
+  Secret to generate Server Cookies.</t>
+  <t>Server Cookies constructed with the both the new Server Secret and with
+  the previous Server Secret are considered valid when verifying.</t>
+  <t>After stage 1 completed, all the servers in the anycast set have learned the
   new Server Secret, and can verify Server Cookies constructed with it, but keep
-  generating Server Cookies with the old Server Secret.
+  generating Server Cookies with the old Server Secret.</t>
 
 Stage 2
-: This stage is initiated by the operator after the Server Cookie is present
-  on all members in the anycast set.
-
-> When entering Stage 2, servers start generating Server Cookies with the new
-  Server Secret. The previous Server Secret is not yet removed/forgotten about.
-
-> Server Cookies constructed with the both the new Server Secret and with
-  the previous Server Secret are considered valid when verifying.
+: <t><br>This stage is initiated by the operator after the Server Cookie is present
+  on all members in the anycast set.</t>
+  <t>When entering Stage 2, servers start generating Server Cookies with the new
+  Server Secret. The previous Server Secret is not yet removed/forgotten about.</t>
+  <t>Server Cookies constructed with the both the new Server Secret and with
+  the previous Server Secret are considered valid when verifying.</t>
 
 Stage 3
-: This stage is initiated by the operator when it can be assumed that most
-  clients have obtained a Server Cookie derived from the new Server Secret.
-
-> With this stage, the previous Server Secret can be removed and MUST NOT be
-  used anymore for verifying.
-
-> We RECOMMEND the operator to wait at least a period to be the longest TTL in
+: <t><br>This stage is initiated by the operator when it can be assumed that most
+  clients have obtained a Server Cookie derived from the new Server Secret.</t>
+  <t>With this stage, the previous Server Secret can be removed and MUST NOT be
+  used anymore for verifying.</t>
+  <t>We RECOMMEND the operator to wait at least a period to be the longest TTL in
   the zones served by the server plus 1 hour after it initiated Stage 2,
-  before initiating Stage 3.
-
-> The operator SHOULD wait at least longer than the period clients are allowed
-  to use the same Server Cookie, which SHOULD be 1 hour, see (#timestampField).
+  before initiating Stage 3.</t>
+  <t>The operator SHOULD wait at least longer than the period clients are allowed
+  to use the same Server Cookie, which SHOULD be 1 hour, see (#timestampField).</t>
 
 # Cookie Algorithms {#cookieAlgorithms}
 
