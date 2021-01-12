@@ -34,7 +34,7 @@
 <abstract>
 <t>DNS Cookies, as specified in <xref target="RFC7873"></xref>, are a lightweight DNS transaction
 security mechanism that provide limited protection to DNS servers and
-clients against a variety of ampilifaction denial of service, forgery,
+clients against a variety of amplification denial of service, forgery,
 or cache poisoning attacks by off-path attackers.</t>
 <t>This document updates <xref target="RFC7873"></xref> with precise directions for creating Server
 Cookies so that an anycast server set including diverse implementations will
