@@ -13,6 +13,7 @@ QUERY_ID1=57406
 QUERY_NAME1=example.com
 QUERY_TIME1=1559731985
 QUERY_TIME1_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME1}`
+QUERY_TIME1_RFC=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME1} --rfc-3339=seconds`
 SERVER_COOKIE1=`${TESTPATH}/server-cookie ${CLIENT_COOKIE1} ${CLIENT_IP1} ${SERVER_SECRET} ${QUERY_TIME1}`
 
 cat << EOT
@@ -48,7 +49,10 @@ ${SERVER_SECRET} (as hex data).
 It receives the query at ${QUERY_TIME1_STR}.
 
 The content of the DNS COOKIE Option that the server will return is shown
-below in hexadecimal format after \`; COOKIE: \`
+below in hexadecimal format after \`; COOKIE: \`.
+
+The Timestamp field (#timestampField) in the returned Server Cookie has value 
+${QUERY_TIME1}. In [@!RFC3339] format this is ${QUERY_TIME1_RFC}.
 
 ~~~ ascii-art
 ;; Got answer:
@@ -73,15 +77,21 @@ EOT
 
 QUERY_ID2=50939
 QUERY_NAME2=example.org
-QUERY_TIME2=1559734385
+QUERY_TIME2=`expr ${QUERY_TIME1} + 2400`
 QUERY_TIME2_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME2}`
+QUERY_TIME2_RFC=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME2} --rfc-3339=seconds`
 SERVER_COOKIE2=`${TESTPATH}/server-cookie ${CLIENT_COOKIE1} ${CLIENT_IP1} ${SERVER_SECRET} ${QUERY_TIME2}`
 
 cat << EOT
 ## The same client learning a renewed (fresh) Server Cookie
 
 40 minutes later, the same resolver (client) queries the same server for
-for \`${QUERY_NAME2}\` :
+\`${QUERY_NAME2}\`. It reuses the Server Cookie it learned in the previous
+query.
+
+The Timestamp field in that previously learned Server Cookie, which is now send
+along in the request, was and is ${QUERY_TIME1}. In [@!RFC3339] format this is
+${QUERY_TIME1_RFC}.
 
 ~~~ ascii-art
 ;; Sending:
@@ -101,6 +111,9 @@ The authoritative nameserver (server) now generates a new Server Cookie.
 The server SHOULD do this because it can see the Server Cookie send by the
 client is older than half an hour (#timestampField), but it is also fine for
 a server to generate a new Server Cookie sooner, or even for every answer.
+
+The Timestamp field in the returned new Server Cookie has value ${QUERY_TIME2},
+which in [@!RFC3339] format is ${QUERY_TIME2_RFC}.
 
 ~~~ ascii-art
 ;; Got answer:
@@ -126,12 +139,14 @@ EOT
 CLIENT_IP2=203.0.113.203
 CLIENT_SECRET2=4c311517fab6bfe2e149ab74ec1bc9a0
 CLIENT_COOKIE2=`${TESTPATH}/client-cookie ${SERVER_IP} ${CLIENT_SECRET2}`
-QUERY_TIME3=1559727985
+QUERY_TIME3=`expr ${QUERY_TIME1} - 4000`
 QUERY_TIME3_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME3}`
+QUERY_TIME3_RFC=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME3} --rfc-3339=seconds`
 SERVER_COOKIE3=`${TESTPATH}/server-cookie ${CLIENT_COOKIE2} ${CLIENT_IP2} ${SERVER_SECRET} ${QUERY_TIME3} abcdef`
 QUERY_ID3=34736
-QUERY_TIME4=1559734700
+QUERY_TIME4=`expr ${QUERY_TIME2} + 315`
 QUERY_TIME4_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME4}`
+QUERY_TIME4_RFC=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME4} --rfc-3339=seconds`
 SERVER_COOKIE4=`${TESTPATH}/server-cookie ${CLIENT_COOKIE2} ${CLIENT_IP2} ${SERVER_SECRET} ${QUERY_TIME4}`
 
 cat << EOT
@@ -139,9 +154,13 @@ cat << EOT
 
 Another resolver (client) with IPv4 address ${CLIENT_IP2} sends a request to
 the same server with a valid Server Cookie that it learned before
-(at ${QUERY_TIME3_STR}). Note that the Server Cookie has Reserved bytes set,
-but is still valid with the configured secret; the Hash part is calculated
-taking along the Reserved bytes.
+(at ${QUERY_TIME3_STR}).
+
+The Timestamp field in Server Cookie in the request has value ${QUERY_TIME3},
+which in [@!RFC3339] format is ${QUERY_TIME3_RFC}.
+
+Note that the Server Cookie has Reserved bytes set, but is still valid with the
+configured secret; the Hash part is calculated taking along the Reserved bytes.
 
 ~~~ ascii-art
 ;; Sending:
@@ -160,6 +179,9 @@ taking along the Reserved bytes.
 The authoritative nameserver (server) replies with a freshly generated Server
 Cookie for this client conformant with this specification; so with the Reserved
 bits set to zero.
+
+The Timestamp field in the returned new Server Cookie has value ${QUERY_TIME4},
+which in [@!RFC3339] format is ${QUERY_TIME4_RFC}.
 
 ~~~ ascii-art
 ;; Got answer:
@@ -189,6 +211,7 @@ CLIENT_COOKIE6=`${TESTPATH}/client-cookie ${SERVER_IP6} ${CLIENT_SECRET6}`
 SERVER_SECRET6=dd3bdf9344b678b185a6f5cb60fca715
 QUERY_TIME6=1559741817
 QUERY_TIME6_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME6}`
+QUERY_TIME6_RFC=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME6} --rfc-3339=seconds`
 
 SERVER_COOKIE6=`${TESTPATH}/server-cookie ${CLIENT_COOKIE6} ${CLIENT_IP6} ${SERVER_SECRET6} ${QUERY_TIME6}`
 QUERY_ID6=6774
@@ -196,6 +219,7 @@ QUERY_NAME6=example.net
 SERVER_SECRET7=445536bcd2513298075a5d379663c962
 QUERY_TIME7=1559741961
 QUERY_TIME7_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME7}`
+QUERY_TIME7_STR=`LC_ALL=C TZ=UTC date -d @${QUERY_TIME7} --rfc-3339=seconds`
 SERVER_COOKIE7=`${TESTPATH}/server-cookie ${CLIENT_COOKIE6} ${CLIENT_IP6} ${SERVER_SECRET7} ${QUERY_TIME7}`
 
 cat << EOT
@@ -203,9 +227,12 @@ cat << EOT
 
 The query below is from a client with IPv6 address ${CLIENT_IP6} to a server
 with IPv6 address ${SERVER_IP6}.  The client has learned a valid Server Cookie
-before when the Server had the secret: ${SERVER_SECRET6}.  The server now uses a
-new secret, but it can still validate the Server Cookie provided by the client
-as the old secret has not expired yet.
+before (at ${QUERY_TIME6_STR}) when the Server had the secret:
+${SERVER_SECRET6}.  The server now uses a new secret, but it can still validate
+the Server Cookie provided by the client as the old secret has not expired yet.
+
+The Timestamp field in the Server Cookie in the request has value
+${QUERY_TIME6}, which in [@!RFC3339] format is ${QUERY_TIME6_RFC}.
 
 ~~~ ascii-art
 ;; Sending:
@@ -223,6 +250,9 @@ as the old secret has not expired yet.
 
 The authoritative nameserver (server) replies with a freshly generated server
 cookie for this client with its new secret: ${SERVER_SECRET7}
+
+The Timestamp field in the returned new Server Cookie has value
+${QUERY_TIME7}, which in [@!RFC3339] format is ${QUERY_TIME7_RFC}.
 
 ~~~ ascii-art
 ;; Got answer:
