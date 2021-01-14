@@ -7,7 +7,7 @@ ipr = "trust200902"
 area = "Internet"
 workgroup = "DNSOP Working Group"
 updates = [7873]
-date = 2021-01-13T00:00:00Z
+date = 2021-01-14T00:00:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -212,10 +212,10 @@ with the property that an attacker that does not know the Server Secret, cannot
 find (any information about) the Server Secret and cannot create a Server
 Cookie for any combination of - the Client Cookie, the  series of Sub-Fields
 specified below and the client IP address - for which it has not seen a Server
-Cookie before. Because DNS servers need to calculate in order to verify Server
-Cookies, it is RECOMMENDED for the pseudorandom function to be performant. The
-[@!SipHash-2-4] pseudorandom function introduced in (#hashField) fit these
-recommendations.
+Cookie before. Because DNS servers need to recalculate it in order to verify
+Server Cookies, it is RECOMMENDED for the pseudorandom function to be
+performant. The [@!SipHash-2-4] pseudorandom function introduced in
+(#hashField) fit these recommendations.
 
 Changing the Server Secret regularly is RECOMMENDED but, when a secure
 pseudorandom function is used, it need not be changed too frequently.  For
@@ -447,12 +447,12 @@ future development in cryptography and cryptanalysis are beyond the scope of
 this document.
 
 The precise structure of version 1 Server Cookies is defined in this document.
-Portion of the structure is made up of unhashed data elements which are exposed
-in clear text to an on-path observer. These unhashed data elements are taken
-along as input to the SipHash-2-4 function of which the result is the other
-portion of the Server Cookie, so the unhashed portion of the Server Cookie can
-not by changed by an on-path attacking without also recalculating the hashed
-portion for which the Server Secret needs to be known.
+A portion of the structure is made up of unhashed data elements which are
+exposed in clear text to an on-path observer. These unhashed data elements are
+taken along as input to the SipHash-2-4 function of which the result is the
+other portion of the Server Cookie, so the unhashed portion of the Server
+Cookie can not by changed by an on-path attacking without also recalculating
+the hashed portion for which the Server Secret needs to be known.
 
 One of the elements in the unhashed portion of version 1 Server Cookies is a
 Timestamp used to prevent Replay Attacks.  Servers verifying version 1 Server

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-ietf-dnsop-server-cookies-05" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" updates="7873" consensus="true">
+<rfc version="3" ipr="trust200902" docName="draft-ietf-dnsop-server-cookies-06" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" updates="7873" consensus="true">
 
 <front>
-<title abbrev="server-cookies">Interoperable Domain Name System (DNS) Server Cookies</title><seriesInfo value="draft-ietf-dnsop-server-cookies-05" stream="IETF" status="standard" name="Internet-Draft"></seriesInfo>
+<title abbrev="server-cookies">Interoperable Domain Name System (DNS) Server Cookies</title><seriesInfo value="draft-ietf-dnsop-server-cookies-06" stream="IETF" status="standard" name="Internet-Draft"></seriesInfo>
 <author initials="O." surname="Sury" fullname="Ondrej Sury"><organization>Internet Systems Consortium</organization><address><postal><street></street>
 <country>CZ</country>
 </postal><email>ondrej@isc.org</email>
@@ -27,7 +27,7 @@
 <country>USA</country>
 </postal><email>marka@isc.org</email>
 </address></author>
-<date year="2021" month="January" day="13"></date>
+<date year="2021" month="January" day="14"></date>
 <area>Internet</area>
 <workgroup>DNSOP Working Group</workgroup>
 
@@ -162,10 +162,10 @@ with the property that an attacker that does not know the Server Secret, cannot
 find (any information about) the Server Secret and cannot create a Server
 Cookie for any combination of - the Client Cookie, the  series of Sub-Fields
 specified below and the client IP address - for which it has not seen a Server
-Cookie before. Because DNS servers need to calculate in order to verify Server
-Cookies, it is RECOMMENDED for the pseudorandom function to be performant. The
-<xref target="SipHash-2-4"></xref> pseudorandom function introduced in <xref target="hashField"></xref> fit these
-recommendations.</t>
+Cookie before. Because DNS servers need to recalculate it in order to verify
+Server Cookies, it is RECOMMENDED for the pseudorandom function to be
+performant. The <xref target="SipHash-2-4"></xref> pseudorandom function introduced in
+<xref target="hashField"></xref> fit these recommendations.</t>
 <t>Changing the Server Secret regularly is RECOMMENDED but, when a secure
 pseudorandom function is used, it need not be changed too frequently.  For
 example once a month would be adequate.  See <xref target="rollingSecret"></xref> on operator and
@@ -428,12 +428,12 @@ considered sufficiently strong for the immediate future, but predictions about
 future development in cryptography and cryptanalysis are beyond the scope of
 this document.</t>
 <t>The precise structure of version 1 Server Cookies is defined in this document.
-Portion of the structure is made up of unhashed data elements which are exposed
-in clear text to an on-path observer. These unhashed data elements are taken
-along as input to the SipHash-2-4 function of which the result is the other
-portion of the Server Cookie, so the unhashed portion of the Server Cookie can
-not by changed by an on-path attacking without also recalculating the hashed
-portion for which the Server Secret needs to be known.</t>
+A portion of the structure is made up of unhashed data elements which are
+exposed in clear text to an on-path observer. These unhashed data elements are
+taken along as input to the SipHash-2-4 function of which the result is the
+other portion of the Server Cookie, so the unhashed portion of the Server
+Cookie can not by changed by an on-path attacking without also recalculating
+the hashed portion for which the Server Secret needs to be known.</t>
 <t>One of the elements in the unhashed portion of version 1 Server Cookies is a
 Timestamp used to prevent Replay Attacks.  Servers verifying version 1 Server
 Cookies need to have access to a reliable time value to compare with the
